@@ -7,18 +7,27 @@ import java.awt.event.KeyEvent;
 import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
+import javax.swing.WindowConstants;
 
+import ui.config.MainMenu;
 import controler.GameControler;
 import controler.PlayMenuControler;
 
 public class Game extends JFrame {
 
+	
+	public static int HEIGHT = 400;
+	public static int WIDTH = 600;
 	static final int FPS = 25;
 	static final int SKIP_TICKS = 1000 / FPS;
 
@@ -29,6 +38,18 @@ public class Game extends JFrame {
 	private GameStateManager gsm;
 	private ResourceBundle config;
 
+	
+	
+	
+	void getSizeFrame(){
+		WIDTH = this.getWidth();
+		System.out.println("x"+WIDTH);
+		System.out.println("y"+HEIGHT);
+		HEIGHT = this.getHeight();
+
+	}
+	
+	
 	public Game() {
 		gsm = new GameStateManager(this);
 
@@ -121,7 +142,15 @@ public class Game extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		new Game();
+		//new Game();
+		JFrame f = new JFrame();
+		MainMenu m = new MainMenu();
+		
+		
+		f.getContentPane().add(m);
+		f.pack();
+		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		f.setVisible(true);
 
 	}
 
