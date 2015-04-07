@@ -7,16 +7,12 @@ import java.awt.event.KeyEvent;
 import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
-import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JPanel;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
-import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 
 import ui.config.MainMenu;
@@ -142,16 +138,7 @@ public class Game extends JFrame {
 	}
 
 	public static void main(String[] args) {
-		//new Game();
-		JFrame f = new JFrame();
-		MainMenu m = new MainMenu();
-		
-		
-		f.getContentPane().add(m);
-		f.pack();
-		f.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-		f.setVisible(true);
-
+		new Game();
 	}
 
 }

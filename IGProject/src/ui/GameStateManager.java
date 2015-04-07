@@ -3,6 +3,7 @@ package ui;
 import java.awt.Graphics;
 import java.util.Stack;
 
+import ui.config.MainMenu;
 import ui.config.Menu;
 import ui.game.LevelRenderer;
 
@@ -18,7 +19,7 @@ public class GameStateManager {
 	public GameStateManager(Game game) {
 		this.game = game;
 		gameStates = new Stack<GameState>();
-		pushState(GAME);
+		pushState(MAIN);
 	}
 
 	public void update() {
@@ -38,7 +39,7 @@ public class GameStateManager {
 		case GAME:
 			return new LevelRenderer(this);
 		case MAIN:
-			return new Menu(this);
+			return new MainMenu(this);
 		}
 		return null;
 	}

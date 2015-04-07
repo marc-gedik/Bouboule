@@ -1,11 +1,14 @@
 package ui.config;
 
 import ui.Background;
+import ui.GameState;
+import ui.GameStateManager;
 import ui.game.MainMenuListener;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -22,10 +25,11 @@ import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 
 
-public class MainMenu extends JPanel implements ButtonModel {
+public class MainMenu extends GameState implements ButtonModel {
 
 	MainMenuListener action;
-	public MainMenu() {
+	public MainMenu(GameStateManager gsm) {
+		super(gsm);
 		this.setPreferredSize(new Dimension(600,400));	
 		init();		
 	}
@@ -231,11 +235,25 @@ public class MainMenu extends JPanel implements ButtonModel {
 	}
 
 
+	@Override
+	public void handleInput() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
+	@Override
+	public void update() {
+		// TODO Auto-generated method stub
+		
+	}
 
 
-
+	@Override
+	public void render(Graphics g) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 
