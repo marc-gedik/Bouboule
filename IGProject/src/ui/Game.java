@@ -13,9 +13,7 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
-import javax.swing.WindowConstants;
 
-import ui.config.MainMenu;
 import controler.GameControler;
 import controler.PlayMenuControler;
 

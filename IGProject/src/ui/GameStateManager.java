@@ -4,7 +4,6 @@ import java.awt.Graphics;
 import java.util.Stack;
 
 import ui.config.MainMenu;
-import ui.config.Menu;
 import ui.game.LevelRenderer;
 
 public class GameStateManager {

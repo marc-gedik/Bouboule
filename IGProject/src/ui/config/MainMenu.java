@@ -1,10 +1,5 @@
 package ui.config;
 
-import ui.Background;
-import ui.GameState;
-import ui.GameStateManager;
-import ui.game.MainMenuListener;
-
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -19,10 +14,13 @@ import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
+
+import ui.Background;
+import ui.GameState;
+import ui.GameStateManager;
+import ui.game.MainMenuListener;
 
 
 public class MainMenu extends GameState implements ButtonModel {

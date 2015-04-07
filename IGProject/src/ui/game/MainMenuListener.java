@@ -1,16 +1,9 @@
 package ui.game;
 
-import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
-import javax.swing.event.ChangeListener;
 
 import ui.Game;
-import ui.config.MainMenu;
 
 public class MainMenuListener implements ActionListener {
 
