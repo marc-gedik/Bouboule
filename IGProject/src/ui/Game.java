@@ -30,26 +30,17 @@ public class Game extends JFrame {
 	long sleep_time = 0;
 
 	private GameStateManager gsm;
-	private ResourceBundle config;
+	private static  ResourceBundle config;
 
-	
-	
-	
-	void getSizeFrame(){
-		WIDTH = this.getWidth();
-		System.out.println("x"+WIDTH);
-		System.out.println("y"+HEIGHT);
-		HEIGHT = this.getHeight();
-
-	}
 	
 	
 	public Game() {
+		config = ResourceBundle.getBundle("config");
 		gsm = new GameStateManager(this);
 
-		config = ResourceBundle.getBundle("config");
+		setConfig(ResourceBundle.getBundle("config"));
 		
-		setTitle(config.getString("Title"));
+		setTitle(getConfig().getString("Title"));
 		setSize(300, 400);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,9 +48,9 @@ public class Game extends JFrame {
 		createMenuBar();
 		
 		pack();
-		
-		addKeyListener(new GameControler());
-		while (true) {
+		GameControler g = new GameControler();
+		this.addKeyListener(g);
+		/*while (true) {
 			repaint();
 			next_game_tick += SKIP_TICKS;
 			sleep_time = next_game_tick - System.currentTimeMillis();
@@ -73,7 +64,7 @@ public class Game extends JFrame {
 			} else {
 				// Shit, we are running behind!
 			}
-		}
+		}*/
 	}
 	
 	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label, String action){
@@ -84,7 +75,7 @@ public class Game extends JFrame {
 	}
 
 	private JMenuItem createItem(String res, KeyStroke accelerator, ActionListener listener) {
-		JMenuItem item = new JMenuItem(config.getString(res));
+		JMenuItem item = new JMenuItem(getConfig().getString(res));
 		item.setAccelerator(accelerator);
 		item.addActionListener(listener);
 		item.setActionCommand(res);
@@ -93,11 +84,11 @@ public class Game extends JFrame {
 
 	private void createMenuBar() {
 		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
+		this.setJMenuBar(menuBar);
 
 		ActionListener controler = new PlayMenuControler();
 		
-		JMenu menu = new JMenu(config.getString("Menu.Game"));
+		JMenu menu = new JMenu(getConfig().getString("Menu.Game"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Game.New", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK), controler));
 		menu.add(createItem("Menu.Game.Restart", null, controler));
@@ -108,20 +99,20 @@ public class Game extends JFrame {
 		menu.addSeparator();
 		menu.add(createItem("Menu.Game.Exit", KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), controler));
 
-		menu = new JMenu(config.getString("Menu.Config"));
+		menu = new JMenu(getConfig().getString("Menu.Config"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Config.Keys", null, null));
 		menu.add(createItem("Menu.Config.Sound", null, null));
 		
 
-		JMenu display = new JMenu(config.getString("Menu.Config.Display")); 
+		JMenu display = new JMenu(getConfig().getString("Menu.Config.Display")); 
 		ButtonGroup buttonGroup = new ButtonGroup();
 		resolution(display, buttonGroup, "640 * 360", "360");
 		resolution(display, buttonGroup, "1280 * 720", "720");
 		resolution(display, buttonGroup, "1920 * 1080", "1080");
 		menu.add(display);
 		
-		menu = new JMenu(config.getString("Menu.Help"));
+		menu = new JMenu(getConfig().getString("Menu.Help"));
 		menu.add(createItem("Menu.Help.Instruction", null, null));
 		menu.add(createItem("Menu.Help.About", null, null));
 		menuBar.add(menu);
@@ -137,6 +128,14 @@ public class Game extends JFrame {
 
 	public static void main(String[] args) {
 		new Game();
+	}
+
+	public static ResourceBundle getConfig() {
+		return config;
+	}
+
+	public static void setConfig(ResourceBundle config) {
+		Game.config = config;
 	}
 
 }

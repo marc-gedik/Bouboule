@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemListener;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ButtonModel;
@@ -25,10 +26,13 @@ import ui.game.MainMenuListener;
 
 public class MainMenu extends GameState implements ButtonModel {
 
+	
+	
 	MainMenuListener action;
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
 		this.setPreferredSize(new Dimension(600,400));	
+
 		init();		
 	}
 
@@ -50,20 +54,20 @@ public class MainMenu extends GameState implements ButtonModel {
 	JPanel buttonContainer(){
 		JPanel containerButton = new JPanel();
 		containerButton.setLayout(new GridLayout(4,0,25,25));
-		JButton play = customizeButton("Jouer");		
-		JButton	load = customizeButton("Charger une partie");
-		JButton	instruction = customizeButton("Instructions");
-		JButton	score = customizeButton("Score");
+		JButton play = new DecoratedButton("MainMenu.play");		
+		JButton	load = new DecoratedButton("MainMenu.load");
+		JButton	instructions = new DecoratedButton("MainMenu.instructions");
+		JButton	scores = new DecoratedButton("MainMenu.score");
 		
 		play.addActionListener(action);
 		load.addActionListener(action);
-		instruction.addActionListener(action);
-		score.addActionListener(action);
+		instructions.addActionListener(action);
+		scores.addActionListener(action);
 
 		containerButton.add(play);
 		containerButton.add(load);
-		containerButton.add(instruction);
-		containerButton.add(score);
+		containerButton.add(instructions);
+		containerButton.add(scores);
 		containerButton.setPreferredSize(new Dimension(350, 260));
 		containerButton.setMinimumSize(new Dimension(350, 260));
 		containerButton.setSize(new Dimension(350, 260));
@@ -72,16 +76,6 @@ public class MainMenu extends GameState implements ButtonModel {
 
 	}
 
-
-	JButton customizeButton(String name){
-		JButton btn = new JButton(name);
-		btn.setFont(new Font("Helvetica", Font.BOLD, 18));       
-		btn.setBackground(Color.white);
-		btn.setForeground(Color.gray);
-		btn.setOpaque(true);
-		btn.setBorderPainted(false);
-		return btn;
-	}
 
 	public static void position(GridBagConstraints gbc, int x, int y, int a,
 			int b) {
