@@ -8,8 +8,8 @@ import ui.game.LevelRenderer;
 
 public class GameStateManager {
 
-	private static final int GAME = 0;
-	private static final int MAIN = 1;
+	public static final int GAME = 0;
+	public static final int MAIN = 1;
 
 	private Game game;
 
@@ -52,6 +52,7 @@ public class GameStateManager {
 		GameState gameState = getState(state);
 		gameStates.push(gameState);
 		game.setContentPane(gameState);
+		game.repaint();
 	}
 
 	public void popState() {

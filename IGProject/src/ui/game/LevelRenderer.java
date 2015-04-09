@@ -5,6 +5,7 @@ import game.Level;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 
+import controler.GameControler;
 import ui.GameState;
 import ui.GameStateManager;
 

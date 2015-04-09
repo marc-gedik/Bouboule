@@ -38,19 +38,16 @@ public class Game extends JFrame {
 		config = ResourceBundle.getBundle("config");
 		gsm = new GameStateManager(this);
 
-		setConfig(ResourceBundle.getBundle("config"));
-		
 		setTitle(getConfig().getString("Title"));
 		setSize(300, 400);
 		setVisible(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
 		createMenuBar();
-		
+		addKeyListener(new GameControler());
+
 		pack();
-		GameControler g = new GameControler();
-		this.addKeyListener(g);
-		/*while (true) {
+		while (true) {
 			repaint();
 			next_game_tick += SKIP_TICKS;
 			sleep_time = next_game_tick - System.currentTimeMillis();
@@ -64,7 +61,7 @@ public class Game extends JFrame {
 			} else {
 				// Shit, we are running behind!
 			}
-		}*/
+		}
 	}
 	
 	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label, String action){
@@ -132,10 +129,6 @@ public class Game extends JFrame {
 
 	public static ResourceBundle getConfig() {
 		return config;
-	}
-
-	public static void setConfig(ResourceBundle config) {
-		Game.config = config;
 	}
 
 }

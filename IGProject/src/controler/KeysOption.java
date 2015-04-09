@@ -8,9 +8,8 @@ public class KeysOption {
 	up = KeyEvent.VK_UP,
 	down = KeyEvent.VK_DOWN,
 	left = KeyEvent.VK_LEFT,
-	right = KeyEvent.VK_RIGHT,
-	enter = KeyEvent.VK_ENTER;
-
+	right = KeyEvent.VK_RIGHT;
+	
 	public static final int getUp() {
 		return up;
 	}
@@ -42,15 +41,6 @@ public class KeysOption {
 	public static void setRight(int right) {
 		KeysOption.right = right;
 	}
-	
-	public static void enter(int entrer) {
-		KeysOption.enter = entrer;
-	}
-	
-	public static int getEnter() {
-		return enter;
-		}
-	
 	
 	
 }

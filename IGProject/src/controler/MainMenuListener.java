@@ -1,19 +1,24 @@
-package ui.game;
+package controler;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import ui.Game;
+import ui.GameStateManager;
 
 public class MainMenuListener implements ActionListener {
 
+	GameStateManager gsm;
+	public MainMenuListener(GameStateManager gsm) {
+		this.gsm = gsm;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
-
 		switch(e.getActionCommand()){
 		case "Jouer":
 			System.out.println("Jouer");
-			new Game();
+			gsm.pushState(GameStateManager.GAME);
 			break;
 		case "Charger une partie":
 			System.out.println("Charger une partie");

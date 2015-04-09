@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 public abstract class GameState extends JPanel {
 	
-    private GameStateManager gsm;
+    protected GameStateManager gsm;
 
 	protected GameState(GameStateManager gsm){
     	this.gsm = gsm;
