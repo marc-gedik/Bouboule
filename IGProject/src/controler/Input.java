@@ -9,6 +9,9 @@ public class Input {
 
 	public static int update() {
 		int dir = Direction.None;
+		int nav = 0;
+		System.out.println("lol");
+		
 		if (keys[KeysOption.getUp()])
 			dir = dir | Direction.North;
 		if (keys[KeysOption.getDown()])
@@ -18,6 +21,9 @@ public class Input {
 		if (keys[KeysOption.getRight()])
 			dir = dir | Direction.East;
 
+		if (keys[KeysOption.getEnter()])
+			nav = nav | 1;	
+		
 		return dir;
 	}
 

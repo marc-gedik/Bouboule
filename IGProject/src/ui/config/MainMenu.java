@@ -8,6 +8,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.awt.event.ItemListener;
 import java.util.ResourceBundle;
 
@@ -26,8 +28,9 @@ import ui.game.MainMenuListener;
 
 public class MainMenu extends GameState implements ButtonModel {
 
-	
-	
+	JButton play;
+	JButton load;
+	DecoratedButton currentFocus;
 	MainMenuListener action;
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
@@ -36,6 +39,22 @@ public class MainMenu extends GameState implements ButtonModel {
 		init();		
 	}
 
+	FocusListener l = new FocusListener() {
+		
+		@Override
+		public void focusLost(FocusEvent e) {
+			// TODO Auto-generated method stub
+			
+		}
+		
+		@Override
+		public void focusGained(FocusEvent e) {
+			currentFocus= (DecoratedButton)e.getSource();
+			if(currentFocus==play){
+				System.out.println("lancer play");
+			}
+		}
+	};
 
 	void init(){
 		this.setLayout(new GridBagLayout());
@@ -54,13 +73,19 @@ public class MainMenu extends GameState implements ButtonModel {
 	JPanel buttonContainer(){
 		JPanel containerButton = new JPanel();
 		containerButton.setLayout(new GridLayout(4,0,25,25));
-		JButton play = new DecoratedButton("MainMenu.play");		
-		JButton	load = new DecoratedButton("MainMenu.load");
+		play = new DecoratedButton("MainMenu.play");	
+		play.requestFocusInWindow();
+		load = new DecoratedButton("MainMenu.load");
 		JButton	instructions = new DecoratedButton("MainMenu.instructions");
 		JButton	scores = new DecoratedButton("MainMenu.score");
 		
 		play.addActionListener(action);
+		play.addFocusListener(l);
+		
+		
 		load.addActionListener(action);
+		load.addFocusListener(l);
+
 		instructions.addActionListener(action);
 		scores.addActionListener(action);
 

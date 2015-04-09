@@ -6,11 +6,9 @@ import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.MouseEvent;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JButton;
+import javax.swing.plaf.basic.BasicBorders;
 
 import ui.Game;
 
@@ -22,15 +20,15 @@ public class DecoratedButton extends JButton {
 	static Image selected;
 
 
-
 	public DecoratedButton(String s) {
 		super(Game.getConfig().getString(s));
 		setFont(new Font("Helvetica", Font.BOLD, 18));   
 		setForeground(Color.GRAY);
-
 		setContentAreaFilled(false);
 		setBorderPainted(false);
+		setFocusable(true);
 		setOpaque(true);
+
 
 		addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -47,23 +45,24 @@ public class DecoratedButton extends JButton {
 			public void mousePressed(MouseEvent e) {
 				hover = false;
 			}
+
 		});
 	}
 
 	@Override
 	protected void paintComponent(Graphics g) {
 		Image img;
-		if (!hover){
-		//System.out.println("not hoouver");
-		this.setBackground(Color.WHITE);	
-		//g.setColor(Color.WHITE);
+		if (!isFocusOwner()){
+			this.setBackground(Color.WHITE);
+			
+			//System.out.println("mon focuse");
 		}
 		else{
-			//System.out.println(" hoouver");
-			this.setBackground(new Color(230,230,230));	
+
+			this.setBackground(new Color(240,240,240));
+
 		}
 
-		g.drawRect(0, 0, getWidth(), getHeight());
 		super.paintComponent(g);
 
 	}
