@@ -26,6 +26,7 @@ import javax.swing.event.ChangeListener;
 import controler.MainMenuFocusListener;
 import controler.MainMenuKeyListener;
 import controler.MainMenuListener;
+import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 
@@ -43,7 +44,6 @@ public class MainMenu extends GameState {
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
-		this.setPreferredSize(new Dimension(600,400));	
 		init();		
 	}
 
@@ -51,7 +51,7 @@ public class MainMenu extends GameState {
 
 	void init(){
 		Background wallpaper = new Background(new ImageIcon("img/texture3.png"),
-				GameStateManager.WIDTH_SCREEN, GameStateManager.HEIGHT_SCREEN);
+				Game.WIDTH_SCREEN, Game.HEIGHT_SCREEN);
 		action = new MainMenuListener(gsm);
 		keyAction = new MainMenuKeyListener(gsm);
 		focusAction	 = new MainMenuFocusListener();

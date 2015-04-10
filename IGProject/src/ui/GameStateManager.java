@@ -21,20 +21,11 @@ public class GameStateManager {
 	private Game game;
 	private Stack<GameState> gameStates;
 
-	public static int HEIGHT_SCREEN;
-	public static int WIDTH_SCREEN;
-
-	public void getSizeOfScreen(){
-		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		HEIGHT_SCREEN = (int)dimension.getHeight();
-		WIDTH_SCREEN = (int)dimension.getWidth();
-	}
-
+	
 
 
 
 	public GameStateManager(Game game) {
-		getSizeOfScreen();
 		this.game = game;
 		gameStates = new Stack<GameState>();
 		pushState(MAIN);

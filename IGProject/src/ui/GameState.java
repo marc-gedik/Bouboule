@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 
@@ -11,6 +12,8 @@ public abstract class GameState extends JPanel {
 
 	protected GameState(GameStateManager gsm){
     	this.gsm = gsm;
+		this.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));	
+
     }
     
     public abstract void handleInput();

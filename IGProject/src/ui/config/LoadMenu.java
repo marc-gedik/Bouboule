@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
+import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 
@@ -25,7 +26,7 @@ public class LoadMenu  extends GameState
 	
 	void init(){
 		Background wallpaper = new Background(new ImageIcon("img/texture3.png"),
-				GameStateManager.WIDTH_SCREEN, GameStateManager.HEIGHT_SCREEN);
+				Game.WIDTH_SCREEN, Game.HEIGHT_SCREEN);
 		
 
 		this.setLayout(new GridBagLayout());
