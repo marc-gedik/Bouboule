@@ -22,13 +22,19 @@ public class MainMenuListener implements ActionListener {
 			break;
 		case "Charger une partie":
 			System.out.println("Charger une partie");
+			gsm.pushState(GameStateManager.LOAD);
+
 			break;
 		case "Instructions":
 			System.out.println("Instructions");
+			gsm.pushState(GameStateManager.INSTRUCTIONS);
+
 			break;
 		
 		case "Score":
 			System.out.println("Score");
+			gsm.pushState(GameStateManager.SCORES);
+
 			break;
 		}
 

@@ -99,14 +99,6 @@ public class MainMenu extends GameState {
 	}
 
 
-	public static void position(GridBagConstraints gbc, int x, int y, int a,
-			int b) {
-		gbc.gridx = x;
-		gbc.gridy = y;
-		gbc.gridheight = a;
-		gbc.gridwidth = b;
-		gbc.gridwidth = GridBagConstraints.REMAINDER; // fin de la ligne
-	}
 
 
 
