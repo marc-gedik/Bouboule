@@ -52,7 +52,7 @@ public class GameStateManager {
 		GameState gameState = getState(state);
 		gameStates.push(gameState);
 		game.setContentPane(gameState);
-		game.repaint();
+		game.revalidate();
 	}
 
 	public void popState() {
