@@ -1,5 +1,6 @@
 package ui;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionListener;
 import java.awt.event.InputEvent;
@@ -19,6 +20,8 @@ import controler.PlayMenuControler;
 
 public class Game extends JFrame {
 
+	public static int HEIGHT_SCREEN;
+	public static int WIDTH_SCREEN;
 	
 	public static int HEIGHT = 400;
 	public static int WIDTH = 600;
@@ -35,6 +38,9 @@ public class Game extends JFrame {
 	
 	
 	public Game() {
+        setMinimumSize(new Dimension(550, 400));
+		getSizeOfScreen();
+
 		config = ResourceBundle.getBundle("config");
 		gsm = new GameStateManager(this);
 
@@ -63,6 +69,20 @@ public class Game extends JFrame {
 			}
 		}
 	}
+	
+	
+	
+	
+	
+	
+	
+	public void getSizeOfScreen(){
+		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
+		HEIGHT_SCREEN = (int)dimension.getHeight();
+		WIDTH_SCREEN = (int)dimension.getWidth();
+	}
+
+	
 	
 	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label, String action){
 		JRadioButtonMenuItem item = new JRadioButtonMenuItem(label);
