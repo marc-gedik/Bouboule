@@ -13,8 +13,7 @@ import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 
-public class LoadMenu  extends GameState
-{
+public class LoadMenu  extends GameState {
 
 
 	public LoadMenu(GameStateManager gsm) {

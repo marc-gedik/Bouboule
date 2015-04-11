@@ -12,6 +12,9 @@ import ui.game.LevelRenderer;
 
 public class GameStateManager {
 
+	public static int CURRENT_SCREEN = 0;
+
+	
 	public static final int GAME = 0;
 	public static final int MAIN = 1;
 	public static final int LOAD = 2;
@@ -29,6 +32,7 @@ public class GameStateManager {
 		this.game = game;
 		gameStates = new Stack<GameState>();
 		pushState(MAIN);
+	
 	}
 
 	public void update() {
@@ -65,6 +69,7 @@ public class GameStateManager {
 	}
 
 	public void pushState(int state) {
+		CURRENT_SCREEN = state;
 		GameState gameState = getState(state);
 		gameStates.push(gameState);
 		game.setContentPane(gameState);

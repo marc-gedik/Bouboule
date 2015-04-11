@@ -76,10 +76,10 @@ public class MainMenu extends GameState {
 	JPanel buttonContainer(){
 		JPanel containerButton = new JPanel();
 		containerButton.setLayout(new GridLayout(4,0,25,25));
-		play = new DecoratedButton("MainMenu.play");	
-		load = new DecoratedButton("MainMenu.load");
-		instructions = new DecoratedButton("MainMenu.instructions");
-		scores = new DecoratedButton("MainMenu.score");
+		play = new DecoratedButton("MainMenu.play",1);	
+		load = new DecoratedButton("MainMenu.load",1);
+		instructions = new DecoratedButton("MainMenu.instructions",1);
+		scores = new DecoratedButton("MainMenu.score",1);
 
 		addButtonEvent(play);
 		addButtonEvent(load);

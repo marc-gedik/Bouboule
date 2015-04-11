@@ -11,6 +11,7 @@ import javax.swing.JButton;
 import javax.swing.plaf.basic.BasicBorders;
 
 import ui.Game;
+import ui.GameStateManager;
 
 
 @SuppressWarnings("serial")
@@ -20,14 +21,13 @@ public class DecoratedButton extends JButton {
 	static Image selected;
 
 
-	public DecoratedButton(String s) {
+	public DecoratedButton(String s, int style) {
 		super(Game.getConfig().getString(s));
-		setFont(new Font("Helvetica", Font.BOLD, 18));   
-		setForeground(Color.GRAY);
-		setContentAreaFilled(false);
-		setBorderPainted(false);
-		setFocusable(true);
-		setOpaque(true);
+		if(style==1)
+			setStyle1();
+		if(style==2)
+			setStyle2();
+
 
 
 		addMouseListener(new java.awt.event.MouseAdapter() {
@@ -49,19 +49,44 @@ public class DecoratedButton extends JButton {
 		});
 	}
 
+
+
+	public void setStyle1(){
+		setFont(new Font("Helvetica", Font.BOLD, 18));   
+		setForeground(Color.GRAY);
+		setContentAreaFilled(false);
+		setBorderPainted(false);
+		setFocusable(true);
+		setOpaque(true);
+	}
+
+
+	public void setStyle2(){
+		setFont(new Font("Helvetica", Font.BOLD, 16));   
+		setForeground(Color.WHITE);
+		this.setBackground(Color.BLACK);
+
+		setContentAreaFilled(false);
+		setBorderPainted(false);
+		setFocusable(true);
+		setOpaque(true);
+	}
+
+
 	@Override
 	protected void paintComponent(Graphics g) {
 		Image img;
-		if (!isFocusOwner()){
+		if (!isFocusOwner() && GameStateManager.CURRENT_SCREEN==GameStateManager.MAIN)
 			this.setBackground(Color.WHITE);
-			
-			//System.out.println("mon focuse");
-		}
-		else{
+		else if (!isFocusOwner() && GameStateManager.CURRENT_SCREEN==GameStateManager.INSTRUCTIONS)
+			this.setBackground(Color.GRAY);
 
+		else if (GameStateManager.CURRENT_SCREEN==GameStateManager.INSTRUCTIONS)
+			this.setBackground(new Color(240,240,240));
+		else if (GameStateManager.CURRENT_SCREEN==GameStateManager.MAIN)
 			this.setBackground(new Color(240,240,240));
 
-		}
+
 
 		super.paintComponent(g);
 
