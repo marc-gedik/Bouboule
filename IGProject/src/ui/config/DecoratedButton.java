@@ -52,6 +52,7 @@ public class DecoratedButton extends JButton {
 
 
 	public void setStyle1(){
+		setFocusPainted(false);
 		setFont(new Font("Helvetica", Font.BOLD, 18));   
 		setForeground(Color.GRAY);
 		setContentAreaFilled(false);
@@ -62,6 +63,7 @@ public class DecoratedButton extends JButton {
 
 
 	public void setStyle2(){
+		setFocusPainted(false);
 		setFont(new Font("Helvetica", Font.BOLD, 16));   
 		setForeground(Color.WHITE);
 		this.setBackground(Color.BLACK);
