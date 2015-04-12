@@ -64,32 +64,33 @@ public class InstructionsMenu extends GameState{
 	JPanel textContainer(){
 		JPanel 	containerText = new JPanel();
 		
-		containerText.setLayout(new GridLayout(2,0));
+		containerText.setLayout(new BorderLayout());
 
 		String title1 = Game.getConfig().getString("Instructions.title1");
 		String text1 = Game.getConfig().getString("Instructions.text1");
 		String title2 = Game.getConfig().getString("Instructions.title2");
 		String text2 = Game.getConfig().getString("Instructions.text2");
 
-		Insets m = new Insets(10,10,0,0);
+		Insets m = new Insets(5,5,0,0);
 		JTextPane jtp1 = printer(title1, text1);
 		jtp1.setMargin(m);
 		JTextPane jtp2 = printer(title2, text2);
 		jtp2.setMargin(m);
-		containerText.add(jtp1);
-		containerText.add(jtp2);
+		containerText.add(jtp1, BorderLayout.NORTH);
+		containerText.add(jtp2, BorderLayout.CENTER);
 		return containerText;
 	}
 	
 	JPanel myContainer(){
 		JPanel myContainer = new JPanel();
+		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);		
 		myContainer.setPreferredSize(new Dimension(500, 400));
 		myContainer.setMinimumSize(new Dimension(500, 400));
 		myContainer.setSize(new Dimension(500, 300));
 		myContainer.setLayout(new BorderLayout());
-		myContainer.add(textContainer(), BorderLayout.NORTH);	
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
+		myContainer.add(textContainer(), BorderLayout.NORTH);	
 
 	return myContainer;	
 	}
