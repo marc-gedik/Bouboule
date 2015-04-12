@@ -5,12 +5,15 @@ import java.awt.event.KeyListener;
 import javax.swing.JButton;
 import ui.GameStateManager;
 
-public class MainMenuKeyListener implements KeyListener{
+public class MainMenuKeyListener implements KeyListener {
 
-	JButton currentFocus;
-	GameStateManager gsm;
-	public MainMenuKeyListener(GameStateManager gsm) {
-		this.gsm = gsm;
+	private static JButton button;
+
+	public static void setButton(JButton button) {
+		MainMenuKeyListener.button = button;
+	}
+	
+	public MainMenuKeyListener() {
 	}
 
 	@Override
@@ -21,9 +24,8 @@ public class MainMenuKeyListener implements KeyListener{
 
 	@Override
 	public void keyPressed(KeyEvent e) {
-		if(e.getKeyCode() == KeyEvent.VK_ENTER){
-			System.out.println("entrer");
-			gsm.pushState(MainMenuFocusListener.flag);
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			button.doClick();
 		}
 	}
 

@@ -36,4 +36,6 @@ public abstract class GameState extends JPanel {
 		gbc.gridwidth = b;
 		gbc.gridwidth = GridBagConstraints.REMAINDER; // fin de la ligne
 	}
+	
+	
 }

@@ -51,7 +51,7 @@ public class InstructionsMenu extends GameState{
 	JPanel buttonContainer(){
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);		
-		JButton b = new DecoratedButton("backButton",2);
+		JButton b = new DecoratedButton(Game.getConfig().getString("backButton"), GrayStyle.getInstance());
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);
@@ -84,8 +84,8 @@ public class InstructionsMenu extends GameState{
 	JPanel myContainer(){
 		JPanel myContainer = new JPanel();
 		myContainer.setBackground(Color.WHITE);		
-		myContainer.setPreferredSize(new Dimension(500, 300));
-		myContainer.setMinimumSize(new Dimension(500, 300));
+		myContainer.setPreferredSize(new Dimension(500, 400));
+		myContainer.setMinimumSize(new Dimension(500, 400));
 		myContainer.setSize(new Dimension(500, 300));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(textContainer(), BorderLayout.NORTH);	

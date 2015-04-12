@@ -12,27 +12,20 @@ import ui.game.LevelRenderer;
 
 public class GameStateManager {
 
-	public static int CURRENT_SCREEN = 0;
-
-	
 	public static final int GAME = 0;
 	public static final int MAIN = 1;
 	public static final int LOAD = 2;
 	public static final int INSTRUCTIONS = 3;
 	public static final int SCORES = 4;
-	
+
 	private Game game;
 	private Stack<GameState> gameStates;
-
-	
-
-
 
 	public GameStateManager(Game game) {
 		this.game = game;
 		gameStates = new Stack<GameState>();
 		pushState(MAIN);
-	
+
 	}
 
 	public void update() {
@@ -69,7 +62,6 @@ public class GameStateManager {
 	}
 
 	public void pushState(int state) {
-		CURRENT_SCREEN = state;
 		GameState gameState = getState(state);
 		gameStates.push(gameState);
 		game.setContentPane(gameState);
@@ -77,7 +69,9 @@ public class GameStateManager {
 	}
 
 	public void popState() {
-		GameState g = gameStates.pop();
+		gameStates.pop();
+		game.setContentPane(gameStates.peek());
+		game.revalidate();
 	}
 
 }

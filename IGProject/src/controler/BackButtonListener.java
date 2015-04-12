@@ -16,7 +16,7 @@ public class BackButtonListener implements ActionListener{
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		gsm.setState(1);
+		gsm.popState();
 	}
 
 }
