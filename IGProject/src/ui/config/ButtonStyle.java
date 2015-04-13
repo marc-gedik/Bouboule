@@ -45,6 +45,19 @@ class WhiteStyle extends ButtonStyle {
 	}
 }
 
+class BlueStyle extends ButtonStyle {
+	private static ButtonStyle INSTANCE = new BlueStyle();
+
+	public static ButtonStyle getInstance() {
+		return INSTANCE;
+	}
+
+	private BlueStyle() {
+		super(new Font("Helvetica", 0, 16), Color.BLACK, new Color(220, 240, 240),
+				new Color(240, 240, 240));
+	}
+}
+
 class GrayStyle extends ButtonStyle {
 	private static ButtonStyle INSTANCE = new GrayStyle();
 

@@ -103,7 +103,7 @@ public class Game extends JFrame {
 		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
 
-		ActionListener controler = new PlayMenuControler();
+		ActionListener controler = new PlayMenuControler(gsm);
 		
 		JMenu menu = new JMenu(getConfig().getString("Menu.Game"));
 		menuBar.add(menu);
@@ -118,7 +118,7 @@ public class Game extends JFrame {
 
 		menu = new JMenu(getConfig().getString("Menu.Config"));
 		menuBar.add(menu);
-		menu.add(createItem("Menu.Config.Keys", null, null));
+		menu.add(createItem("Menu.Config.Keys", null, controler));
 		menu.add(createItem("Menu.Config.Sound", null, null));
 		
 
