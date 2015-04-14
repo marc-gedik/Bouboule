@@ -40,7 +40,7 @@ class WhiteStyle extends ButtonStyle {
 	}
 
 	private WhiteStyle() {
-		super(new Font("Helvetica", Font.BOLD, 16), Color.BLACK, Color.WHITE,
+		super(new Font("Helvetica", Font.BOLD, 16), Color.GRAY, Color.WHITE,
 				new Color(240, 240, 240));
 	}
 }
@@ -66,7 +66,7 @@ class GrayStyle extends ButtonStyle {
 	}
 
 	private GrayStyle() {
-		super(new Font("Helvetica", Font.BOLD, 18), Color.BLACK, Color.GRAY,
+		super(new Font("Helvetica", Font.BOLD, 18), Color.GRAY, Color.GRAY,
 				new Color(240, 240, 240));
 	}
 

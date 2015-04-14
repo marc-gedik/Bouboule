@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.MutableAttributeSet;
 import javax.swing.text.SimpleAttributeSet;
@@ -73,9 +74,9 @@ public class InstructionsMenu extends GameState{
 
 		Insets m = new Insets(5,5,0,0);
 		JTextPane jtp1 = printer(title1, text1);
-		jtp1.setMargin(m);
+		//jtp1.setMargin(m);
 		JTextPane jtp2 = printer(title2, text2);
-		jtp2.setMargin(m);
+		//jtp2.setMargin(m);
 		containerText.add(jtp1, BorderLayout.NORTH);
 		containerText.add(jtp2, BorderLayout.CENTER);
 		return containerText;
@@ -83,10 +84,11 @@ public class InstructionsMenu extends GameState{
 	
 	JPanel myContainer(){
 		JPanel myContainer = new JPanel();
+		myContainer.setBorder( new EmptyBorder(10, 10, 10, 10));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);		
-		myContainer.setPreferredSize(new Dimension(500, 400));
-		myContainer.setMinimumSize(new Dimension(500, 400));
+		myContainer.setPreferredSize(new Dimension(500, 300));
+		myContainer.setMinimumSize(new Dimension(500, 300));
 		myContainer.setSize(new Dimension(500, 300));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);

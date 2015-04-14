@@ -48,15 +48,7 @@ public class LoadMenu  extends GameState {
 		return containerText;
 	}
 	
-	
-
-	
-	
-	
-	
-	
-	
-	
+		
 	
 	
 	
