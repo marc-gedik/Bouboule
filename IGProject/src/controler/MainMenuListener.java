@@ -3,7 +3,6 @@ package controler;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import ui.Game;
 import ui.GameStateManager;
 
 public class MainMenuListener implements ActionListener {

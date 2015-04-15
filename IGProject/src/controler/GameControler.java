@@ -7,6 +7,7 @@ public class GameControler implements KeyListener {
 
 	public GameControler() {
 	}
+
 	@Override
 	public void keyPressed(KeyEvent e) {
 		Input.keys[e.getKeyCode()] = true;

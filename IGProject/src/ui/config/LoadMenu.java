@@ -9,74 +9,55 @@ import java.awt.GridBagLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
-import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 
-public class LoadMenu  extends GameState {
-
+public class LoadMenu extends GameState {
 
 	public LoadMenu(GameStateManager gsm) {
 		super(gsm);
-		init();
 	}
 
-	
-	
-	void init(){
-		Background wallpaper = new Background(new ImageIcon("img/texture3.png"),
-				Game.WIDTH_SCREEN, Game.HEIGHT_SCREEN);
-		
+	@Override
+	public void init() {
+		Background wallpaper = new Background(
+				new ImageIcon("img/texture3.png"));
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(textContainer(), gbc);
+		gbc.weightx = gbc.weighty = 1.0;
+        gbc.fill = GridBagConstraints.BOTH;
 		this.add(wallpaper, gbc);
-	}	
-	
-	
-	
-	JPanel textContainer(){
-		JPanel 	containerText = new JPanel();
-		containerText.setBackground(Color.WHITE);		
+	}
+
+	JPanel textContainer() {
+		JPanel containerText = new JPanel();
+		containerText.setBackground(Color.WHITE);
 		containerText.setPreferredSize(new Dimension(350, 260));
 		containerText.setMinimumSize(new Dimension(350, 260));
 		containerText.setSize(new Dimension(350, 260));
-	
-		
+
 		return containerText;
 	}
-	
-	
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	@Override
 	public void handleInput() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void update() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void render(Graphics g) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

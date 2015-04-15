@@ -1,5 +1,5 @@
 package ui.config;
-import java.awt.Dimension;
+
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -9,22 +9,19 @@ import javax.swing.JPanel;
 public class Background extends JPanel {
 
 	private Image img;
-	private int x;
-	private int y;
 
-	public Background(ImageIcon img, int cx, int cy) {
-		x=cx;
-		y=cy;
+	public Background(ImageIcon img) {
 		this.img = img.getImage();
-		Dimension size = new Dimension(x, y);
-		setPreferredSize(size);
-		setMinimumSize(size);
 	}
-
-
 
 	public void paintComponent(Graphics g) {
-		g.drawImage(img, 0, 0, getWidth(), getHeight(), null);
-	}
+		/* // Texture
+		 * int iw = img.getWidth(this); int ih = img.getHeight(this);
+		 * 
+		 * for (int x = 0; x < getWidth(); x += iw) for (int y = 0; y <
+		 * getHeight(); y += ih) g.drawImage(img, x, y, iw, ih, this);
+		 */
+		g.drawImage(img, 0, 0, getWidth(), getHeight(), this);
 
+	}
 }

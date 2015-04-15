@@ -1,19 +1,24 @@
 package ui;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 
 import javax.swing.JPanel;
 
+import ui.game.Camera;
+
 public abstract class GameState extends JPanel {
 	
     protected GameStateManager gsm;
-
+    protected Game game;
+    
+    protected Camera camera;
+    
 	protected GameState(GameStateManager gsm){
     	this.gsm = gsm;
-		this.setPreferredSize(new Dimension(Game.WIDTH, Game.HEIGHT));	
-
+    	this.game = gsm.game();
+    	this.camera = game.getCamera();
+    	init();
     }
     
     public abstract void handleInput();
@@ -22,12 +27,7 @@ public abstract class GameState extends JPanel {
 
 	public abstract void render(Graphics g);
 	
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
-		render(g);
-	}
-	
+	public abstract void init();
 	
 	protected static void position(GridBagConstraints gbc, int x, int y, int a, int b) {
 		gbc.gridx = x;
@@ -36,6 +36,6 @@ public abstract class GameState extends JPanel {
 		gbc.gridwidth = b;
 		gbc.gridwidth = GridBagConstraints.REMAINDER; // fin de la ligne
 	}
-	
+
 	
 }

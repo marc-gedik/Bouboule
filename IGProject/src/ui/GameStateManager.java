@@ -1,7 +1,5 @@
 package ui;
 
-import java.awt.Dimension;
-import java.awt.Graphics;
 import java.util.Stack;
 
 import ui.config.InstructionsMenu;
@@ -32,8 +30,9 @@ public class GameStateManager {
 		gameStates.peek().update();
 	}
 
-	public void render(Graphics g) {
-		gameStates.peek().repaint();
+	public void render() {
+		GameState state  = gameStates.peek();
+		state.render(state.getGraphics());
 	}
 
 	public Game game() {
@@ -64,13 +63,17 @@ public class GameStateManager {
 	public void pushState(int state) {
 		GameState gameState = getState(state);
 		gameStates.push(gameState);
-		game.setContentPane(gameState);
-		game.revalidate();
+		set(gameState);
 	}
 
 	public void popState() {
 		gameStates.pop();
-		game.setContentPane(gameStates.peek());
+		set(gameStates.peek());
+	}
+	
+	public void set(GameState gameState){
+		game.requestFocusInWindow();
+		game.setContentPane(gameState);
 		game.revalidate();
 	}
 

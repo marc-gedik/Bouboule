@@ -14,6 +14,10 @@ public class Camera {
 		setBounds(xmin, xmax, ymin, ymax);
 	}
 
+	public Camera() {
+		this(0, 0, 0, 0);
+	}
+
 	public void viewport(float viewportWidth, float viewportHeight) {
 		setPosition(zoom * viewportWidth / 2.0f, zoom * viewportHeight / 2.0f);
 
@@ -47,6 +51,14 @@ public class Camera {
 		if (y > ymax - viewportHeight / 2) {
 			y = ymax - viewportHeight / 2;
 		}
+	}
+
+	public float getX() {
+		return x;
+	}
+	
+	public float getY(){
+		return y;
 	}
 
 }
