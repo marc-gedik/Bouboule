@@ -8,13 +8,13 @@ import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.regex.Pattern;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.SwingConstants;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
@@ -25,16 +25,35 @@ import controler.BackButtonListener;
 
 public class ScoresMenu extends GameState {
 
-	
-public static String[] rank = new  String[10];
+
+	public static String[] rank = new  String[10];
+
+
+	//initialisation temporaire
+
+	void initTab(){
+		for (int i = 0; i < rank.length; i++) {
+			rank[i]="Marco "+ (int)(Math.random()*5000);
+		}
+		afficheTab();	
+		
+	}
+
+	void afficheTab(){
+		for (int i = 0; i < rank.length; i++) {
+			System.out.println(rank[i]);
+		}
+	}
 
 	
+
 	public ScoresMenu(GameStateManager gsm) {
 		super(gsm);
 		init();
 	}
 
 	void init() {
+		initTab();
 		Background wallpaper = new Background(
 				new ImageIcon("img/texture3.png"), Game.WIDTH_SCREEN,
 				Game.HEIGHT_SCREEN);
@@ -59,55 +78,48 @@ public static String[] rank = new  String[10];
 
 	}
 
-	
+
 	void tableStyle(JPanel containerText){
-		
-		
+
+
 	}
 
-	JPanel textContainer(){
-		Font f = new Font("Helvetica",0, 14);
-		Font f1 = new Font("Helvetica",Font.BOLD, 16);
+	JPanel tableContainer(){	
+		JPanel containerTable  = new  JPanel();
+		containerTable.setBackground(Color.WHITE);		
 
-	
+		containerTable.setLayout(new GridLayout(11,3,0,4));
+		Font f_cell = new Font("Helvetica",0, 14);
+		Font f_title = new Font("Helvetica",Font.BOLD, 16);
 		Border bottom = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY);
-		
-		JPanel containerText  = new  JPanel();
-		containerText.setBackground(Color.WHITE);		
-		containerText.setLayout(new GridLayout(11,3,0,4));
 
-		JLabel row1 = new JLabel("NOM");
-		JLabel row2 = new JLabel("SCORE");
-		JLabel row3 = new JLabel("RANK");
+		JLabel row1 = new JLabel(Game.getConfig().getString("ScoresMenu.rank"));
+		JLabel row2 = new JLabel(Game.getConfig().getString("ScoresMenu.name"));
+		JLabel row3 = new JLabel(Game.getConfig().getString("ScoresMenu.score"));
 
 		row1.setBorder(bottom);
 		row2.setBorder(bottom);
 		row3.setBorder(bottom);
 
-		
-		//row1.setOpaque(false);
-		JPanel p = new JPanel();
-		//p.setBorder());
-		;
-		//p.setBackground(Color.BLUE);
-		row1.setFont(f1);
-		row2.setFont(f1);
-		row3.setFont(f1);
 
-		containerText.add(row1);
-		containerText.add(row2);
-row3.setHorizontalTextPosition(SwingConstants.CENTER);
+		row1.setFont(f_title);
+		row2.setFont(f_title);
+		row3.setFont(f_title);
 
-		containerText.add(row3);
-
-
-		for (int i = 0; i < 10; i++) {
-			containerText.add(new JLabel(""+i));
-			containerText.add(new JLabel("MarcLeNul"+i));
-			containerText.add(new JLabel("12222232"+i));
+		containerTable.add(row1);
+		containerTable.add(row2);
+		containerTable.add(row3);
+		int ranking;
+		String items[];
+		for (int i = 0; i < rank.length; i++) {
+			ranking =i+1;
+			items = rank[i].split(" ");
+			containerTable.add(new JLabel(""+ranking));
+			containerTable.add(new JLabel(items[0]));
+			containerTable.add(new JLabel(items[1]));
 
 		}
-		return containerText;
+		return containerTable;
 
 	}
 
@@ -123,7 +135,7 @@ row3.setHorizontalTextPosition(SwingConstants.CENTER);
 		myContainer.setSize(new Dimension(500, 300));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
-		myContainer.add(textContainer(), BorderLayout.NORTH);	
+		myContainer.add(tableContainer(), BorderLayout.NORTH);	
 
 		return myContainer;	
 	}

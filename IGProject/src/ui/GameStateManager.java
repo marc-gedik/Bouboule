@@ -1,5 +1,7 @@
 package ui;
 
+import game.Levels;
+
 import java.awt.Graphics;
 import java.util.Stack;
 
@@ -24,6 +26,9 @@ public class GameStateManager {
 	private Stack<GameState> gameStates;
 
 	public GameStateManager(Game game) {
+		
+		new Levels("test.png");
+
 		this.game = game;
 		gameStates = new Stack<GameState>();
 		pushState(MAIN);

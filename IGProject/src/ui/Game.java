@@ -22,7 +22,6 @@ public class Game extends JFrame {
 
 	public static int HEIGHT_SCREEN;
 	public static int WIDTH_SCREEN;
-	
 	public static int HEIGHT = 400;
 	public static int WIDTH = 600;
 	static final int FPS = 25;

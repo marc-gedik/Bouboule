@@ -115,8 +115,8 @@
             JPanel myContainer = new JPanel();
             myContainer.setLayout(new BorderLayout());
             myContainer.setBackground(Color.WHITE);
-            myContainer.setPreferredSize(new Dimension(500, 400));
-            myContainer.setMinimumSize(new Dimension(500, 400));
+            myContainer.setPreferredSize(new Dimension(500, 300));
+            myContainer.setMinimumSize(new Dimension(500, 300));
             myContainer.setSize(new Dimension(500, 300));
             myContainer.setLayout(new BorderLayout());
             myContainer.add(buttonContainer(), BorderLayout.SOUTH);
