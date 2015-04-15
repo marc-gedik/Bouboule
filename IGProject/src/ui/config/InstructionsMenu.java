@@ -72,11 +72,8 @@ public class InstructionsMenu extends GameState{
 		String title2 = Game.getConfig().getString("Instructions.title2");
 		String text2 = Game.getConfig().getString("Instructions.text2");
 
-		Insets m = new Insets(5,5,0,0);
 		JTextPane jtp1 = printer(title1, text1);
-		//jtp1.setMargin(m);
 		JTextPane jtp2 = printer(title2, text2);
-		//jtp2.setMargin(m);
 		containerText.add(jtp1, BorderLayout.NORTH);
 		containerText.add(jtp2, BorderLayout.CENTER);
 		return containerText;

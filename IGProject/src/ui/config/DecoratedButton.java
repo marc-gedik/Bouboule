@@ -38,7 +38,7 @@ public class DecoratedButton extends JButton {
 		setFont(style.font());
 		setForeground(style.foreground());
 		setBackground(style.background());
-
+		setBorderPainted(false);
 		setContentAreaFilled(false);
 		setBorderPainted(false);
 		setFocusable(true);
