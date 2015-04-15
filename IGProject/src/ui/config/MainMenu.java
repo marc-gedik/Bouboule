@@ -35,7 +35,6 @@ public class MainMenu extends GameState {
 
 	@Override
 	public void init() {
-		Background wallpaper = new Background(new ImageIcon("img/texture3.png"));
 		action = new MainMenuListener(gsm);
 		keyAction = new MainMenuKeyListener();
 		focusAction = new MainMenuFocusListener();
@@ -44,9 +43,7 @@ public class MainMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(buttonContainer(), gbc);
-		gbc.weightx = gbc.weighty = 1.0;
-		gbc.fill = GridBagConstraints.BOTH;
-		this.add(wallpaper, gbc);
+		addBackground(gbc, "img/texture3.png");
 	}
 
 	public void addButtonEvent(JButton btn) {

@@ -1,30 +1,28 @@
 package game;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import controler.Input;
 
 public class Level {
 
 	private Character character;
-	private Enemy[] enemies;
-
+	private List<GameObject> gameObjects;
 	private int width, height;
 
-	public Level() {
-		character = new Character();
-		width = 500;
-		height = 50;
+	public Level(int width, int height) {
+		this.width = width;
+		this.height = height;
+		gameObjects = new LinkedList<GameObject>();
 	}
 
-	public void pause() {
-
+	public void addObject(GameObject object) {
+		gameObjects.add(object);
 	}
 
 	public Character getCharacter() {
 		return character;
-	}
-
-	public Enemy[] getEnemies() {
-		return enemies;
 	}
 
 	public boolean isFinished() {
@@ -60,5 +58,13 @@ public class Level {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public void setCharacter(Character character) {
+		this.character = character;
+	}
+
+	public List<GameObject> getGameObjects() {
+		return gameObjects;
 	}
 }

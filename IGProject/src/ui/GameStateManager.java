@@ -3,6 +3,7 @@ package ui;
 import java.util.Stack;
 
 import ui.config.InstructionsMenu;
+import ui.config.KeysMenu;
 import ui.config.LoadMenu;
 import ui.config.MainMenu;
 import ui.config.ScoresMenu;
@@ -15,6 +16,8 @@ public class GameStateManager {
 	public static final int LOAD = 2;
 	public static final int INSTRUCTIONS = 3;
 	public static final int SCORES = 4;
+
+	public static final int KEYS = 5;
 
 	private Game game;
 	private Stack<GameState> gameStates;
@@ -51,6 +54,8 @@ public class GameStateManager {
 			return new InstructionsMenu(this);
 		case SCORES:
 			return new ScoresMenu(this);
+		case KEYS :
+			return new KeysMenu(this);
 		}
 		return null;
 	}

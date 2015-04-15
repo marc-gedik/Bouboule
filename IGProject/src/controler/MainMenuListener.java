@@ -1,5 +1,7 @@
 package controler;
 
+import game.Levels;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -26,13 +28,11 @@ public class MainMenuListener implements ActionListener {
 		case "Instructions":
 			System.out.println("Instructions");
 			gsm.pushState(GameStateManager.INSTRUCTIONS);
-
 			break;
 		
-		case "Score":
+		case "Scores":
 			System.out.println("Score");
 			gsm.pushState(GameStateManager.SCORES);
-
 			break;
 		}
 

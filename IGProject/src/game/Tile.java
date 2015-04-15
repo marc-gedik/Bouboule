@@ -2,11 +2,11 @@ package game;
 
 import java.awt.Rectangle;
 
-public class Character extends Dynamic {
+public class Tile extends Static {
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
 
-	public Character(int x, int y) {
+	public Tile(int x, int y) {
 		super(x * WIDTH, y * HEIGHT);
 	}
 
