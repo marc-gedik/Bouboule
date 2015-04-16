@@ -3,11 +3,7 @@ package ui;
 import java.awt.Graphics;
 import java.util.Stack;
 
-import ui.config.InstructionsMenu;
-import ui.config.LoadMenu;
-import ui.config.MainMenu;
-import ui.config.ScoresMenu;
-import ui.config.KeysMenu;
+import ui.config.*;
 import ui.game.LevelRenderer;
 
 public class GameStateManager {
@@ -19,6 +15,7 @@ public class GameStateManager {
 	public static final int SCORES = 4;
 
 	public static final int KEYS = 5;
+	public static final int SOUND = 6;
 
 	private Game game;
 	private Stack<GameState> gameStates;
@@ -56,6 +53,8 @@ public class GameStateManager {
 			return new ScoresMenu(this);
 		case KEYS :
 			return new KeysMenu(this);
+		case SOUND :
+			return new SoundMenu(this);
 		}
 		return null;
 	}
