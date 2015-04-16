@@ -1,5 +1,6 @@
 package ui.config;
 
+import controler.BackButtonListener;
 import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
@@ -9,14 +10,9 @@ import java.awt.*;
 
 public class SoundMenu extends GameState{
 
-    public SoundMenu(GameStateManager gsm){
-        super(gsm);
-        init();
-    }
+    public SoundMenu(GameStateManager gsm){ super(gsm); }
 
-    void init(){
-        Background wallpaper = new Background(new ImageIcon("img/texture3.png"),
-                Game.WIDTH_SCREEN, Game.HEIGHT_SCREEN);
+    public void init(){
 
         this.setLayout(new GridBagLayout());
 
@@ -24,7 +20,19 @@ public class SoundMenu extends GameState{
         position(gbc, 0, 0, 1, 1);
         this.add(myContainer(), gbc);
 
-        this.add(wallpaper, gbc);
+        addBackground(gbc, "img/texture3.png");
+    }
+
+    JPanel buttonContainer(){
+        JPanel tmp = new JPanel();
+        tmp.setBackground(Color.WHITE);
+        JButton b = new DecoratedButton(Game.getConfig().getString("backButton"), GrayStyle.getInstance());
+        BackButtonListener bl = new BackButtonListener(gsm);
+        b.addActionListener(bl);
+        tmp.add(b);
+
+        return tmp;
+
     }
 
     JPanel slideContainer(){
@@ -43,10 +51,10 @@ public class SoundMenu extends GameState{
 
         tmp.add(bgm);
         tmp.add(forBgm);
-        gbc.gridy = 10;
+        gbc.gridy += 10;
         tmp.add(volume);
         tmp.add(forVolume);
-
+        
         return tmp;
     }
 
@@ -54,10 +62,11 @@ public class SoundMenu extends GameState{
         JPanel myContainer = new JPanel();
         myContainer.setLayout(new BorderLayout());
         myContainer.setBackground(Color.WHITE);
-        myContainer.setPreferredSize(new Dimension(500, 400));
-        myContainer.setMinimumSize(new Dimension(500, 400));
+        myContainer.setPreferredSize(new Dimension(500, 300));
+        myContainer.setMinimumSize(new Dimension(500, 300));
         myContainer.setSize(new Dimension(500, 300));
         myContainer.setLayout(new BorderLayout());
+        myContainer.add(buttonContainer(), BorderLayout.SOUTH);
         myContainer.add(slideContainer());
         return myContainer;
     }

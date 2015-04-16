@@ -2,15 +2,14 @@ package ui;
 
 import java.util.Stack;
 
-<<<<<<< HEAD
 import ui.config.*;
-=======
+
 import ui.config.InstructionsMenu;
 import ui.config.KeysMenu;
 import ui.config.LoadMenu;
 import ui.config.MainMenu;
 import ui.config.ScoresMenu;
->>>>>>> 94981271a9c443f4bf2d4acb3250fb65ec4a96cb
+
 import ui.game.LevelRenderer;
 
 public class GameStateManager {
