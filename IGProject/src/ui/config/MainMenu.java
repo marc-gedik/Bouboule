@@ -55,12 +55,13 @@ public class MainMenu extends GameState {
 
 	JPanel buttonContainer() {
 		JPanel containerButton = new JPanel();
-		Set<AWTKeyStroke> downKeys = new HashSet<AWTKeyStroke>(), upKeys = new HashSet<AWTKeyStroke>();
+		Set<AWTKeyStroke> downKeys = new HashSet<AWTKeyStroke>() ,
+				upKeys = new HashSet<AWTKeyStroke>();
 		downKeys.add(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0));
 		upKeys.add(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0));
 
-		containerButton.setLayout(new GridLayout(4, 0, 25, 25));
-		String[] names = { "MainMenu.play", //
+		containerButton.setLayout(new GridLayout(4, 0, 30, 30));
+		String[] names = { "MainMenu.play", 
 				"MainMenu.load", //
 				"MainMenu.instructions", //
 				"MainMenu.score" };
@@ -79,9 +80,9 @@ public class MainMenu extends GameState {
 			btn.setFocusTraversalKeys(up, upKeys);
 		}
 		containerButton.getComponent(0).requestFocusInWindow();
-		containerButton.setPreferredSize(new Dimension(350, 260));
-		containerButton.setMinimumSize(new Dimension(350, 260));
-		containerButton.setSize(new Dimension(350, 260));
+		containerButton.setPreferredSize(new Dimension(450, 300));
+		containerButton.setMinimumSize(new Dimension(450, 300));
+		containerButton.setSize(new Dimension(450, 300));
 		containerButton.setOpaque(false);
 		return containerButton;
 

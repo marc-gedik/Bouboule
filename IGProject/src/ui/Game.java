@@ -16,9 +16,9 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
+import ui.game.Camera;
 import controler.GameControler;
 import controler.PlayMenuControler;
-import ui.game.Camera;
 
 public class Game extends JFrame {
 
@@ -74,6 +74,12 @@ public class Game extends JFrame {
 				delta--;
 			}
 			render();
+			try {
+				Thread.sleep(25);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 	}
 

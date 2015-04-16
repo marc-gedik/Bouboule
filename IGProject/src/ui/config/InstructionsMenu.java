@@ -69,15 +69,17 @@ public class InstructionsMenu extends GameState {
 		containerText.add(jtp2, BorderLayout.CENTER);
 		return containerText;
 	}
+	
+	
 
 	JPanel myContainer() {
 		JPanel myContainer = new JPanel();
 		myContainer.setBorder( new EmptyBorder(10, 10, 10, 10));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);		
-		myContainer.setPreferredSize(new Dimension(500, 300));
-		myContainer.setMinimumSize(new Dimension(500, 300));
-		myContainer.setSize(new Dimension(500, 300));
+		myContainer.setPreferredSize(new Dimension(600, 400));
+		myContainer.setMinimumSize(new Dimension(600, 400));
+		myContainer.setSize(new Dimension(600, 400));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
 		myContainer.add(textContainer(), BorderLayout.NORTH);

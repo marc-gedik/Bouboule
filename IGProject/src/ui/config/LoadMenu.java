@@ -40,7 +40,7 @@ public class LoadMenu extends GameState {
 	JPanel levelContainer(){
 
 		JPanel containerLevel = new JPanel();
-		containerLevel.setLayout(new GridLayout(3,5));
+		containerLevel.setLayout(new GridLayout(3,5, 0,15));
 		containerLevel.setPreferredSize(new Dimension(480, 240));
 		containerLevel.setMinimumSize(new Dimension(480, 240));
 		containerLevel.setSize(new Dimension(100, 240));
@@ -80,14 +80,14 @@ public class LoadMenu extends GameState {
 		myContainer.setBorder( new EmptyBorder(10, 10, 10, 10));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);		
-		myContainer.setPreferredSize(new Dimension(500, 300));
-		myContainer.setMinimumSize(new Dimension(500, 300));
-		myContainer.setSize(new Dimension(500, 300));
+		myContainer.setPreferredSize(new Dimension(600, 400));
+		myContainer.setMinimumSize(new Dimension(600, 400));
+		myContainer.setSize(new Dimension(600, 400));
 		
 		FlowLayout flow = new FlowLayout(FlowLayout.CENTER);  
-	    myContainer.setLayout(flow); 
-		myContainer.add(levelContainer());	
-		myContainer.add(buttonContainer());	
+	    myContainer.setLayout(new BorderLayout()); 
+		myContainer.add(levelContainer(), BorderLayout.NORTH);	
+		myContainer.add(buttonContainer(), BorderLayout.SOUTH);	
 
 
 
