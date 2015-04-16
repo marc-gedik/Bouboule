@@ -1,8 +1,9 @@
 package ui;
 
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.ResourceBundle;
@@ -17,82 +18,76 @@ import javax.swing.KeyStroke;
 
 import controler.GameControler;
 import controler.PlayMenuControler;
+import ui.game.Camera;
 
 public class Game extends JFrame {
 
-	public static int HEIGHT_SCREEN;
-	public static int WIDTH_SCREEN;
-	
-	public static int HEIGHT = 400;
-	public static int WIDTH = 600;
-	static final int FPS = 25;
-	static final int SKIP_TICKS = 1000 / FPS;
+	private static ResourceBundle config = ResourceBundle.getBundle("config");
 
-	long next_game_tick = System.currentTimeMillis();
-
-	long sleep_time = 0;
+	public static int WIDTH = 800;
+	public static int HEIGHT = 600;
 
 	private GameStateManager gsm;
-	private static  ResourceBundle config;
+	private Camera camera;
 
-	
-	
 	public Game() {
-        setMinimumSize(new Dimension(550, 400));
-		getSizeOfScreen();
-
-		config = ResourceBundle.getBundle("config");
+		camera = new Camera();
 		gsm = new GameStateManager(this);
 
-		setTitle(getConfig().getString("Title"));
-		setSize(300, 400);
-		setVisible(true);
+		setTitle(Game.getConfig().getString("Title"));
+		setMinimumSize(new Dimension(WIDTH, HEIGHT));
+
+		setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setLocationRelativeTo(null);
 
 		createMenuBar();
 		addKeyListener(new GameControler());
 
 		pack();
-		while (true) {
-			repaint();
-			next_game_tick += SKIP_TICKS;
-			sleep_time = next_game_tick - System.currentTimeMillis();
-			if (sleep_time >= 0) {
-				try {
-					Thread.sleep(sleep_time);
-				} catch (InterruptedException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			} else {
-				// Shit, we are running behind!
+		setVisible(true);
+
+		addComponentListener(new ComponentAdapter() {
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				WIDTH = getWidth();
+				HEIGHT = getHeight();
 			}
-		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	public void getSizeOfScreen(){
-		Dimension dimension = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
-		HEIGHT_SCREEN = (int)dimension.getHeight();
-		WIDTH_SCREEN = (int)dimension.getWidth();
+		});
+
+
+
+		run();
 	}
 
-	
-	
-	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label, String action){
+	private void run() {
+		long lastTime = System.nanoTime();
+		double amountOfTicks = 60.0;
+		double ns = 1000000000 / amountOfTicks;
+		double delta = 0;
+		while (true) {
+			long now = System.nanoTime();
+			delta += (now - lastTime) / ns;
+			lastTime = now;
+			while (delta >= 1) {
+				update();
+				delta--;
+			}
+			render();
+		}
+	}
+
+	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label,
+			String action) {
 		JRadioButtonMenuItem item = new JRadioButtonMenuItem(label);
 		item.setActionCommand(action);
 		buttonGroup.add(item);
 		menu.add(item);
 	}
 
-	private JMenuItem createItem(String res, KeyStroke accelerator, ActionListener listener) {
-		JMenuItem item = new JMenuItem(getConfig().getString(res));
+	private JMenuItem createItem(String res, KeyStroke accelerator,
+			ActionListener listener) {
+		JMenuItem item = new JMenuItem(Game.getConfig().getString(res));
 		item.setAccelerator(accelerator);
 		item.addActionListener(listener);
 		item.setActionCommand(res);
@@ -105,7 +100,7 @@ public class Game extends JFrame {
 
 		ActionListener controler = new PlayMenuControler(gsm);
 		
-		JMenu menu = new JMenu(getConfig().getString("Menu.Game"));
+		JMenu menu = new JMenu(Game.getConfig().getString("Menu.Game"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Game.New", KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK), controler));
 		menu.add(createItem("Menu.Game.Restart", null, controler));
@@ -116,31 +111,36 @@ public class Game extends JFrame {
 		menu.addSeparator();
 		menu.add(createItem("Menu.Game.Exit", KeyStroke.getKeyStroke(KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), controler));
 
-		menu = new JMenu(getConfig().getString("Menu.Config"));
+		menu = new JMenu(Game.getConfig().getString("Menu.Config"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Config.Keys", null, controler));
 		menu.add(createItem("Menu.Config.Sound", null, controler));
 		
 
-		JMenu display = new JMenu(getConfig().getString("Menu.Config.Display")); 
+		JMenu display = new JMenu(Game.getConfig().getString("Menu.Config.Display")); 
 		ButtonGroup buttonGroup = new ButtonGroup();
 		resolution(display, buttonGroup, "640 * 360", "360");
 		resolution(display, buttonGroup, "1280 * 720", "720");
 		resolution(display, buttonGroup, "1920 * 1080", "1080");
 		menu.add(display);
 		
-		menu = new JMenu(getConfig().getString("Menu.Help"));
+		menu = new JMenu(Game.getConfig().getString("Menu.Help"));
 		menu.add(createItem("Menu.Help.Instruction", null, null));
 		menu.add(createItem("Menu.Help.About", null, null));
 		menuBar.add(menu);
 
 	}
 
-	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	public Camera getCamera() {
+		return camera;
+	}
+
+	private void update() {
 		gsm.update();
-		gsm.render(g);
+	}
+
+	private void render() {
+		gsm.render();
 	}
 
 	public static void main(String[] args) {

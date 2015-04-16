@@ -1,14 +1,20 @@
 package ui.config;
 
+import java.awt.AWTKeyStroke;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.KeyboardFocusManager;
+import java.awt.event.KeyEvent;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
 
 import ui.Game;
 import ui.GameState;
@@ -25,13 +31,10 @@ public class MainMenu extends GameState {
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
-		init();
 	}
 
-	void init() {
-		Background wallpaper = new Background(
-				new ImageIcon("img/texture3.png"), Game.WIDTH_SCREEN,
-				Game.HEIGHT_SCREEN);
+	@Override
+	public void init() {
 		action = new MainMenuListener(gsm);
 		keyAction = new MainMenuKeyListener();
 		focusAction = new MainMenuFocusListener();
@@ -40,7 +43,7 @@ public class MainMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(buttonContainer(), gbc);
-		this.add(wallpaper, gbc);
+		addBackground(gbc, "img/texture3.png");
 	}
 
 	public void addButtonEvent(JButton btn) {
@@ -52,25 +55,30 @@ public class MainMenu extends GameState {
 
 	JPanel buttonContainer() {
 		JPanel containerButton = new JPanel();
+		Set<AWTKeyStroke> downKeys = new HashSet<AWTKeyStroke>(), upKeys = new HashSet<AWTKeyStroke>();
+		downKeys.add(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0));
+		upKeys.add(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0));
+
 		containerButton.setLayout(new GridLayout(4, 0, 25, 25));
-		DecoratedButton play = new DecoratedButton(Game.getConfig().getString(
-				"MainMenu.play"), WhiteStyle.getInstance());
-		DecoratedButton load = new DecoratedButton(Game.getConfig().getString(
-				"MainMenu.load"), WhiteStyle.getInstance());
-		DecoratedButton instructions = new DecoratedButton(Game.getConfig()
-				.getString("MainMenu.instructions"), WhiteStyle.getInstance());
-		DecoratedButton scores = new DecoratedButton(Game.getConfig()
-				.getString("MainMenu.score"), WhiteStyle.getInstance());
+		String[] names = { "MainMenu.play", //
+				"MainMenu.load", //
+				"MainMenu.instructions", //
+				"MainMenu.score" };
 
-		addButtonEvent(play);
-		addButtonEvent(load);
-		addButtonEvent(instructions);
-		addButtonEvent(scores);
-		containerButton.add(play);
-		containerButton.add(load);
-		containerButton.add(instructions);
-		containerButton.add(scores);
+		for (String name : names) {
+			DecoratedButton btn = new DecoratedButton(Game.getConfig()
+					.getString(name), WhiteStyle.getInstance());
+			addButtonEvent(btn);
+			containerButton.add(btn);
 
+			int down = KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS;
+			int up = KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS;
+			downKeys.addAll(btn.getFocusTraversalKeys(down));
+			upKeys.addAll(btn.getFocusTraversalKeys(up));
+			btn.setFocusTraversalKeys(down, downKeys);
+			btn.setFocusTraversalKeys(up, upKeys);
+		}
+		containerButton.getComponent(0).requestFocusInWindow();
 		containerButton.setPreferredSize(new Dimension(350, 260));
 		containerButton.setMinimumSize(new Dimension(350, 260));
 		containerButton.setSize(new Dimension(350, 260));
@@ -86,20 +94,15 @@ public class MainMenu extends GameState {
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void update() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void render(Graphics g) {
-		// TODO Auto-generated method stub
-
+		repaint();
 	}
 
 }

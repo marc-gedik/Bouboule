@@ -1,25 +1,39 @@
 package controler;
 
-import game.Direction;
-
 import java.awt.event.KeyEvent;
 
 public class Input {
-	public static boolean[] keys = new boolean[KeyEvent.KEY_LAST];
+	private static final int SIZE = KeyEvent.KEY_LAST;
+	public static boolean[] keys;
 
-	public static int update() {
-		int dir = Direction.None;
+	static {
+		keys = new boolean[SIZE];
+	}
 
-		if (keys[KeysOption.getUp()])
-			dir = dir | Direction.North;
-		if (keys[KeysOption.getDown()])
-			dir = dir | Direction.South;
-		if (keys[KeysOption.getLeft()])
-			dir = dir | Direction.West;
-		if (keys[KeysOption.getRight()])
-			dir = dir | Direction.East;
+	public static boolean up() {
+		return keys[KeysOption.getUp()];
+	}
 
-		return dir;
+	public static boolean down() {
+		return keys[KeysOption.getDown()];
+	}
+	
+	public static boolean left() {
+		return keys[KeysOption.getLeft()];
+	}
+
+	public static boolean right() {
+		return keys[KeysOption.getRight()];
+	}
+
+	public static boolean enter() {
+		return keys[KeyEvent.VK_ENTER];
+	}
+
+
+
+	public static void update() {
+		
 	}
 
 }

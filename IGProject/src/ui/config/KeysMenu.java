@@ -1,38 +1,39 @@
     package ui.config;
 
 
-    import controler.BackButtonListener;
-    import controler.FieldListener;
-    import ui.Game;
-    import ui.GameState;
-    import ui.GameStateManager;
-    import ui.config.Background;
-    import ui.config.DecoratedButton;
-    import ui.config.GrayStyle;
+    import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 
-    import javax.swing.*;
-    import java.awt.*;
-    import java.awt.event.KeyEvent;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import ui.Game;
+import ui.GameState;
+import ui.GameStateManager;
+import controler.BackButtonListener;
+import controler.FieldListener;
 
     public class KeysMenu extends GameState{
 
 
         public KeysMenu(GameStateManager gsm){
             super(gsm);
-            init();
         }
 
-        void init(){
-            Background wallpaper = new Background(new ImageIcon("img/texture3.png"),
-                    Game.WIDTH_SCREEN, Game.HEIGHT_SCREEN);
-
+	public void init(){
             this.setLayout(new GridBagLayout());
 
             GridBagConstraints gbc = new GridBagConstraints();
             position(gbc, 0, 0, 1, 1);
             this.add(myContainer(), gbc);
 
-            this.add(wallpaper, gbc);
+    		addBackground(gbc, "img/texture3.png");
         }
 
         JPanel buttonContainer(){
@@ -115,8 +116,8 @@
             JPanel myContainer = new JPanel();
             myContainer.setLayout(new BorderLayout());
             myContainer.setBackground(Color.WHITE);
-            myContainer.setPreferredSize(new Dimension(500, 400));
-            myContainer.setMinimumSize(new Dimension(500, 400));
+            myContainer.setPreferredSize(new Dimension(500, 300));
+            myContainer.setMinimumSize(new Dimension(500, 300));
             myContainer.setSize(new Dimension(500, 300));
             myContainer.setLayout(new BorderLayout());
             myContainer.add(buttonContainer(), BorderLayout.SOUTH);

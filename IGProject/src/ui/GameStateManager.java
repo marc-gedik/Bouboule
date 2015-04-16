@@ -1,9 +1,16 @@
 package ui;
 
-import java.awt.Graphics;
 import java.util.Stack;
 
+<<<<<<< HEAD
 import ui.config.*;
+=======
+import ui.config.InstructionsMenu;
+import ui.config.KeysMenu;
+import ui.config.LoadMenu;
+import ui.config.MainMenu;
+import ui.config.ScoresMenu;
+>>>>>>> 94981271a9c443f4bf2d4acb3250fb65ec4a96cb
 import ui.game.LevelRenderer;
 
 public class GameStateManager {
@@ -31,8 +38,9 @@ public class GameStateManager {
 		gameStates.peek().update();
 	}
 
-	public void render(Graphics g) {
-		gameStates.peek().repaint();
+	public void render() {
+		GameState state  = gameStates.peek();
+		state.render(state.getGraphics());
 	}
 
 	public Game game() {
@@ -67,13 +75,17 @@ public class GameStateManager {
 	public void pushState(int state) {
 		GameState gameState = getState(state);
 		gameStates.push(gameState);
-		game.setContentPane(gameState);
-		game.revalidate();
+		set(gameState);
 	}
 
 	public void popState() {
 		gameStates.pop();
-		game.setContentPane(gameStates.peek());
+		set(gameStates.peek());
+	}
+	
+	public void set(GameState gameState){
+		game.requestFocusInWindow();
+		game.setContentPane(gameState);
 		game.revalidate();
 	}
 

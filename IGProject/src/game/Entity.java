@@ -2,18 +2,12 @@ package game;
 
 import java.awt.Rectangle;
 
-public abstract class Entity {
+public abstract class Entity extends GameObject {
 	
-	protected int x, y;
-	
-	public int getX() {
-		return x;
+	public Entity(int x, int y) {
+		super(x, y);
 	}
-	
-	public int getY() {
-		return y;
-	}
-	
+
 	protected void setX(int x) {
 		this.x = x;
 	}
@@ -22,10 +16,4 @@ public abstract class Entity {
 		this.y = y;
 	}
 	
-	abstract public Rectangle getBounds();
-		
-	public boolean collision(Entity entity) {
-		return getBounds().intersects(entity.getBounds());
-	}
-
 }
