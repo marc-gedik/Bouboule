@@ -120,7 +120,7 @@ public class Game extends JFrame {
 		menu = new JMenu(Game.getConfig().getString("Menu.Config"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Config.Keys", null, controler));
-		menu.add(createItem("Menu.Config.Sound", null, null));
+		menu.add(createItem("Menu.Config.Sound", null, controler));
 		
 
 		JMenu display = new JMenu(Game.getConfig().getString("Menu.Config.Display")); 
