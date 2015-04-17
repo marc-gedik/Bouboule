@@ -79,9 +79,9 @@ public class ScoresMenu extends GameState {
 		JPanel containerTable = new JPanel();
 		containerTable.setBackground(Color.WHITE);
 
-		containerTable.setLayout(new GridLayout(11, 3, 0, 4));
+		containerTable.setLayout(new GridLayout(11, 3, 0, 10));
 		Font f_cell = new Font("Helvetica", 0, 14);
-		Font f_title = new Font("Helvetica", Font.BOLD, 16);
+		Font f_title = new Font("Helvetica", Font.BOLD, 18);
 		Border bottom = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY);
 
 		JLabel row1 = new JLabel(Game.getConfig().getString("ScoresMenu.rank"));
@@ -118,9 +118,9 @@ public class ScoresMenu extends GameState {
 		myContainer.setBorder(new EmptyBorder(10, 10, 10, 10));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);
-		myContainer.setPreferredSize(new Dimension(500, 300));
-		myContainer.setMinimumSize(new Dimension(500, 300));
-		myContainer.setSize(new Dimension(500, 300));
+		myContainer.setPreferredSize(new Dimension(600, 400));
+		myContainer.setMinimumSize(new Dimension(600, 400));
+		myContainer.setSize(new Dimension(600, 400));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
 		myContainer.add(tableContainer(), BorderLayout.NORTH);
