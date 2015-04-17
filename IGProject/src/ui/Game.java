@@ -61,26 +61,23 @@ public class Game extends JFrame {
 	}
 
 	private void run() {
-		long lastTime = System.nanoTime();
-		double amountOfTicks = 60.0;
-		double ns = 1000000000 / amountOfTicks;
-		double delta = 0;
-		while (true) {
-			long now = System.nanoTime();
-			delta += (now - lastTime) / ns;
-			lastTime = now;
-			while (delta >= 1) {
-				update();
-				delta--;
-			}
+		final int MILLI_SECOND = 1000;
+		final int FPS = 60;
+		final long OPTI_TIME = MILLI_SECOND / FPS; 
+		
+		long next_game_tick = System.currentTimeMillis();
+		long sleep_time;
+		while(true){
+			update();
 			render();
-			try {
-				Thread.sleep(25);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+	        next_game_tick += OPTI_TIME;
+	        sleep_time = (next_game_tick - System.currentTimeMillis());
+	        if( sleep_time >= 0 )
+				try {
+					Thread.sleep(sleep_time );
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}		}
 	}
 
 	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label,
