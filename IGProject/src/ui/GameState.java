@@ -14,7 +14,6 @@ public abstract class GameState extends JPanel {
 
 	protected GameStateManager gsm;
 	protected Game game;
-
 	protected Camera camera;
 
 	protected GameState(GameStateManager gsm) {
@@ -40,6 +39,9 @@ public abstract class GameState extends JPanel {
 		gbc.gridwidth = b;
 		gbc.gridwidth = GridBagConstraints.REMAINDER; // fin de la ligne
 	}
+	
+	
+
 
 	protected void addBackground(GridBagConstraints gbc, String s) {
 		Background wallpaper = new Background(new ImageIcon("img/texture3.png"));

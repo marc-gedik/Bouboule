@@ -77,7 +77,7 @@ public class LoadMenu extends GameState {
 
 	JPanel myContainer(){
 		JPanel myContainer = new JPanel();
-		myContainer.setBorder( new EmptyBorder(10, 10, 10, 10));
+		myContainer.setBorder( new EmptyBorder(15, 15, 15, 15));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);		
 		myContainer.setPreferredSize(new Dimension(600, 400));
