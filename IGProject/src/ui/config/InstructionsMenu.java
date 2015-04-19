@@ -57,7 +57,6 @@ public class InstructionsMenu extends GameState {
 		JPanel containerText = new JPanel();
 
 		containerText.setLayout(new BorderLayout());
-
 		String title1 = Game.getConfig().getString("Instructions.title1");
 		String text1 = Game.getConfig().getString("Instructions.text1");
 		String title2 = Game.getConfig().getString("Instructions.title2");
@@ -65,8 +64,10 @@ public class InstructionsMenu extends GameState {
 
 		JTextPane jtp1 = printer(title1, text1);
 		JTextPane jtp2 = printer(title2, text2);
+		jtp1.setPreferredSize((new Dimension(600, 180)));
+		jtp2.setPreferredSize((new Dimension(600, 120)));
 		containerText.add(jtp1, BorderLayout.NORTH);
-		containerText.add(jtp2, BorderLayout.CENTER);
+		containerText.add(jtp2, BorderLayout.SOUTH);
 		return containerText;
 	}
 	
@@ -74,15 +75,15 @@ public class InstructionsMenu extends GameState {
 
 	JPanel myContainer() {
 		JPanel myContainer = new JPanel();
-		myContainer.setBorder( new EmptyBorder(10, 10, 10, 10));
+		myContainer.setBorder( new EmptyBorder(15, 15, 15, 15));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);		
 		myContainer.setPreferredSize(new Dimension(600, 400));
 		myContainer.setMinimumSize(new Dimension(600, 400));
 		myContainer.setSize(new Dimension(600, 400));
 		myContainer.setLayout(new BorderLayout());
-		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
 		myContainer.add(textContainer(), BorderLayout.NORTH);
+		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
 
 		return myContainer;
 	}
