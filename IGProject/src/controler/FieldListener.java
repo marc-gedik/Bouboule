@@ -2,6 +2,8 @@ package controler;
 
 
 
+import ui.Game;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -23,19 +25,20 @@ public class FieldListener implements ActionListener, KeyListener {
     public void keyTyped(KeyEvent keyEvent) {
         System.out.println("Key Typed");
         JButton tmp = (JButton)keyEvent.getSource();
+        System.out.println();
 
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_UP:
-                tmp.setText("Haut");
+                tmp.setText(Game.getConfig().getString("Keys.Up"));
                 break;
             case KeyEvent.VK_DOWN:
-                tmp.setText("Bas");
+                tmp.setText(Game.getConfig().getString("Keys.Down"));
                 break;
             case KeyEvent.VK_RIGHT:
-                tmp.setText("Droit");
+                tmp.setText(Game.getConfig().getString("Keys.Right"));
                 break;
             case KeyEvent.VK_LEFT:
-                tmp.setText("Gauche");
+                tmp.setText(Game.getConfig().getString("Keys.Left"));
                 break;
             default:
                 tmp.setText(String.valueOf(keyEvent.getKeyChar()).toUpperCase());

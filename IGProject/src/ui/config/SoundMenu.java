@@ -54,7 +54,7 @@ public class SoundMenu extends GameState{
         gbc.gridy += 10;
         tmp.add(volume);
         tmp.add(forVolume);
-        
+
         return tmp;
     }
 

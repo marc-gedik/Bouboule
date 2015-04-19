@@ -9,7 +9,7 @@ public class KeysOption {
 	down = KeyEvent.VK_DOWN,
 	left = KeyEvent.VK_LEFT,
 	right = KeyEvent.VK_RIGHT;
-	
+
 	public static final int getUp() {
 		return up;
 	}
