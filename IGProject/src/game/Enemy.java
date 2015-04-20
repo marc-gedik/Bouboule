@@ -20,13 +20,16 @@ public class Enemy extends Dynamic {
 
 	public Enemy(int x, int y, Color c) {
 		super(x * WIDTH, y * HEIGHT);
-		this.setEnemyColor(c);
+		this.c=c;
 		nbEnemy++;
-		System.out.println(nbEnemy);
 	}
 
 	public void strategicMove(Level l) {
 		int dir = determineDirection(l);
+		if( c.equals(Color.RED)){
+			this.move(dir, 2);
+		}
+		
 		this.move(dir, 1);
 
 	}
@@ -73,8 +76,5 @@ public class Enemy extends Dynamic {
 		return c;
 	}
 
-	public void setEnemyColor(Color c) {
-		this.c = c;
-	}
 
 }
