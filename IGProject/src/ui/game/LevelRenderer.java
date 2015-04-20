@@ -2,7 +2,7 @@ package ui.game;
 
 import game.GameObject;
 import game.Level;
-import game.Levels;
+import game.LoadLevel;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,7 +26,7 @@ public class LevelRenderer extends GameState {
 	public LevelRenderer(GameStateManager gsm) {
 		super(gsm);
 
-		level = Levels.get("test");
+		level = LoadLevel.get("test");
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
@@ -63,6 +63,9 @@ public class LevelRenderer extends GameState {
 		bg.draw(level.getCharacter().getBounds());
 		
 		bg.setPaint(Color.RED);
+		bg.draw(level.getEnemy().getBounds());
+
+		bg.setPaint(Color.BLUE);
 		for(GameObject gameObject : level.getGameObjects())
 			bg.draw(gameObject.getBounds());
 		g2d.drawImage(background, 0, 0, null);

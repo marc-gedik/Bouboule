@@ -8,6 +8,7 @@ import controler.Input;
 public class Level {
 
 	private Character character;
+	private Enemy enemy_v1;
 	private List<GameObject> gameObjects;
 	private int width, height;
 
@@ -21,6 +22,10 @@ public class Level {
 		gameObjects.add(object);
 	}
 
+	public Enemy getEnemy(){
+		return enemy_v1;
+	}
+	
 	public Character getCharacter() {
 		return character;
 	}
@@ -36,7 +41,10 @@ public class Level {
 	public void handleInput() {
 		Input.update();
 		int dir = handleMove();
+		//System.out.println(character.getX()+"  "+ character.getY());
 		character.move(dir, 2);
+		enemy_v1.strategicMove(this);
+
 	}
 
 	private int handleMove() {
@@ -64,6 +72,12 @@ public class Level {
 		this.character = character;
 	}
 
+	
+	public void setEnemy(Enemy enemy) {
+		this.enemy_v1 = enemy;
+	}
+
+	
 	public List<GameObject> getGameObjects() {
 		return gameObjects;
 	}

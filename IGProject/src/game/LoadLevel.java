@@ -8,11 +8,13 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
-public class Levels {
+public class LoadLevel {
 
 	private static final Color WALL = Color.BLACK;
 	private static final Color PLAYER = Color.GREEN;
-	private static final Color ENEMY = Color.RED;
+	private static final Color ENEMY_V1 = Color.RED;
+	private static final Color ENEMY_V2 =  new Color(255, 100, 100);
+	private static final Color ENEMY_V3 =  new Color(255, 170, 170);
 
 
 	public static Level get(String levelID) {
@@ -31,11 +33,10 @@ public class Levels {
 						level.addObject(new Tile(i, j));
 					else if (tile.equals(PLAYER))
 						level.setCharacter(new Character(i, j));
-					else if (tile.equals(ENEMY))
-						level.addObject(new Enemy(i, j));
+					else if (tile.equals(ENEMY_V1))
+						level.setEnemy(new Enemy(i, j));
 				}
 			}
-
 			return level;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
