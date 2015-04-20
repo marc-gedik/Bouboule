@@ -12,9 +12,11 @@ public class LoadLevel {
 
 	private static final Color WALL = Color.BLACK;
 	private static final Color PLAYER = Color.GREEN;
-	private static final Color ENEMY_V1 = Color.RED;
+	private static final Color CAKE =  Color.YELLOW;
+
+	private static final Color ENEMY_V1 = new Color(255, 0, 0);
 	private static final Color ENEMY_V2 =  new Color(255, 100, 100);
-	private static final Color ENEMY_V3 =  new Color(255, 170, 170);
+	private static final Color ENEMY_V3 =  new Color(255, 200, 200);
 
 
 	public static Level get(String levelID) {
@@ -31,10 +33,24 @@ public class LoadLevel {
 					tile = new Color(image.getRGB(i, j), false);
 					if (tile.equals(WALL))
 						level.addObject(new Tile(i, j));
+					else if (tile.equals(CAKE))
+						level.addObject(new Cake(i, j));
+					
 					else if (tile.equals(PLAYER))
 						level.setCharacter(new Character(i, j));
-					else if (tile.equals(ENEMY_V1))
-						level.setEnemy(new Enemy(i, j));
+					else if (tile.equals(ENEMY_V1)){
+						level.setEnemy(new Enemy(i, j, ENEMY_V1));	
+						level.addObject(level.getLastEnemy());
+					}
+					else if (tile.equals(ENEMY_V2)){
+						level.setEnemy(new Enemy(i, j, ENEMY_V2));
+						level.addObject(level.getLastEnemy());
+					}
+					else if (tile.equals(ENEMY_V3)){
+						level.setEnemy(new Enemy(i, j, ENEMY_V3));
+						level.addObject(level.getLastEnemy());
+
+					}
 				}
 			}
 			return level;
