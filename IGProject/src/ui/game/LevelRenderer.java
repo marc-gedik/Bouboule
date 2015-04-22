@@ -23,7 +23,8 @@ public class LevelRenderer extends GameState {
 	private Level level;
 	private int tileSize = 32;
 	private BufferedImage background;
-
+	private Graphics2D bg;
+	
 	public LevelRenderer(GameStateManager gsm) {
 		super(gsm);
 
@@ -31,12 +32,15 @@ public class LevelRenderer extends GameState {
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
-		//		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
-		//				.getDefaultScreenDevice().getDefaultConfiguration()
-		//				.createCompatibleImage(2000, 2000, Transparency.OPAQUE);
-		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice().getDefaultConfiguration()
-				.createCompatibleImage(Game.WIDTH, Game.HEIGHT, Transparency.OPAQUE);
+		// background = GraphicsEnvironment.getLocalGraphicsEnvironment()
+		// .getDefaultScreenDevice().getDefaultConfiguration()
+		// .createCompatibleImage(2000, 2000, Transparency.OPAQUE);
+		background = GraphicsEnvironment
+				.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice()
+				.getDefaultConfiguration()
+				.createCompatibleImage(Game.WIDTH, Game.HEIGHT,
+						Transparency.OPAQUE);
 
 	}
 
@@ -55,50 +59,39 @@ public class LevelRenderer extends GameState {
 
 		Graphics2D g2d = (Graphics2D) g;
 
-		Graphics2D bg = (Graphics2D) background.getGraphics();
+		bg = (Graphics2D) background.getGraphics();
 		bg.setPaint(Color.BLACK);
 		bg.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		bg.translate(offsetX, offsetY);
 
-		bg.setPaint(Color.WHITE);
-		bg.fill(level.getCharacter().getBounds());
-
-		
-
+		level.getCharacter().draw(this);
 		bg.setPaint(Color.BLUE);
-		for(GameObject gameObject : level.getGameObjects()){
-			if(gameObject instanceof Tile)  // c'est TEMPORAIIIIIIIIIIIIIIIIIREE
-				drawTile(bg, gameObject);
-			if(gameObject instanceof Enemy)  // c'est TEMPORAIIIIIIIIIIIIIIIIIREE
-				drawEnemies(bg, gameObject);
-
-			if(gameObject instanceof Cake)  // c'est TEMPORAIIIIIIIIIIIIIIIIIREE
-				drawCake(bg, gameObject);
-			
-		}
+		for(GameObject gameObject : level.getGameObjects())
+				gameObject.draw(this);
 		g2d.drawImage(background, 0, 0, null);
 		//g2d.drawImage(background.getScaledInstance(Game.WIDTH, Game.HEIGHT, Image.SCALE_SMOOTH), 0, 0, null);
 	}
 
+	public void drawCharacter(GameObject character) {
+		bg.setPaint(Color.WHITE);
+		bg.fill(level.getCharacter().getBounds());
+	}
 	
-	void drawTile(Graphics2D bg, GameObject go){
+	public void drawTile(GameObject go) {
 		bg.setPaint(Color.BLUE);
 		bg.draw(go.getBounds());
 	}
-	
-	void drawCake(Graphics2D bg, GameObject go){
+
+	public void drawCake(GameObject go) {
 		bg.setPaint(Color.YELLOW);
 		bg.fill(go.getBounds());
 	}
-	
-	void drawEnemies(Graphics2D bg, GameObject go){
+
+	public void drawEnemy(GameObject go) {
 		bg.setPaint(((Enemy) go).getEnemyColor());
 		bg.fill(go.getBounds());
 	}
-	
-	
-	
-	
+
 	@Override
 	public void update() {
 		level.update();

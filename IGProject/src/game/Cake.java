@@ -2,6 +2,8 @@ package game;
 
 import java.awt.Rectangle;
 
+import ui.game.LevelRenderer;
+
 
 public class Cake extends Static {
 
@@ -17,6 +19,11 @@ public class Cake extends Static {
 	@Override
 	public Rectangle getBounds() {
 		return new Rectangle(getX(), getY(), DIAMETER, DIAMETER);
+	}
+
+	@Override
+	public void draw(LevelRenderer renderer) {
+		renderer.drawCake(this);
 	}
 
 }

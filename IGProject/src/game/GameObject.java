@@ -1,6 +1,9 @@
 package game;
 
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
+
+import ui.game.LevelRenderer;
 
 public abstract class GameObject {
 
@@ -25,5 +28,8 @@ public abstract class GameObject {
 	}
 
 	abstract public Rectangle getBounds();
+
+
+	public abstract void draw(LevelRenderer renderer);
 
 }

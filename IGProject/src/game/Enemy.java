@@ -3,34 +3,34 @@ package game;
 import java.awt.Color;
 import java.awt.Rectangle;
 
+import ui.game.LevelRenderer;
+
 public class Enemy extends Dynamic {
 
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
 	private Color c;
-	public static int nbEnemy=0;
+	public static int nbEnemy = 0;
 
 	public Enemy(int x, int y) {
 		super(x * WIDTH, y * HEIGHT);
 		nbEnemy++;
 		System.out.println(nbEnemy);
 
-
 	}
 
 	public Enemy(int x, int y, Color c) {
 		super(x * WIDTH, y * HEIGHT);
-		this.c=c;
+		this.c = c;
 		nbEnemy++;
 	}
 
 	public void strategicMove(Level l) {
 		int dir = determineDirection(l);
-		if( c.equals(Color.RED)){
-			this.move(dir, 2);
-		}
-		
-		this.move(dir, 1);
+		if (c.equals(Color.RED)) {
+			this.move(dir, 3);
+		} else
+			this.move(dir, 1);
 
 	}
 
@@ -41,29 +41,17 @@ public class Enemy extends Dynamic {
 		int xE = this.getX();
 		int yE = this.getY();
 
-		if (yC > yE) {
-			if (xC > xE)
-				return Direction.South + Direction.East;
-			if (xC < xE)
-				return Direction.South + Direction.West;
-			if (xC == xE)
-				return Direction.South;
-		} else if (yC < yE) {
-			if (xC > xE)
-				return Direction.North + Direction.East;
-			if (xC < xE)
-				return Direction.North + Direction.West;
-			if (xC == xE)
-				return Direction.North;
-		} else if (yC == yE)
-			if (xC > xE)
-				return Direction.East;
+		int direction = Direction.None;
+		if (yC > yE)
+			direction += Direction.South;
+		else if (yC < yE)
+			direction += Direction.North;
+		if (xC > xE)
+			direction +=  Direction.East;
 		if (xC < xE)
-			return Direction.West;
-		if (xC == xE)
-			return Direction.None;
+			direction += Direction.West;
 
-		return Direction.None;
+		return direction;
 
 	}
 
@@ -76,5 +64,9 @@ public class Enemy extends Dynamic {
 		return c;
 	}
 
+	@Override
+	public void draw(LevelRenderer renderer) {
+		renderer.drawEnemy(this);
+	}
 
 }
