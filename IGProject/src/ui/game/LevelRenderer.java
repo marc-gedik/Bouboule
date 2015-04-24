@@ -31,6 +31,7 @@ public class LevelRenderer extends GameState {
 
 	private BufferedImage[] cakeSprite ;
 	private BufferedImage[] characterSprite ;
+	private BufferedImage[] enemySprite ;
 
 
 
@@ -71,6 +72,7 @@ public class LevelRenderer extends GameState {
 	@Override
 	public void init() {
 		characterSprite = loadSource("img/character.png", 4);
+		enemySprite = loadSource("img/ennemy.png", 4);
 		cakeSprite = loadSource("img/cakes.png", 16);
 
 
@@ -140,6 +142,11 @@ public class LevelRenderer extends GameState {
 	}
 
 
+	public void drawSpriteEnemy(GameObject go,int idSprite, double rotation) {
+		bg.drawImage(rotation(enemySprite[idSprite], rotation), go.getX(), go.getY(), 64,64, this);
+	}
+	
+	
 	public void drawSpriteCake(GameObject go, int levelCake) {
 		bg.drawImage(cakeSprite[levelCake], go.getX(), go.getY(), 64,64, this);
 	}

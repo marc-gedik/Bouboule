@@ -19,40 +19,42 @@ public class Enemy extends Dynamic {
 
 	}
 
+	
+	
 	public Enemy(int x, int y, Color c) {
 		super(x * WIDTH, y * HEIGHT);
-		this.c = c;
+		this.c=c;
 		nbEnemy++;
 	}
 
+	
 	public void strategicMove(Level l) {
 		int dir = determineDirection(l);
 		if (c.equals(Color.RED)) {
 			this.move(dir, 1);
 		} else
 			this.move(dir, 1);
-
 	}
 
+	
+	
 	public int determineDirection(Level l) {
 		Character c = l.getCharacter();
 		int xC = c.getX();
 		int yC = c.getY();
 		int xE = this.getX();
 		int yE = this.getY();
-
 		int direction = Direction.None;
+		
 		if (yC > yE)
 			direction += Direction.South;
 		else if (yC < yE)
 			direction += Direction.North;
 		if (xC > xE)
-			direction +=  Direction.East;
+			direction += Direction.East;
 		if (xC < xE)
 			direction += Direction.West;
-
 		return direction;
-
 	}
 
 	@Override
@@ -66,7 +68,7 @@ public class Enemy extends Dynamic {
 
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawEnemy(this);
+		renderer.drawSpriteEnemy(this, idSprite, rotation);
 	}
 
 }

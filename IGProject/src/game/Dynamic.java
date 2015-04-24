@@ -37,7 +37,7 @@ public abstract class Dynamic extends GameObject {
 		}
 		if ((dir & Direction.South) == Direction.South){
 			y += distance;
-			rotation=2;
+			rotation=2.5;
 			changeIdSprite();
 		}
 		if ((dir & Direction.East) == Direction.East){

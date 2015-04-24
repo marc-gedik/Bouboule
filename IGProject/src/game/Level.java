@@ -51,6 +51,8 @@ public class Level {
 		}
 	}
 
+	
+	
 	private int handleMove() {
 		int dir = Direction.None;
 		if (Input.up())
