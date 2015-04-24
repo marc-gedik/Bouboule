@@ -30,6 +30,8 @@ public abstract class GameObject {
 	abstract public Rectangle getBounds();
 
 
+
+
 	public abstract void draw(LevelRenderer renderer);
 
 }

@@ -9,9 +9,11 @@ public class Cake extends Static {
 
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
+	private int levelCake;
 	
-	public Cake(int x, int y) {
+	public Cake(int x, int y, int levelCake) {
 		super(x*WIDTH, y*HEIGHT);
+		this.levelCake=levelCake;
 	}
 
 	private static final int DIAMETER = 30;
@@ -23,7 +25,7 @@ public class Cake extends Static {
 
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawCake(this);
+		renderer.drawSpriteCake(this, levelCake);
 	}
 
 }

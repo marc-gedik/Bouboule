@@ -20,7 +20,11 @@ public class Character extends Dynamic {
 
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawCharacter(this);
+		renderer.drawSpriteCharacter(this, idSprite, rotation);
 	}
+	
+	
+	
+
 
 }

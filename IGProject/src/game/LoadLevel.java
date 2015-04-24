@@ -12,7 +12,9 @@ public class LoadLevel {
 
 	private static final Color WALL = Color.BLACK;
 	private static final Color PLAYER = Color.GREEN;
-	private static final Color CAKE =  Color.YELLOW;
+	private static final Color CAKE_V1 =  new Color(255, 255, 0);
+	private static final Color CAKE_V2 =  new Color(255, 230, 120);
+	private static final Color CAKE_V3 =  new Color(255, 200, 120);
 
 	private static final Color ENEMY_V1 = new Color(255, 0, 0);
 	private static final Color ENEMY_V2 =  new Color(255, 100, 100);
@@ -33,9 +35,12 @@ public class LoadLevel {
 					tile = new Color(image.getRGB(i, j), false);
 					if (tile.equals(WALL))
 						level.addObject(new Tile(i, j));
-					else if (tile.equals(CAKE))
-						level.addObject(new Cake(i, j));
-					
+					else if (tile.equals(CAKE_V1))
+						level.addObject(new Cake(i, j, 1));
+					else if (tile.equals(CAKE_V2))
+						level.addObject(new Cake(i, j, 2));
+					else if (tile.equals(CAKE_V3))
+						level.addObject(new Cake(i, j, 3));
 					else if (tile.equals(PLAYER))
 						level.setCharacter(new Character(i, j));
 					else if (tile.equals(ENEMY_V1)){

@@ -45,8 +45,7 @@ public class Level {
 	public void handleInput() {
 		Input.update();
 		int dir = handleMove();
-		//System.out.println(enemy.getX()+"  "+ enemy.getY()+ "        "+ character.getX()+ "  "+ character.getY());
-		character.move(dir, 2);
+		character.move(dir, 4);
 		for (int i = 0; i < Enemy.nbEnemy; i++) {
 			enemy[i].strategicMove(this);
 		}

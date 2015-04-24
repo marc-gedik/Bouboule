@@ -23,4 +23,5 @@ public class Tile extends Static {
 		renderer.drawTile(this);
 	}
 
+
 }

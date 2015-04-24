@@ -28,7 +28,7 @@ public class Enemy extends Dynamic {
 	public void strategicMove(Level l) {
 		int dir = determineDirection(l);
 		if (c.equals(Color.RED)) {
-			this.move(dir, 3);
+			this.move(dir, 1);
 		} else
 			this.move(dir, 1);
 
