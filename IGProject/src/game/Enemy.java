@@ -9,7 +9,7 @@ public class Enemy extends Dynamic {
 
 	private static final int WIDTH = 32;
 	private static final int HEIGHT = 32;
-	private Color c;
+	private int levelEnemy;
 	public static int nbEnemy = 0;
 
 	public Enemy(int x, int y) {
@@ -21,19 +21,18 @@ public class Enemy extends Dynamic {
 
 	
 	
-	public Enemy(int x, int y, Color c) {
+	public Enemy(int x, int y, int levelEnemy) {
 		super(x * WIDTH, y * HEIGHT);
-		this.c=c;
+		this.levelEnemy=levelEnemy;
+		System.out.println(levelEnemy);
 		nbEnemy++;
 	}
 
 	
 	public void strategicMove(Level l) {
 		int dir = determineDirection(l);
-		if (c.equals(Color.RED)) {
-			this.move(dir, 1);
-		} else
-			this.move(dir, 1);
+		this.move(dir, 1);
+
 	}
 
 	
@@ -62,13 +61,10 @@ public class Enemy extends Dynamic {
 		return new Rectangle(getX(), getY(), WIDTH, HEIGHT);
 	}
 
-	public Color getEnemyColor() {
-		return c;
-	}
-
+	
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawSpriteEnemy(this, idSprite, rotation);
+		renderer.drawSpriteEnemy(this, idSprite, rotation, levelEnemy);
 	}
 
 }

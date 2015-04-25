@@ -36,23 +36,23 @@ public class LoadLevel {
 					if (tile.equals(WALL))
 						level.addObject(new Tile(i, j));
 					else if (tile.equals(CAKE_V1))
-						level.addObject(new Cake(i, j, 1));
+						level.addObject(new Cake(i, j, 0));
 					else if (tile.equals(CAKE_V2))
-						level.addObject(new Cake(i, j, 2));
+						level.addObject(new Cake(i, j, 1));
 					else if (tile.equals(CAKE_V3))
-						level.addObject(new Cake(i, j, 3));
+						level.addObject(new Cake(i, j, 2));
 					else if (tile.equals(PLAYER))
 						level.setCharacter(new Character(i, j));
 					else if (tile.equals(ENEMY_V1)){
-						level.setEnemy(new Enemy(i, j, ENEMY_V1));	
+						level.setEnemy(new Enemy(i, j, 1));	
 						level.addObject(level.getLastEnemy());
 					}
 					else if (tile.equals(ENEMY_V2)){
-						level.setEnemy(new Enemy(i, j, ENEMY_V2));
+						level.setEnemy(new Enemy(i, j, 2));
 						level.addObject(level.getLastEnemy());
 					}
 					else if (tile.equals(ENEMY_V3)){
-						level.setEnemy(new Enemy(i, j, ENEMY_V3));
+						level.setEnemy(new Enemy(i, j, 3));
 						level.addObject(level.getLastEnemy());
 
 					}

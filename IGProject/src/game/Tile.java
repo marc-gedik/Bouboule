@@ -20,7 +20,7 @@ public class Tile extends Static {
 
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawTile(this);
+		renderer.drawSpriteTile(this);
 	}
 
 

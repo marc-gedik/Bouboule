@@ -25,13 +25,18 @@ import ui.GameStateManager;
 public class LevelRenderer extends GameState {
 
 	private Level level;
-	private int tileSize = 32;
+	private int tileSize = 48;
 	private BufferedImage background;
 	private Graphics2D bg;
 
 	private BufferedImage[] cakeSprite ;
+	private BufferedImage[] wallSprite ;
+	private BufferedImage[] floorSprite ;
+
+	
 	private BufferedImage[] characterSprite ;
-	private BufferedImage[] enemySprite ;
+	private BufferedImage[] enemy_v1Sprite ;
+	private BufferedImage[] enemy_v2Sprite ;
 
 
 
@@ -56,8 +61,8 @@ public class LevelRenderer extends GameState {
 
 	}
 
-	
-	
+
+
 	BufferedImage rotation(BufferedImage img, double rot){
 		AffineTransform tx = new AffineTransform();
 		tx.rotate(rot, img.getWidth() / 2, img.getHeight() / 2);
@@ -72,9 +77,12 @@ public class LevelRenderer extends GameState {
 	@Override
 	public void init() {
 		characterSprite = loadSource("img/character.png", 4);
-		enemySprite = loadSource("img/ennemy.png", 4);
-		cakeSprite = loadSource("img/cakes.png", 16);
+		enemy_v1Sprite = loadSource("img/ennemy_v1.png", 4);
+		enemy_v2Sprite = loadSource("img/ennemy_v2.png", 4);
 
+		cakeSprite = loadSource("img/cakes.png", 16);
+		wallSprite = loadSource("img/wall_1.png", 1);
+		floorSprite = loadSource("img/floor_1.png",1);
 
 	}
 
@@ -114,6 +122,7 @@ public class LevelRenderer extends GameState {
 		bg = (Graphics2D) background.getGraphics();
 		//bg.setPaint(Color.BLACK);
 		bg.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+		bg.drawImage(floorSprite[0], 0, 0, getWidth(), getHeight(), this);
 		bg.translate(offsetX, offsetY);
 
 		level.getCharacter().draw(this);
@@ -141,26 +150,39 @@ public class LevelRenderer extends GameState {
 		bg.fill(go.getBounds());
 	}
 
+	
 
-	public void drawSpriteEnemy(GameObject go,int idSprite, double rotation) {
-		bg.drawImage(rotation(enemySprite[idSprite], rotation), go.getX(), go.getY(), 64,64, this);
+	public void drawSpriteEnemy(GameObject go,int idSprite, double rotation, int levelEnemy) {
+		switch(levelEnemy){
+		case 1:
+			bg.drawImage(rotation(enemy_v1Sprite[idSprite], rotation), go.getX(), go.getY(), 48,48, this);
+			break;
+		case 2:	
+			bg.drawImage(rotation(enemy_v2Sprite[idSprite], rotation), go.getX(), go.getY(), 48,48, this);
+			break;
+		case 3:	
+			bg.drawImage(rotation(enemy_v2Sprite[idSprite], rotation), go.getX(), go.getY(), 48,48, this);
+			break;
+		
+		}
 	}
-	
-	
+
+
 	public void drawSpriteCake(GameObject go, int levelCake) {
-		bg.drawImage(cakeSprite[levelCake], go.getX(), go.getY(), 64,64, this);
+		bg.drawImage(cakeSprite[levelCake], go.getX(), go.getY(), 48, 48, this);
 	}
 
-
+	public void drawSpriteTile(GameObject go) {
+		bg.drawImage(wallSprite[0], go.getX(), go.getY(), 32, 32, this);
+	}
 
 	public void drawSpriteCharacter(GameObject go, int idSprite, double rot) {
-			
-		bg.drawImage(rotation(characterSprite[idSprite], rot), level.getCharacter().getX(), level.getCharacter().getY(), 64,64, this);
+		bg.drawImage(rotation(characterSprite[idSprite], rot), level.getCharacter().getX(), level.getCharacter().getY(), 48, 48, this);
 	}
 
 
 	public void drawEnemy(GameObject go) {
-		bg.setPaint(((Enemy) go).getEnemyColor());
+		bg.setPaint(Color.RED);
 		bg.fill(go.getBounds());
 	}
 
