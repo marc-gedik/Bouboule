@@ -45,9 +45,13 @@ public class Level {
 	public void handleInput() {
 		Input.update();
 		int dir = handleMove();
-		character.move(dir, 2);
+		character.move(dir, 4);
+		for(Enemy enemy : enemies)
+			enemy.strategicMove(character);
 	}
 
+	
+	
 	private int handleMove() {
 		int dir = Direction.None;
 		if (Input.up())
@@ -69,7 +73,7 @@ public class Level {
 		return height;
 	}
 
-	public void addCake(int x, int y){
+	public void addCake(int x, int y, int i){
 		
 	}
 	
@@ -80,11 +84,11 @@ public class Level {
 		tiles.add(new Tile(body));
 	}
 
-	public void addEnemy(int x, int y, Color c) {
+	public void addEnemy(int x, int y, int i) {
 		Body body = new Body(x, y, 32, 32);
 		body.type = BodyType.DYNAMIC;
 		world.addBody(body);
-		enemies.add(new Enemy(body, c));
+		enemies.add(new Enemy(body, i));
 	}
 	
 	public List<Tile> getTiles(){

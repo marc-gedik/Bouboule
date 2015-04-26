@@ -3,14 +3,16 @@ package game;
 import ui.game.LevelRenderer;
 
 public class Cake extends Static {
+	private int levelCake;
 
-	public Cake(Body body) {
+	public Cake(Body body, int levelCake) {
 		super(body);
+		this.levelCake=levelCake;
 	}
 	
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawCake(this);
+		renderer.drawSpriteCake(this, levelCake);
 	}
 
 }

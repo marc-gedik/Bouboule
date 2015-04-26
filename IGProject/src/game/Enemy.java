@@ -6,24 +6,23 @@ import ui.game.LevelRenderer;
 
 public class Enemy extends Dynamic {
 
-	private Color c;
+	private static final int WIDTH = 32;
+	private static final int HEIGHT = 32;
+	private int levelEnemy;
+	public static int nbEnemy = 0;
 
 	public Enemy(Body body) {
 		super(body);
 	}
 
-	public Enemy(Body body, Color c) {
+	public Enemy(Body body, int levelEnemy) {
 		super(body);
-		this.c = c;
+		this.levelEnemy = levelEnemy;
 	}
 
 	public void strategicMove(Character character) {
 		int dir = determineDirection(character);
-		if (c.equals(Color.RED)) {
-			this.move(dir, 3);
-		} else
-			this.move(dir, 1);
-
+		this.move(dir, 1);
 	}
 
 	public int determineDirection(Character character) {
@@ -31,28 +30,22 @@ public class Enemy extends Dynamic {
 		int yC = character.getY();
 		int xE = this.getX();
 		int yE = this.getY();
-
 		int direction = Direction.None;
+
 		if (yC > yE)
 			direction += Direction.South;
 		else if (yC < yE)
 			direction += Direction.North;
 		if (xC > xE)
-			direction +=  Direction.East;
+			direction += Direction.East;
 		if (xC < xE)
 			direction += Direction.West;
-
 		return direction;
-
-	}
-
-	public Color getEnemyColor() {
-		return c;
 	}
 
 	@Override
 	public void draw(LevelRenderer renderer) {
-		renderer.drawEnemy(this);
+		renderer.drawSpriteEnemy(this, idSprite, rotation, levelEnemy);
 	}
 
 }

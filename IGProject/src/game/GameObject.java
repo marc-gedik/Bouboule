@@ -17,7 +17,7 @@ public abstract class GameObject {
 	public int getY() {
 		return body.getY();
 	}
-	
+
 	public abstract void draw(LevelRenderer renderer);
 
 }
