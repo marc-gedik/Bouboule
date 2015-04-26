@@ -12,9 +12,5 @@ public class Character extends Dynamic {
 	public void draw(LevelRenderer renderer) {
 		renderer.drawSpriteCharacter(this, idSprite, rotation);
 	}
-	
-	
-	
-
 
 }

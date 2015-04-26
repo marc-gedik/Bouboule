@@ -13,5 +13,4 @@ public class Tile extends Static {
 		renderer.drawSpriteTile(this);
 	}
 
-
 }

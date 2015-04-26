@@ -9,19 +9,19 @@ import controler.Input;
 public class Level {
 
 	private PhysicalWorld world;
-	
+
 	private Character character;
 	private List<Enemy> enemies;
 	private List<Tile> tiles;
-	
+
 	private int width, height;
 
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
-		
+
 		world = new PhysicalWorld(width, height);
-		
+
 		tiles = new LinkedList<Tile>();
 		enemies = new LinkedList<Enemy>();
 	}
@@ -36,7 +36,6 @@ public class Level {
 
 	public void update() {
 		handleInput();
-		world.update();
 		for (Enemy enemy : enemies)
 			enemy.strategicMove(character);
 
@@ -46,12 +45,10 @@ public class Level {
 		Input.update();
 		int dir = handleMove();
 		character.move(dir, 4);
-		for(Enemy enemy : enemies)
+		for (Enemy enemy : enemies)
 			enemy.strategicMove(character);
 	}
 
-	
-	
 	private int handleMove() {
 		int dir = Direction.None;
 		if (Input.up())
@@ -73,10 +70,10 @@ public class Level {
 		return height;
 	}
 
-	public void addCake(int x, int y, int i){
-		
+	public void addCake(int x, int y, int i) {
+
 	}
-	
+
 	public void addTile(int x, int y) {
 		Body body = new Body(x, y, 32, 32);
 		body.type = BodyType.STATIC;
@@ -90,8 +87,8 @@ public class Level {
 		world.addBody(body);
 		enemies.add(new Enemy(body, i));
 	}
-	
-	public List<Tile> getTiles(){
+
+	public List<Tile> getTiles() {
 		return tiles;
 	}
 

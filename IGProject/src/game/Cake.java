@@ -7,9 +7,9 @@ public class Cake extends Static {
 
 	public Cake(Body body, int levelCake) {
 		super(body);
-		this.levelCake=levelCake;
+		this.levelCake = levelCake;
 	}
-	
+
 	@Override
 	public void draw(LevelRenderer renderer) {
 		renderer.drawSpriteCake(this, levelCake);

@@ -38,7 +38,7 @@ public class GameStateManager {
 	}
 
 	public void render() {
-		GameState state  = gameStates.peek();
+		GameState state = gameStates.peek();
 		state.render(state.getGraphics());
 	}
 
@@ -58,9 +58,9 @@ public class GameStateManager {
 			return new InstructionsMenu(this);
 		case SCORES:
 			return new ScoresMenu(this);
-		case KEYS :
+		case KEYS:
 			return new KeysMenu(this);
-		case SOUND :
+		case SOUND:
 			return new SoundMenu(this);
 		}
 		return null;
@@ -81,8 +81,8 @@ public class GameStateManager {
 		gameStates.pop();
 		set(gameStates.peek());
 	}
-	
-	public void set(GameState gameState){
+
+	public void set(GameState gameState) {
 		game.requestFocusInWindow();
 		game.setContentPane(gameState);
 		game.revalidate();

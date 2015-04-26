@@ -13,16 +13,16 @@ public class LoadLevel {
 	private static final Color WALL = Color.BLACK;
 	private static final Color PLAYER = Color.GREEN;
 
-	private static final Color CAKE_V1 =  new Color(255, 255, 0);
-	private static final Color CAKE_V2 =  new Color(255, 230, 120);
-	private static final Color CAKE_V3 =  new Color(255, 200, 120);
+	private static final Color CAKE_V1 = new Color(255, 255, 0);
+	private static final Color CAKE_V2 = new Color(255, 230, 120);
+	private static final Color CAKE_V3 = new Color(255, 200, 120);
 
 	private static final Color ENEMY_V1 = new Color(255, 0, 0);
 	private static final Color ENEMY_V2 = new Color(255, 100, 100);
 	private static final Color ENEMY_V3 = new Color(255, 200, 200);
 
 	private static final int TILE_WIDTH = 32;
-	
+
 	public static Level get(String levelID) {
 		try {
 			BufferedImage image = ImageIO.read(new File("levels/" + levelID
@@ -47,7 +47,7 @@ public class LoadLevel {
 						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, 2);
 					else if (tile.equals(ENEMY_V3))
 						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, 3);
-						
+
 					else if (tile.equals(CAKE_V1))
 						level.addCake(i, j, 0);
 					else if (tile.equals(CAKE_V2))

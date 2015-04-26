@@ -56,8 +56,8 @@ public class Camera {
 	public float getX() {
 		return x;
 	}
-	
-	public float getY(){
+
+	public float getY() {
 		return y;
 	}
 

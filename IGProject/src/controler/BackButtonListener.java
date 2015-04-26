@@ -5,15 +5,14 @@ import java.awt.event.ActionListener;
 
 import ui.GameStateManager;
 
-public class BackButtonListener implements ActionListener{
-
+public class BackButtonListener implements ActionListener {
 
 	GameStateManager gsm;
+
 	public BackButtonListener(GameStateManager gsm) {
-		this.gsm =gsm;
+		this.gsm = gsm;
 	}
-	
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		gsm.popState();

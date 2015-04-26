@@ -17,7 +17,7 @@ public class Input {
 	public static boolean down() {
 		return keys[KeysOption.getDown()];
 	}
-	
+
 	public static boolean left() {
 		return keys[KeysOption.getLeft()];
 	}
@@ -30,10 +30,8 @@ public class Input {
 		return keys[KeyEvent.VK_ENTER];
 	}
 
-
-
 	public static void update() {
-		
+
 	}
 
 }

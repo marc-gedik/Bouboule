@@ -4,14 +4,13 @@ import java.awt.Rectangle;
 
 public class Body {
 
-	private int lastX, lastY;
+	private PhysicalWorld world;
+
 	private int x, y;
 	private int width, height;
 	public BodyType type;
 
 	public Body(int x, int y, int width, int height) {
-		this.lastX = x;
-		this.lastY = y;
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -30,27 +29,22 @@ public class Body {
 		return y;
 	}
 
-	public int getLastX() {
-		return lastX;
-	}
-
-	public int getLastY() {
-		return lastY;
-	}
-
 	public void applyForce(int x, int y) {
-		lastX = this.x;
-		lastY = this.y;
+		int n;
+
+		n = this.x;
 		this.x += x;
+		if (world.collide(this))
+			this.x = n;
+
+		n = this.y;
 		this.y += y;
+		if (world.collide(this))
+			this.y = n;
+
 	}
 
-	public void collision(Body bodyB) {
-		if (bounds().intersects(bodyB.bounds()))
-			if (bodyB.type == BodyType.STATIC) {
-				x = lastX;
-				y = lastY;
-			}
+	public void setWorld(PhysicalWorld physicalWorld) {
+		world = physicalWorld;
 	}
-
 }

@@ -6,5 +6,4 @@ public abstract class Static extends GameObject {
 		super(body);
 	}
 
-
 }

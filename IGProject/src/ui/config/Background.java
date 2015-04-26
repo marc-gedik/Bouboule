@@ -15,8 +15,8 @@ public class Background extends JPanel {
 	}
 
 	public void paintComponent(Graphics g) {
-		/* // Texture
-		 * int iw = img.getWidth(this); int ih = img.getHeight(this);
+		/*
+		 * // Texture int iw = img.getWidth(this); int ih = img.getHeight(this);
 		 * 
 		 * for (int x = 0; x < getWidth(); x += iw) for (int y = 0; y <
 		 * getHeight(); y += ih) g.drawImage(img, x, y, iw, ih, this);

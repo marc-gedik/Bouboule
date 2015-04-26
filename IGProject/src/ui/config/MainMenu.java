@@ -55,14 +55,12 @@ public class MainMenu extends GameState {
 
 	JPanel buttonContainer() {
 		JPanel containerButton = new JPanel();
-		Set<AWTKeyStroke> downKeys = new HashSet<AWTKeyStroke>() ,
-				upKeys = new HashSet<AWTKeyStroke>();
+		Set<AWTKeyStroke> downKeys = new HashSet<AWTKeyStroke>(), upKeys = new HashSet<AWTKeyStroke>();
 		downKeys.add(KeyStroke.getKeyStroke(KeyEvent.VK_DOWN, 0));
 		upKeys.add(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0));
 
 		containerButton.setLayout(new GridLayout(4, 0, 30, 30));
-		String[] names = { "MainMenu.play", 
-				"MainMenu.load", //
+		String[] names = { "MainMenu.play", "MainMenu.load", //
 				"MainMenu.instructions", //
 				"MainMenu.score" };
 

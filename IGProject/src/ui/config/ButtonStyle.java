@@ -53,11 +53,10 @@ class BlueStyle extends ButtonStyle {
 	}
 
 	private BlueStyle() {
-		super(new Font("Helvetica", 0, 16), Color.BLACK, new Color(220, 240, 240),
-				new Color(240, 240, 240));
+		super(new Font("Helvetica", 0, 16), Color.BLACK, new Color(220, 240,
+				240), new Color(240, 240, 240));
 	}
 }
-
 
 class GrayStyle extends ButtonStyle {
 	private static ButtonStyle INSTANCE = new GrayStyle();
@@ -67,8 +66,8 @@ class GrayStyle extends ButtonStyle {
 	}
 
 	private GrayStyle() {
-		super(new Font("Helvetica", Font.BOLD, 16), Color.WHITE, new Color(117, 117, 117),
-				new Color(160, 160, 160));
+		super(new Font("Helvetica", Font.BOLD, 16), Color.WHITE, new Color(117,
+				117, 117), new Color(160, 160, 160));
 	}
 
 }

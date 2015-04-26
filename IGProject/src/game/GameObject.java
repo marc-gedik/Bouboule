@@ -5,7 +5,7 @@ import ui.game.LevelRenderer;
 public abstract class GameObject {
 
 	protected Body body;
-	
+
 	public GameObject(Body body) {
 		this.body = body;
 	}

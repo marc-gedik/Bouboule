@@ -12,7 +12,7 @@ public class DecoratedButton extends JButton {
 		super(s);
 		this.style = style;
 		init();
-		
+
 		addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
 				requestFocus();
@@ -25,7 +25,7 @@ public class DecoratedButton extends JButton {
 		setFont(style.font());
 		setForeground(style.foreground());
 		setBackground(style.background());
-		
+
 		setFocusPainted(false);
 		setContentAreaFilled(false);
 		setBorderPainted(false);

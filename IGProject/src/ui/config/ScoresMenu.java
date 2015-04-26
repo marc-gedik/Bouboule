@@ -115,7 +115,7 @@ public class ScoresMenu extends GameState {
 
 	JPanel myContainer() {
 		JPanel myContainer = new JPanel();
-		myContainer.setBorder( new EmptyBorder(20, 30, 10, 30));
+		myContainer.setBorder(new EmptyBorder(20, 30, 10, 30));
 		myContainer.setLayout(new BorderLayout());
 		myContainer.setBackground(Color.WHITE);
 		myContainer.setPreferredSize(new Dimension(600, 400));
