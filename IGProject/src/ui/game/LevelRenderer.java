@@ -1,6 +1,5 @@
 package ui.game;
 
-import game.Cake;
 import game.Enemy;
 import game.GameObject;
 import game.Level;
@@ -24,7 +23,7 @@ public class LevelRenderer extends GameState {
 	private int tileSize = 32;
 	private BufferedImage background;
 	private Graphics2D bg;
-	
+
 	public LevelRenderer(GameStateManager gsm) {
 		super(gsm);
 
@@ -64,32 +63,37 @@ public class LevelRenderer extends GameState {
 		bg.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 		bg.translate(offsetX, offsetY);
 
-		level.getCharacter().draw(this);
 		bg.setPaint(Color.BLUE);
-		for(GameObject gameObject : level.getGameObjects())
-				gameObject.draw(this);
+		for (GameObject object : level.getTiles()) 
+			object.draw(this);
+		for (GameObject object : level.getEnemies()) 
+			object.draw(this);
+
+		level.getCharacter().draw(this);
+
 		g2d.drawImage(background, 0, 0, null);
-		//g2d.drawImage(background.getScaledInstance(Game.WIDTH, Game.HEIGHT, Image.SCALE_SMOOTH), 0, 0, null);
+		// g2d.drawImage(background.getScaledInstance(Game.WIDTH, Game.HEIGHT,
+		// Image.SCALE_SMOOTH), 0, 0, null);
 	}
 
-	public void drawCharacter(GameObject character) {
+	public void drawCharacter(GameObject go) {
 		bg.setPaint(Color.WHITE);
-		bg.fill(level.getCharacter().getBounds());
+		bg.fillRect(go.getX(), go.getY(), 32, 32);
 	}
-	
+
 	public void drawTile(GameObject go) {
 		bg.setPaint(Color.BLUE);
-		bg.draw(go.getBounds());
+		bg.drawRect(go.getX(), go.getY(), 32, 32);
 	}
 
 	public void drawCake(GameObject go) {
 		bg.setPaint(Color.YELLOW);
-		bg.fill(go.getBounds());
+		bg.fillRect(go.getX(), go.getY(), 32, 32);
 	}
 
 	public void drawEnemy(GameObject go) {
 		bg.setPaint(((Enemy) go).getEnemyColor());
-		bg.fill(go.getBounds());
+		bg.fillRect(go.getX(), go.getY(), 32, 32);
 	}
 
 	@Override

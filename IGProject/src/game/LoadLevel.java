@@ -12,16 +12,18 @@ public class LoadLevel {
 
 	private static final Color WALL = Color.BLACK;
 	private static final Color PLAYER = Color.GREEN;
-	private static final Color CAKE =  Color.YELLOW;
+	private static final Color CAKE = Color.YELLOW;
 
 	private static final Color ENEMY_V1 = new Color(255, 0, 0);
-	private static final Color ENEMY_V2 =  new Color(255, 100, 100);
-	private static final Color ENEMY_V3 =  new Color(255, 200, 200);
+	private static final Color ENEMY_V2 = new Color(255, 100, 100);
+	private static final Color ENEMY_V3 = new Color(255, 200, 200);
 
-
+	private static final int TILE_WIDTH = 32;
+	
 	public static Level get(String levelID) {
 		try {
-			BufferedImage image = ImageIO.read(new File("levels/" + levelID + ".png"));
+			BufferedImage image = ImageIO.read(new File("levels/" + levelID
+					+ ".png"));
 
 			int width = image.getWidth();
 			int height = image.getHeight();
@@ -32,25 +34,17 @@ public class LoadLevel {
 				for (int j = 0; j < height; j++) {
 					tile = new Color(image.getRGB(i, j), false);
 					if (tile.equals(WALL))
-						level.addObject(new Tile(i, j));
+						level.addTile(i * TILE_WIDTH, j * TILE_WIDTH);
 					else if (tile.equals(CAKE))
-						level.addObject(new Cake(i, j));
-					
+						level.addCake(i * TILE_WIDTH, j * TILE_WIDTH);
 					else if (tile.equals(PLAYER))
-						level.setCharacter(new Character(i, j));
-					else if (tile.equals(ENEMY_V1)){
-						level.setEnemy(new Enemy(i, j, ENEMY_V1));	
-						level.addObject(level.getLastEnemy());
-					}
-					else if (tile.equals(ENEMY_V2)){
-						level.setEnemy(new Enemy(i, j, ENEMY_V2));
-						level.addObject(level.getLastEnemy());
-					}
-					else if (tile.equals(ENEMY_V3)){
-						level.setEnemy(new Enemy(i, j, ENEMY_V3));
-						level.addObject(level.getLastEnemy());
-
-					}
+						level.setCharacter(i * TILE_WIDTH, j * TILE_WIDTH);
+					else if (tile.equals(ENEMY_V1))
+						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, ENEMY_V1);
+					else if (tile.equals(ENEMY_V2))
+						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, ENEMY_V2);
+					else if (tile.equals(ENEMY_V3))
+						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, ENEMY_V3);
 				}
 			}
 			return level;

@@ -2,11 +2,14 @@ package game;
 
 public abstract class Dynamic extends GameObject {
 
-	public Dynamic(int x, int y) {
-		super(x, y);
+
+	public Dynamic(Body body) {
+		super(body);
 	}
 
 	void move(int dir, int distance) {
+		int x = 0, y = 0;
+		
 		if ((dir & Direction.North) == Direction.North)
 			y -= distance;
 		if ((dir & Direction.South) == Direction.South)
@@ -16,7 +19,7 @@ public abstract class Dynamic extends GameObject {
 		if ((dir & Direction.West) == Direction.West)
 			x -= distance;
 
-
+		body.applyForce(x, y);
 	}
 
 }

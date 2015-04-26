@@ -1,35 +1,23 @@
 package game;
 
-import java.awt.Graphics2D;
-import java.awt.Rectangle;
-
 import ui.game.LevelRenderer;
 
 public abstract class GameObject {
 
-	protected int x, y;
+	protected Body body;
 	
-	public GameObject(int x, int y) {
-		this.x = x;
-		this.y = y;
+	public GameObject(Body body) {
+		this.body = body;
 	}
-	
-	
+
 	public int getX() {
-		return x;
+		return body.getX();
+	}
+
+	public int getY() {
+		return body.getY();
 	}
 	
-	public int getY() {
-		return y;
-	}
-
-	public boolean colliedWith(GameObject entity) {
-		return getBounds().intersects(entity.getBounds());
-	}
-
-	abstract public Rectangle getBounds();
-
-
 	public abstract void draw(LevelRenderer renderer);
 
 }

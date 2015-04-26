@@ -74,11 +74,11 @@ import controler.FieldListener;
             JLabel right = new JLabel(Game.getConfig().getString("Keys.Right"));
             JLabel action = new JLabel(Game.getConfig().getString("Keys.Action"));
 
-            JButton forUp = new DecoratedButton(Game.getConfig().getString("Keys.Up"), BlueStyle.getInstance());
-            JButton forDown = new DecoratedButton(Game.getConfig().getString("Keys.Down"), BlueStyle.getInstance());
-            JButton forLeft = new DecoratedButton(Game.getConfig().getString("Keys.Left"), BlueStyle.getInstance());
-            JButton forRight = new DecoratedButton(Game.getConfig().getString("Keys.Right"), BlueStyle.getInstance());
-            JButton forAction = new DecoratedButton(Game.getConfig().getString("Keys.Action"), BlueStyle.getInstance());
+            JButton forUp = new DecoratedButton("\u2191", BlueStyle.getInstance());
+            JButton forDown = new DecoratedButton("\u2193", BlueStyle.getInstance());
+            JButton forLeft = new DecoratedButton("\u2190", BlueStyle.getInstance());
+            JButton forRight = new DecoratedButton("\u2192", BlueStyle.getInstance());
+            JButton forAction = new DecoratedButton("Espace", BlueStyle.getInstance());
 
             FieldListener fl = new FieldListener();
             forUp.addActionListener(fl);

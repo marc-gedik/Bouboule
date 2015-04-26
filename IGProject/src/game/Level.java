@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,29 +8,24 @@ import controler.Input;
 
 public class Level {
 
+	private PhysicalWorld world;
+	
 	private Character character;
-	private Enemy[] enemy = new Enemy[10];
-
-	private List<GameObject> gameObjects;
+	private List<Enemy> enemies;
+	private List<Tile> tiles;
+	
 	private int width, height;
 
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
-		gameObjects = new LinkedList<GameObject>();
+		
+		world = new PhysicalWorld(width, height);
+		
+		tiles = new LinkedList<Tile>();
+		enemies = new LinkedList<Enemy>();
 	}
 
-	public void addObject(GameObject object) {
-		gameObjects.add(object);
-	}
-
-	public Enemy[] getEnemy(){
-		return enemy;
-	}
-	public Enemy getLastEnemy(){
-		return enemy[Enemy.nbEnemy-1];
-	}
-	
 	public Character getCharacter() {
 		return character;
 	}
@@ -40,16 +36,16 @@ public class Level {
 
 	public void update() {
 		handleInput();
+		world.update();
+		for (Enemy enemy : enemies)
+			enemy.strategicMove(character);
+
 	}
 
 	public void handleInput() {
 		Input.update();
 		int dir = handleMove();
-		//System.out.println(enemy.getX()+"  "+ enemy.getY()+ "        "+ character.getX()+ "  "+ character.getY());
 		character.move(dir, 2);
-		for (int i = 0; i < Enemy.nbEnemy; i++) {
-			enemy[i].strategicMove(this);
-		}
 	}
 
 	private int handleMove() {
@@ -73,19 +69,37 @@ public class Level {
 		return height;
 	}
 
-	public void setCharacter(Character character) {
-		this.character = character;
+	public void addCake(int x, int y){
+		
+	}
+	
+	public void addTile(int x, int y) {
+		Body body = new Body(x, y, 32, 32);
+		body.type = BodyType.STATIC;
+		world.addBody(body);
+		tiles.add(new Tile(body));
 	}
 
+	public void addEnemy(int x, int y, Color c) {
+		Body body = new Body(x, y, 32, 32);
+		body.type = BodyType.DYNAMIC;
+		world.addBody(body);
+		enemies.add(new Enemy(body, c));
+	}
 	
-	public void setEnemy(Enemy enemy) {
-		this.enemy[Enemy.nbEnemy-1] = enemy;
-
+	public List<Tile> getTiles(){
+		return tiles;
 	}
 
-	
-	public List<GameObject> getGameObjects() {
-		return gameObjects;
+	public void setCharacter(int x, int y) {
+		Body body = new Body(x, y, 32, 32);
+		body.type = BodyType.DYNAMIC;
+		world.addBody(body);
+		character = new Character(body);
+	}
+
+	public List<Enemy> getEnemies() {
+		return enemies;
 	}
 
 }

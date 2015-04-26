@@ -24,6 +24,7 @@ public class ImageButton extends JButton{
 		setRolloverIcon(new ImageIcon( over));
 		setActionCommand(name);
 		setOpaque(false);
+		setFocusPainted(false);
 		setContentAreaFilled(false);
 		setBorderPainted(false);
 	}

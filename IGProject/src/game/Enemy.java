@@ -1,32 +1,24 @@
 package game;
 
 import java.awt.Color;
-import java.awt.Rectangle;
 
 import ui.game.LevelRenderer;
 
 public class Enemy extends Dynamic {
 
-	private static final int WIDTH = 32;
-	private static final int HEIGHT = 32;
 	private Color c;
-	public static int nbEnemy = 0;
 
-	public Enemy(int x, int y) {
-		super(x * WIDTH, y * HEIGHT);
-		nbEnemy++;
-		System.out.println(nbEnemy);
-
+	public Enemy(Body body) {
+		super(body);
 	}
 
-	public Enemy(int x, int y, Color c) {
-		super(x * WIDTH, y * HEIGHT);
+	public Enemy(Body body, Color c) {
+		super(body);
 		this.c = c;
-		nbEnemy++;
 	}
 
-	public void strategicMove(Level l) {
-		int dir = determineDirection(l);
+	public void strategicMove(Character character) {
+		int dir = determineDirection(character);
 		if (c.equals(Color.RED)) {
 			this.move(dir, 3);
 		} else
@@ -34,10 +26,9 @@ public class Enemy extends Dynamic {
 
 	}
 
-	public int determineDirection(Level l) {
-		Character c = l.getCharacter();
-		int xC = c.getX();
-		int yC = c.getY();
+	public int determineDirection(Character character) {
+		int xC = character.getX();
+		int yC = character.getY();
 		int xE = this.getX();
 		int yE = this.getY();
 
@@ -53,11 +44,6 @@ public class Enemy extends Dynamic {
 
 		return direction;
 
-	}
-
-	@Override
-	public Rectangle getBounds() {
-		return new Rectangle(getX(), getY(), WIDTH, HEIGHT);
 	}
 
 	public Color getEnemyColor() {
