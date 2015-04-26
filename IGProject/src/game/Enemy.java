@@ -1,15 +1,12 @@
 package game;
 
-import java.awt.Color;
+import java.awt.image.BufferedImage;
 
-import ui.game.LevelRenderer;
+import ui.Game;
 
 public class Enemy extends Dynamic {
 
-	private static final int WIDTH = 32;
-	private static final int HEIGHT = 32;
 	private int levelEnemy;
-	public static int nbEnemy = 0;
 
 	public Enemy(Body body) {
 		super(body);
@@ -18,6 +15,8 @@ public class Enemy extends Dynamic {
 	public Enemy(Body body, int levelEnemy) {
 		super(body);
 		this.levelEnemy = levelEnemy;
+		BufferedImage[] img = Game.assets.getSprites("enemy_v" + levelEnemy, 4);
+		setAnimation(img, 25f);
 	}
 
 	public void strategicMove(Character character) {
@@ -41,11 +40,6 @@ public class Enemy extends Dynamic {
 		if (xC < xE)
 			direction += Direction.West;
 		return direction;
-	}
-
-	@Override
-	public void draw(LevelRenderer renderer) {
-		renderer.drawSpriteEnemy(this, idSprite, rotation, levelEnemy);
 	}
 
 }

@@ -10,9 +10,4 @@ public class Cake extends Static {
 		this.levelCake = levelCake;
 	}
 
-	@Override
-	public void draw(LevelRenderer renderer) {
-		renderer.drawSpriteCake(this, levelCake);
-	}
-
 }

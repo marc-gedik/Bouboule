@@ -1,6 +1,5 @@
 package game;
 
-import java.awt.Color;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,11 +33,13 @@ public class Level {
 		return false;
 	}
 
-	public void update() {
+	public void update(float dt) {
 		handleInput();
-		for (Enemy enemy : enemies)
+		for (Enemy enemy : enemies){
 			enemy.strategicMove(character);
-
+			enemy.update(dt);
+		}
+		character.update(dt);
 	}
 
 	public void handleInput() {

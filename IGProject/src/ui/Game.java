@@ -17,6 +17,7 @@ import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
 import ui.game.Camera;
+import utils.AssetsManager;
 import controler.GameControler;
 import controler.PlayMenuControler;
 
@@ -30,6 +31,8 @@ public class Game extends JFrame {
 	private GameStateManager gsm;
 	private Camera camera;
 
+	public final static AssetsManager assets = new AssetsManager();
+	
 	public Game() {
 		camera = new Camera();
 		gsm = new GameStateManager(this);
@@ -64,18 +67,22 @@ public class Game extends JFrame {
 		final long OPTI_TIME = MILLI_SECOND / FPS;
 
 		long next_game_tick = System.currentTimeMillis();
-		long sleep_time;
+		long sleep_time = 0;
+		long elapsed = System.currentTimeMillis();
 		while (true) {
-			update();
+			update(System.currentTimeMillis() - elapsed);
 			render();
 			next_game_tick += OPTI_TIME;
-			sleep_time = (next_game_tick - System.currentTimeMillis());
+			elapsed = System.currentTimeMillis();
+			sleep_time = (next_game_tick - elapsed);
 			if (sleep_time >= 0)
 				try {
 					Thread.sleep(sleep_time);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
+			else
+				sleep_time = 0;
 		}
 	}
 
@@ -145,8 +152,8 @@ public class Game extends JFrame {
 		return camera;
 	}
 
-	private void update() {
-		gsm.update();
+	private void update(float dt) {
+		gsm.update(dt);
 	}
 
 	private void render() {

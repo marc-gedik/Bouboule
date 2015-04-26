@@ -133,7 +133,7 @@ public class InstructionsMenu extends GameState {
 	}
 
 	@Override
-	public void update() {
+	public void update(float dt) {
 		// TODO Auto-generated method stub
 
 	}

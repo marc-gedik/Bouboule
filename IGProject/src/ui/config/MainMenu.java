@@ -96,7 +96,7 @@ public class MainMenu extends GameState {
 	}
 
 	@Override
-	public void update() {
+	public void update(float dt) {
 	}
 
 	@Override

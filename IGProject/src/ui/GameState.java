@@ -7,7 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import ui.config.Background;
-import ui.config.MainMenu;
 import ui.game.Camera;
 
 public abstract class GameState extends JPanel {
@@ -25,7 +24,7 @@ public abstract class GameState extends JPanel {
 
 	public abstract void handleInput();
 
-	public abstract void update();
+	public abstract void update(float dt);
 
 	public abstract void render(Graphics g);
 

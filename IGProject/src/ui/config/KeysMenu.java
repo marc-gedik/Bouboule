@@ -131,7 +131,7 @@ public class KeysMenu extends GameState {
 	}
 
 	@Override
-	public void update() {
+	public void update(float dt) {
 
 	}
 

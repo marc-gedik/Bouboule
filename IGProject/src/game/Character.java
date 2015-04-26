@@ -1,16 +1,16 @@
 package game;
 
-import ui.game.LevelRenderer;
+import java.awt.image.BufferedImage;
+
+import ui.Game;
+
 
 public class Character extends Dynamic {
 
 	public Character(Body body) {
 		super(body);
-	}
-
-	@Override
-	public void draw(LevelRenderer renderer) {
-		renderer.drawSpriteCharacter(this, idSprite, rotation);
+		BufferedImage[] img = Game.assets.getSprites("character", 4);
+		setAnimation(img, 25f);
 	}
 
 }

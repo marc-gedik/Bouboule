@@ -1,15 +1,27 @@
 package game;
 
-import ui.game.LevelRenderer;
+import java.awt.image.BufferedImage;
+
+import ui.game.Animation;
 
 public abstract class GameObject {
 
+	private Animation animation;
 	protected Body body;
+	protected double angle;
 
 	public GameObject(Body body) {
 		this.body = body;
 	}
 
+	protected void setAnimation(BufferedImage reg, float delay) {
+		setAnimation(new BufferedImage[] { reg }, delay);
+	}
+	
+	protected void setAnimation(BufferedImage[] reg, float delay) {
+		animation = new Animation(reg, delay);
+	}
+	
 	public int getX() {
 		return body.getX();
 	}
@@ -18,6 +30,15 @@ public abstract class GameObject {
 		return body.getY();
 	}
 
-	public abstract void draw(LevelRenderer renderer);
+	public Animation getAnimation() {
+		return animation;
+	}
 
+	public void update(float dt){
+		animation.update(dt);
+	}
+
+	public double getAngle() {
+		return angle;
+	}
 }

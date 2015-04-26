@@ -133,7 +133,7 @@ public class ScoresMenu extends GameState {
 	}
 
 	@Override
-	public void update() {
+	public void update(float dt) {
 	}
 
 	@Override
