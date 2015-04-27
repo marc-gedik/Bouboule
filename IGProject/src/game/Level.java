@@ -94,7 +94,7 @@ public class Level {
 	}
 
 	public void setCharacter(int x, int y) {
-		Body body = new Body(x, y, 32, 32);
+		Body body = new Body(x, y, 20, 20);
 		body.type = BodyType.DYNAMIC;
 		world.addBody(body);
 		character = new Character(body);

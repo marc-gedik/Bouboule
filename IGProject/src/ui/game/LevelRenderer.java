@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsEnvironment;
+import java.awt.Rectangle;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
@@ -105,7 +106,11 @@ public class LevelRenderer extends GameState {
 	private void draw(GameObject o) {
 		BufferedImage img = o.getAnimation().getFrame();
 		img = rotate(img, o.getAngle());
-		bg.drawImage(img, o.getX(), o.getY(), img.getWidth(), img.getHeight(), null);
+		Rectangle bounds = o.bounds();
+		bg.drawImage(img, (int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
+				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2), img.getWidth(), img.getHeight(), null);
+		if(true)
+			bg.draw(bounds);
 	}
 
 	@Override

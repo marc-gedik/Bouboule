@@ -1,5 +1,6 @@
 package game;
 
+import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 
 import ui.game.Animation;
@@ -40,5 +41,9 @@ public abstract class GameObject {
 
 	public double getAngle() {
 		return angle;
+	}
+	
+	public Rectangle bounds(){
+		return body.bounds();
 	}
 }

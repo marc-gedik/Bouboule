@@ -68,13 +68,15 @@ public class Game extends JFrame {
 
 		long next_game_tick = System.currentTimeMillis();
 		long sleep_time = 0;
-		long elapsed = System.currentTimeMillis();
+		long prev = System.currentTimeMillis();
+		long curr = System.currentTimeMillis();
 		while (true) {
-			update(System.currentTimeMillis() - elapsed);
+			prev = curr;
+			curr = System.currentTimeMillis();
+			update(curr - prev);
 			render();
 			next_game_tick += OPTI_TIME;
-			elapsed = System.currentTimeMillis();
-			sleep_time = (next_game_tick - elapsed);
+			sleep_time = (next_game_tick - System.currentTimeMillis());
 			if (sleep_time >= 0)
 				try {
 					Thread.sleep(sleep_time);

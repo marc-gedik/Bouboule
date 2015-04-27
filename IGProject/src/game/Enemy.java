@@ -16,7 +16,7 @@ public class Enemy extends Dynamic {
 		super(body);
 		this.levelEnemy = levelEnemy;
 		BufferedImage[] img = Game.assets.getSprites("enemy_v" + levelEnemy, 4);
-		setAnimation(img, 25f);
+		setAnimation(img, 1000 / 12f);
 	}
 
 	public void strategicMove(Character character) {
