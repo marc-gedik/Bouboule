@@ -27,7 +27,8 @@ public class Game extends JFrame {
 
 	public static int WIDTH = 800;
 	public static int HEIGHT = 600;
-
+	public static final int ratio = WIDTH / HEIGHT;
+	
 	private GameStateManager gsm;
 	private Camera camera;
 
@@ -105,8 +106,9 @@ public class Game extends JFrame {
 		return item;
 	}
 
+	JMenuBar menuBar;
 	private void createMenuBar() {
-		JMenuBar menuBar = new JMenuBar();
+		menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
 
 		ActionListener controler = new PlayMenuControler(gsm);
@@ -160,6 +162,7 @@ public class Game extends JFrame {
 
 	private void render() {
 		gsm.render();
+		menuBar.repaint();
 	}
 
 	public static void main(String[] args) {

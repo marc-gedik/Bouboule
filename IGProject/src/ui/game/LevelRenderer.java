@@ -1,6 +1,5 @@
 package ui.game;
 
-
 import game.GameObject;
 import game.Level;
 import game.LoadLevel;
@@ -8,7 +7,9 @@ import game.LoadLevel;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
+import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
@@ -38,16 +39,13 @@ public class LevelRenderer extends GameState {
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
-		// background = GraphicsEnvironment.getLocalGraphicsEnvironment()
-		// .getDefaultScreenDevice().getDefaultConfiguration()
-		// .createCompatibleImage(2000, 2000, Transparency.OPAQUE);
-		background = GraphicsEnvironment
-				.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice()
-				.getDefaultConfiguration()
-				.createCompatibleImage(Game.WIDTH, Game.HEIGHT,
-						Transparency.OPAQUE);
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		int width = gd.getDisplayMode().getWidth();
+		int height = gd.getDisplayMode().getHeight();
 
+		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().getDefaultConfiguration()
+				.createCompatibleImage(width, height, Transparency.OPAQUE);
 	}
 
 	BufferedImage rotate(BufferedImage img, double rot) {
@@ -66,13 +64,16 @@ public class LevelRenderer extends GameState {
 
 	}
 
-
 	@Override
 	public void render(Graphics g) {
 		if (g == null)
 			return;
-		camera.setPosition(level.getCharacter().getX(), level.getCharacter()
-				.getY());
+		float scaleX = Game.WIDTH / 800f;
+		float scaleY = Game.WIDTH / 800f;
+
+		camera.scale(scaleX, scaleY);
+		camera.setPosition(level.getCharacter().getX(), level
+				.getCharacter().getY());
 		float offsetX = -camera.getX() + Game.WIDTH / 2;
 		float offsetY = -camera.getY() + Game.HEIGHT / 2;
 
@@ -81,14 +82,16 @@ public class LevelRenderer extends GameState {
 		bg = (Graphics2D) background.getGraphics();
 		bg.setPaint(Color.BLACK);
 		bg.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
+
 		bg.translate(offsetX, offsetY);
+		bg.scale(scaleX, scaleY);
 
 		BufferedImage floor = Game.assets.getTexture("floor_1");
 		int iw = floor.getWidth();
 		int ih = floor.getHeight(this);
 
-		for (int x = 0; x < level.getWidth(); x ++)
-			for (int y = 0; y < level.getHeight(); y ++)
+		for (int x = 0; x < level.getWidth(); x++)
+			for (int y = 0; y < level.getHeight(); y++)
 				bg.drawImage(floor, x * iw, y * ih, iw, ih, this);
 
 		for (GameObject object : level.getTiles())
@@ -107,10 +110,13 @@ public class LevelRenderer extends GameState {
 		BufferedImage img = o.getAnimation().getFrame();
 		img = rotate(img, o.getAngle());
 		Rectangle bounds = o.bounds();
-		bg.drawImage(img, (int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
-				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2), img.getWidth(), img.getHeight(), null);
-		if(true)
+		bg.drawImage(img,
+				(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
+				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
+				img.getWidth(), img.getHeight(), null);
+		if (debug) {
 			bg.draw(bounds);
+		}
 	}
 
 	@Override

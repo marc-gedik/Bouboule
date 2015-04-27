@@ -5,12 +5,15 @@ import java.awt.GridBagConstraints;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
+import javax.swing.text.StyledEditorKit.BoldAction;
 
 import ui.config.Background;
 import ui.game.Camera;
 
 public abstract class GameState extends JPanel {
 
+	protected static final boolean debug = true;
+	
 	protected GameStateManager gsm;
 	protected Game game;
 	protected Camera camera;
