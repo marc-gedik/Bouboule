@@ -20,8 +20,22 @@ import controler.FieldListener;
 
 public class KeysMenu extends GameState {
 
+	public static JButton forUp = new DecoratedButton("\u2191", BlueStyle.getInstance());
+	public static JButton forDown = new DecoratedButton("\u2193", BlueStyle.getInstance());
+	public static JButton forLeft = new DecoratedButton("\u2190", BlueStyle.getInstance());
+	public static JButton forRight = new DecoratedButton("\u2192",
+			BlueStyle.getInstance());
+	public static JButton forAction = new DecoratedButton(Game.getConfig().getString("Keys.InsideAction"),
+			BlueStyle.getInstance());
+
 	public KeysMenu(GameStateManager gsm) {
 		super(gsm);
+
+		forUp.setActionCommand("Up");
+		forDown.setActionCommand("Down");
+		forLeft.setActionCommand("Left");
+		forRight.setActionCommand("Right");
+		forAction.setActionCommand("Action");
 	}
 
 	public void init() {
@@ -72,14 +86,6 @@ public class KeysMenu extends GameState {
 		JLabel left = new JLabel(Game.getConfig().getString("Keys.Left"));
 		JLabel right = new JLabel(Game.getConfig().getString("Keys.Right"));
 		JLabel action = new JLabel(Game.getConfig().getString("Keys.Action"));
-
-		JButton forUp = new DecoratedButton("\u2191", BlueStyle.getInstance());
-		JButton forDown = new DecoratedButton("\u2193", BlueStyle.getInstance());
-		JButton forLeft = new DecoratedButton("\u2190", BlueStyle.getInstance());
-		JButton forRight = new DecoratedButton("\u2192",
-				BlueStyle.getInstance());
-		JButton forAction = new DecoratedButton("Espace",
-				BlueStyle.getInstance());
 
 		FieldListener fl = new FieldListener();
 		forUp.addActionListener(fl);

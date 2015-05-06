@@ -5,7 +5,7 @@ import java.awt.event.KeyEvent;
 public class KeysOption {
 
 	private static int up = KeyEvent.VK_UP, down = KeyEvent.VK_DOWN,
-			left = KeyEvent.VK_LEFT, right = KeyEvent.VK_RIGHT;
+			left = KeyEvent.VK_LEFT, right = KeyEvent.VK_RIGHT, action = KeyEvent.VK_ESCAPE;
 
 	public static final int getUp() {
 		return up;
@@ -38,5 +38,9 @@ public class KeysOption {
 	public static void setRight(int right) {
 		KeysOption.right = right;
 	}
+
+	public static int getAction() { return action; }
+
+	public static void setAction(int action) { KeysOption.action = action; }
 
 }

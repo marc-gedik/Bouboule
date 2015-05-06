@@ -1,6 +1,7 @@
 package controler;
 
 import ui.Game;
+import ui.config.KeysMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+
+import static ui.config.KeysMenu.forUp;
 
 public class FieldListener implements ActionListener, KeyListener {
 
@@ -21,30 +24,49 @@ public class FieldListener implements ActionListener, KeyListener {
 	@Override
 	public void keyTyped(KeyEvent keyEvent) {
 		System.out.println("Key Typed");
-		JButton tmp = (JButton) keyEvent.getSource();
 		System.out.println();
 
 		switch (keyEvent.getKeyCode()) {
 		case KeyEvent.VK_UP:
-			tmp.setText(Game.getConfig().getString("Keys.Up"));
+			((JButton)keyEvent.getSource()).setText(Game.getConfig().getString("\u2191"));
 			break;
 		case KeyEvent.VK_DOWN:
-			tmp.setText(Game.getConfig().getString("Keys.Down"));
+			((JButton)keyEvent.getSource()).setText(Game.getConfig().getString("\u2193"));
 			break;
 		case KeyEvent.VK_RIGHT:
-			tmp.setText(Game.getConfig().getString("Keys.Right"));
+			((JButton)keyEvent.getSource()).setText(Game.getConfig().getString("\u2192"));
 			break;
 		case KeyEvent.VK_LEFT:
-			tmp.setText(Game.getConfig().getString("Keys.Left"));
+			((JButton)keyEvent.getSource()).setText(Game.getConfig().getString("\u2190"));
 			break;
 		default:
-			tmp.setText(String.valueOf(keyEvent.getKeyChar()).toUpperCase());
+			((JButton) keyEvent.getSource()).setText(String.valueOf(keyEvent.getKeyChar()).toUpperCase());
 		}
+
 	}
 
 	@Override
 	public void keyPressed(KeyEvent keyEvent) {
 
+		int keycode = keyEvent.getKeyCode();
+
+		switch(((JButton)keyEvent.getSource()).getActionCommand()){
+			case "Up":
+				KeysOption.setUp(keycode);
+				break;
+			case "Down":
+				KeysOption.setDown(keycode);
+				break;
+			case "Left":
+				KeysOption.setLeft(keycode);
+				break;
+			case "Right":
+				KeysOption.setRight(keycode);
+				break;
+			case "Action":
+				KeysOption.setAction(keycode);
+				break;
+		}
 	}
 
 	@Override
