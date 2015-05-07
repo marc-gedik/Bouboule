@@ -8,9 +8,12 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.sound.sampled.*;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -22,12 +25,17 @@ import ui.GameStateManager;
 import controler.MainMenuFocusListener;
 import controler.MainMenuKeyListener;
 import controler.MainMenuListener;
+import ui.game.Sound;
 
 public class MainMenu extends GameState {
 
 	private MainMenuListener action;
 	private MainMenuKeyListener keyAction;
 	private MainMenuFocusListener focusAction;
+	private AudioInputStream stream;
+	private AudioFormat format;
+	private DataLine.Info info;
+	private Clip clip;
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
@@ -38,6 +46,19 @@ public class MainMenu extends GameState {
 		action = new MainMenuListener(gsm);
 		keyAction = new MainMenuKeyListener();
 		focusAction = new MainMenuFocusListener();
+		stream = Sound.MainMenu;
+
+		format = stream.getFormat();
+		info = new DataLine.Info(Clip.class, format);
+		try {
+			clip = (Clip) AudioSystem.getLine(info);
+			clip.open(stream);
+			clip.start();
+		} catch (LineUnavailableException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();

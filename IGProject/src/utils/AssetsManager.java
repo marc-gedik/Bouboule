@@ -1,5 +1,6 @@
 package utils;
 
+
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -8,11 +9,14 @@ import java.util.HashMap;
 
 import javax.imageio.ImageIO;
 import javax.print.attribute.standard.Media;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class AssetsManager {
 
 	private HashMap<String, BufferedImage> images;
-	private HashMap<String, Media> sounds;
+	private HashMap<String, AudioInputStream> sounds;
 
 	public AssetsManager() {
 		loadImages();
@@ -20,7 +24,19 @@ public class AssetsManager {
 	}
 
 	private void loadSounds() {
-		sounds = new HashMap<String, Media>();
+		sounds = new HashMap<String, AudioInputStream>();
+		loadSound("MainMenu");
+	}
+
+	public void loadSound(String name) {
+		try {
+			AudioInputStream sound = AudioSystem.getAudioInputStream(new File("sound/" + name + ".wav"));
+			sounds.put(name, sound);
+		} catch (UnsupportedAudioFileException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	private void loadImages() {
@@ -41,6 +57,8 @@ public class AssetsManager {
 			System.out.println(e);
 		}
 	}
+
+	public AudioInputStream getMusic(String key) { return sounds.get(key); }
 
 	public BufferedImage getTexture(String key) {
 		return images.get(key);
