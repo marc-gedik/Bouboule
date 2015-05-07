@@ -32,10 +32,7 @@ public class MainMenu extends GameState {
 	private MainMenuListener action;
 	private MainMenuKeyListener keyAction;
 	private MainMenuFocusListener focusAction;
-	private AudioInputStream stream;
-	private AudioFormat format;
-	private DataLine.Info info;
-	private Clip clip;
+	private SoundThread soundthread;
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
@@ -46,25 +43,14 @@ public class MainMenu extends GameState {
 		action = new MainMenuListener(gsm);
 		keyAction = new MainMenuKeyListener();
 		focusAction = new MainMenuFocusListener();
-		stream = Sound.MainMenu;
-
-		format = stream.getFormat();
-		info = new DataLine.Info(Clip.class, format);
-		try {
-			clip = (Clip) AudioSystem.getLine(info);
-			clip.open(stream);
-			clip.start();
-		} catch (LineUnavailableException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		soundthread = new SoundThread();
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(buttonContainer(), gbc);
 		addBackground(gbc, "img/texture3.png");
+		//soundthread.start();
 	}
 
 	public void addButtonEvent(JButton btn) {
