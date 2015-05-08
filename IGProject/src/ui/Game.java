@@ -146,8 +146,8 @@ public class Game extends JFrame {
 		menu.add(display);
 
 		menu = new JMenu(Game.getConfig().getString("Menu.Help"));
-		menu.add(createItem("Menu.Help.Instruction", null, null));
-		menu.add(createItem("Menu.Help.About", null, null));
+		menu.add(createItem("Menu.Help.Instruction", null, controler));
+		menu.add(createItem("Menu.Help.About", null, controler));
 		menuBar.add(menu);
 
 	}

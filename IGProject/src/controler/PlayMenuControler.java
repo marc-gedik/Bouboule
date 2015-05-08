@@ -1,7 +1,9 @@
 package controler;
 
+import ui.Game;
 import ui.GameStateManager;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,6 +20,7 @@ public class PlayMenuControler implements ActionListener {
 		switch (e.getActionCommand()) {
 		case "Menu.Game.New":
 			System.out.println("New");
+			gsm.pushState(GameStateManager.GAME);
 			break;
 		case "Menu.Game.Restart":
 			System.out.println("Restart");
@@ -33,9 +36,11 @@ public class PlayMenuControler implements ActionListener {
 			break;
 		case "Menu.Game.Load":
 			System.out.println("Load");
+			gsm.pushState(GameStateManager.LOAD);
 			break;
 		case "Menu.Game.Exit":
 			System.out.println("Exit");
+			System.exit(0);
 			break;
 		case "Menu.Config.Keys":
 			System.out.println("Keys");
@@ -44,6 +49,19 @@ public class PlayMenuControler implements ActionListener {
 		case "Menu.Config.Sound":
 			System.out.println("Sound");
 			gsm.pushState(GameStateManager.SOUND);
+			break;
+		case "Menu.Help.Instruction":
+			System.out.println("Instructions");
+			gsm.pushState(GameStateManager.INSTRUCTIONS);
+			break;
+		case "Menu.Help.About":
+			System.out.println("About");
+			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
+					"Projet d'interfaces graphiques presenté par :\n \n" +
+							"- Marc Gedik\n" +
+							"- Safir Medjeber\n" +
+							"- Celia Hammouche\n \n" +
+					"Juin 2015");
 			break;
 		}
 
