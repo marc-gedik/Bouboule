@@ -43,10 +43,12 @@ public class AssetsManager {
 		images = new HashMap<String, BufferedImage>();
 		loadImage("character");
 		loadImage("enemy_v1");
-		loadImage("ennemy_v2");
+		loadImage("enemy_v2");
 		loadImage("cakes");
 		loadImage("wall_1");
 		loadImage("floor_1");
+		loadImage("wall_2");
+		loadImage("floor_2");
 	}
 
 	private void loadImage(String name) {
