@@ -44,11 +44,14 @@ public class AssetsManager {
 		loadImage("character");
 		loadImage("enemy_v1");
 		loadImage("enemy_v2");
+		loadImage("enemy_v3");
 		loadImage("cakes");
 		loadImage("wall_1");
 		loadImage("floor_1");
 		loadImage("wall_2");
 		loadImage("floor_2");
+		loadImage("wall_3");
+		loadImage("floor_3");
 	}
 
 	private void loadImage(String name) {
