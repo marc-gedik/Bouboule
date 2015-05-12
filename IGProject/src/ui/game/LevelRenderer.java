@@ -1,8 +1,12 @@
 package ui.game;
 
+import game.Dynamic;
+import game.Enemy;
 import game.GameObject;
 import game.Level;
 import game.LoadLevel;
+import game.Static;
+import game.Tile;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -39,7 +43,8 @@ public class LevelRenderer extends GameState {
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice();
 		int width = gd.getDisplayMode().getWidth();
 		int height = gd.getDisplayMode().getHeight();
 
@@ -72,8 +77,8 @@ public class LevelRenderer extends GameState {
 		float scaleY = Game.WIDTH / 800f;
 
 		camera.scale(scaleX, scaleY);
-		camera.setPosition(level.getCharacter().getX(), level
-				.getCharacter().getY());
+		camera.setPosition(level.getCharacter().getX(), level.getCharacter()
+				.getY());
 		float offsetX = -camera.getX() + Game.WIDTH / 2;
 		float offsetY = -camera.getY() + Game.HEIGHT / 2;
 
@@ -94,9 +99,9 @@ public class LevelRenderer extends GameState {
 			for (int y = 0; y < level.getHeight(); y++)
 				bg.drawImage(floor, x * iw, y * ih, iw, ih, this);
 
-		for (GameObject object : level.getTiles())
+		for (Tile object : level.getTiles())
 			draw(object);
-		for (GameObject object : level.getEnemies())
+		for (Enemy object : level.getEnemies())
 			draw(object);
 
 		draw(level.getCharacter());
@@ -106,9 +111,19 @@ public class LevelRenderer extends GameState {
 		// Image.SCALE_SMOOTH), 0, 0, null);
 	}
 
-	private void draw(GameObject o) {
+	private void draw(Static o) {
 		BufferedImage img = o.getAnimation().getFrame();
-		img = rotate(img, o.getAngle());
+		draw(o, img);
+	}
+
+	private void draw(Dynamic o) {
+		BufferedImage img = o.getAnimation().getFrame();
+		if (o.getAngle() != 0)
+			img = rotate(img, o.getAngle());
+		draw(o, img);
+	}
+
+	private void draw(GameObject o, BufferedImage img) {
 		Rectangle bounds = o.bounds();
 		bg.drawImage(img,
 				(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
