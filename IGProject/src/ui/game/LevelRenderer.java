@@ -5,7 +5,6 @@ import game.Enemy;
 import game.GameObject;
 import game.Level;
 import game.LoadLevel;
-import game.Static;
 import game.Tile;
 
 import java.awt.Color;
@@ -13,16 +12,11 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
-import java.awt.Image;
 import java.awt.Rectangle;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
 
 import ui.Game;
 import ui.GameState;
@@ -32,6 +26,7 @@ public class LevelRenderer extends GameState {
 
 	private Level level;
 	private int tileSize = 48;
+	private BufferedImage statics;
 	private BufferedImage background;
 	private Graphics2D bg;
 
@@ -39,7 +34,7 @@ public class LevelRenderer extends GameState {
 		super(gsm);
 		init();
 
-		level = LoadLevel.get("level1");
+		level = LoadLevel.get("level3");
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
@@ -51,6 +46,31 @@ public class LevelRenderer extends GameState {
 		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration()
 				.createCompatibleImage(width, height, Transparency.OPAQUE);
+
+		createStatics();
+	}
+
+	private void createStatics() {
+		statics = new BufferedImage(level.getWidth() * tileSize,
+				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
+		BufferedImage floor = Game.assets.getTexture("floor_1");
+		int iw = floor.getWidth();
+		int ih = floor.getHeight(this);
+
+		Graphics2D g2d = (Graphics2D) statics.getGraphics();
+		for (int x = 0; x < level.getWidth(); x++)
+			for (int y = 0; y < level.getHeight(); y++)
+				g2d.drawImage(floor, x * iw, y * ih, iw, ih, this);
+		for (Tile o : level.getTiles()) {
+			BufferedImage img = o.getAnimation().getFrame();
+			Rectangle bounds = o.bounds();
+			g2d.drawImage(
+					img,
+					(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
+					(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
+					img.getWidth(), img.getHeight(), null);
+		}
+
 	}
 
 	BufferedImage rotate(BufferedImage img, double rot) {
@@ -91,29 +111,14 @@ public class LevelRenderer extends GameState {
 		bg.translate(offsetX, offsetY);
 		bg.scale(scaleX, scaleY);
 
-		BufferedImage floor = Game.assets.getTexture("floor_1");
-		int iw = floor.getWidth();
-		int ih = floor.getHeight(this);
+		bg.drawImage(statics, 0, 0, null);
 
-		for (int x = 0; x < level.getWidth(); x++)
-			for (int y = 0; y < level.getHeight(); y++)
-				bg.drawImage(floor, x * iw, y * ih, iw, ih, this);
-
-		for (Tile object : level.getTiles())
-			draw(object);
 		for (Enemy object : level.getEnemies())
 			draw(object);
 
 		draw(level.getCharacter());
 
 		g2d.drawImage(background, 0, 0, null);
-		// g2d.drawImage(background.getScaledInstance(Game.WIDTH, Game.HEIGHT,
-		// Image.SCALE_SMOOTH), 0, 0, null);
-	}
-
-	private void draw(Static o) {
-		BufferedImage img = o.getAnimation().getFrame();
-		draw(o, img);
 	}
 
 	private void draw(Dynamic o) {
