@@ -1,12 +1,20 @@
 package ui.config;
 
-import controler.BackButtonListener;
-import ui.Game;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JSlider;
+
 import ui.GameState;
 import ui.GameStateManager;
-
-import javax.swing.*;
-import java.awt.*;
+import utils.AssetsManager;
+import controler.BackButtonListener;
 
 public class SoundMenu extends GameState {
 
@@ -28,7 +36,7 @@ public class SoundMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(Game.getConfig()
+		JButton b = new DecoratedButton(AssetsManager
 				.getString("backButton"), GrayStyle.getInstance());
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
@@ -46,8 +54,8 @@ public class SoundMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 
-		JLabel bgm = new JLabel(Game.getConfig().getString("Sound.Bgm"));
-		JLabel volume = new JLabel(Game.getConfig().getString("Sound.Music"));
+		JLabel bgm = new JLabel(AssetsManager.getString("Sound.Bgm"));
+		JLabel volume = new JLabel(AssetsManager.getString("Sound.Music"));
 
 		JSlider forBgm = new JSlider(0, 10);
 		JSlider forVolume = new JSlider(0, 10);
@@ -84,8 +92,4 @@ public class SoundMenu extends GameState {
 
 	}
 
-	@Override
-	public void render(Graphics g) {
-
-	}
 }

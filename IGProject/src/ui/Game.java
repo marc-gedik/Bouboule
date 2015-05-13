@@ -23,8 +23,6 @@ import controler.PlayMenuControler;
 
 public class Game extends JFrame {
 
-	private static ResourceBundle config = ResourceBundle.getBundle("config");
-
 	public static int WIDTH = 800;
 	public static int HEIGHT = 600;
 	public static final int ratio = WIDTH / HEIGHT;
@@ -32,13 +30,11 @@ public class Game extends JFrame {
 	private GameStateManager gsm;
 	private Camera camera;
 
-	public final static AssetsManager assets = new AssetsManager();
-	
 	public Game() {
 		camera = new Camera();
 		gsm = new GameStateManager(this);
 
-		setTitle(Game.getConfig().getString("Title"));
+		setTitle(AssetsManager.getString("Title"));
 		setMinimumSize(new Dimension(WIDTH, HEIGHT));
 
 		setSize(WIDTH, HEIGHT);
@@ -75,7 +71,7 @@ public class Game extends JFrame {
 			prev = curr;
 			curr = System.currentTimeMillis();
 			update(curr - prev);
-			render();
+			repaint();
 			next_game_tick += OPTI_TIME;
 			sleep_time = (next_game_tick - System.currentTimeMillis());
 			if (sleep_time >= 0)
@@ -99,7 +95,7 @@ public class Game extends JFrame {
 
 	private JMenuItem createItem(String res, KeyStroke accelerator,
 			ActionListener listener) {
-		JMenuItem item = new JMenuItem(Game.getConfig().getString(res));
+		JMenuItem item = new JMenuItem(AssetsManager.getString(res));
 		item.setAccelerator(accelerator);
 		item.addActionListener(listener);
 		item.setActionCommand(res);
@@ -113,7 +109,7 @@ public class Game extends JFrame {
 
 		ActionListener controler = new PlayMenuControler(gsm);
 
-		JMenu menu = new JMenu(Game.getConfig().getString("Menu.Game"));
+		JMenu menu = new JMenu(AssetsManager.getString("Menu.Game"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Game.New",
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_MASK),
@@ -132,12 +128,12 @@ public class Game extends JFrame {
 		menu.add(createItem("Menu.Game.Exit", KeyStroke.getKeyStroke(
 				KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), controler));
 
-		menu = new JMenu(Game.getConfig().getString("Menu.Config"));
+		menu = new JMenu(AssetsManager.getString("Menu.Config"));
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Config.Keys", null, controler));
 		menu.add(createItem("Menu.Config.Sound", null, controler));
 
-		JMenu display = new JMenu(Game.getConfig().getString(
+		JMenu display = new JMenu(AssetsManager.getString(
 				"Menu.Config.Display"));
 		ButtonGroup buttonGroup = new ButtonGroup();
 		resolution(display, buttonGroup, "640 * 360", "360");
@@ -145,7 +141,7 @@ public class Game extends JFrame {
 		resolution(display, buttonGroup, "1920 * 1080", "1080");
 		menu.add(display);
 
-		menu = new JMenu(Game.getConfig().getString("Menu.Help"));
+		menu = new JMenu(AssetsManager.getString("Menu.Help"));
 		menu.add(createItem("Menu.Help.Instruction", null, controler));
 		menu.add(createItem("Menu.Help.About", null, controler));
 		menuBar.add(menu);
@@ -160,17 +156,8 @@ public class Game extends JFrame {
 		gsm.update(dt);
 	}
 
-	private void render() {
-		gsm.render();
-		menuBar.repaint();
-	}
-
 	public static void main(String[] args) {
 		new Game();
-	}
-
-	public static ResourceBundle getConfig() {
-		return config;
 	}
 
 }

@@ -11,19 +11,19 @@ public class Input {
 	}
 
 	public static boolean up() {
-		return keys[KeysOption.getUp()];
+		return keys[KeysOption.Up.get()];
 	}
 
 	public static boolean down() {
-		return keys[KeysOption.getDown()];
+		return keys[KeysOption.Down.get()];
 	}
 
 	public static boolean left() {
-		return keys[KeysOption.getLeft()];
+		return keys[KeysOption.Left.get()];
 	}
 
 	public static boolean right() {
-		return keys[KeysOption.getRight()];
+		return keys[KeysOption.Right.get()];
 	}
 
 	public static boolean enter() {

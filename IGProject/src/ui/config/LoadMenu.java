@@ -4,19 +4,17 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
+import utils.AssetsManager;
 import controler.BackButtonListener;
 
 public class LoadMenu extends GameState {
@@ -63,7 +61,7 @@ public class LoadMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(Game.getConfig()
+		JButton b = new DecoratedButton(AssetsManager
 				.getString("backButton"), GrayStyle.getInstance());
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
@@ -96,12 +94,6 @@ public class LoadMenu extends GameState {
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}

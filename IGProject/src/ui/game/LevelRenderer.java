@@ -21,6 +21,7 @@ import java.awt.image.BufferedImage;
 import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
+import utils.AssetsManager;
 
 public class LevelRenderer extends GameState {
 
@@ -53,7 +54,7 @@ public class LevelRenderer extends GameState {
 	private void createStatics() {
 		statics = new BufferedImage(level.getWidth() * tileSize,
 				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
-		BufferedImage floor = Game.assets.getTexture("floor_1");
+		BufferedImage floor = AssetsManager.getTexture("floor_1");
 		int iw = floor.getWidth();
 		int ih = floor.getHeight(this);
 
@@ -90,9 +91,9 @@ public class LevelRenderer extends GameState {
 	}
 
 	@Override
-	public void render(Graphics g) {
-		if (g == null)
-			return;
+	public void paint(Graphics g) {
+		super.paint(g);
+		
 		float scaleX = Game.WIDTH / 800f;
 		float scaleY = Game.WIDTH / 800f;
 

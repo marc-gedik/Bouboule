@@ -37,11 +37,6 @@ public class GameStateManager {
 		gameStates.peek().update(dt);
 	}
 
-	public void render() {
-		GameState state = gameStates.peek();
-		state.render(state.getGraphics());
-	}
-
 	public Game game() {
 		return game;
 	}

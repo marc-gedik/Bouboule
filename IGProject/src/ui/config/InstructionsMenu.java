@@ -3,12 +3,9 @@ package ui.config;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
 
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
@@ -22,6 +19,7 @@ import javax.swing.text.StyledDocument;
 import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
+import utils.AssetsManager;
 import controler.BackButtonListener;
 
 public class InstructionsMenu extends GameState {
@@ -43,8 +41,8 @@ public class InstructionsMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(Game.getConfig()
-				.getString("backButton"), GrayStyle.getInstance());
+		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
+				GrayStyle.getInstance());
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);
@@ -57,10 +55,10 @@ public class InstructionsMenu extends GameState {
 		JPanel containerText = new JPanel();
 
 		containerText.setLayout(new BorderLayout());
-		String title1 = Game.getConfig().getString("Instructions.title1");
-		String text1 = Game.getConfig().getString("Instructions.text1");
-		String title2 = Game.getConfig().getString("Instructions.title2");
-		String text2 = Game.getConfig().getString("Instructions.text2");
+		String title1 = AssetsManager.getString("Instructions.title1");
+		String text1 = AssetsManager.getString("Instructions.text1");
+		String title2 = AssetsManager.getString("Instructions.title2");
+		String text2 = AssetsManager.getString("Instructions.text2");
 
 		JTextPane jtp1 = printer(title1, text1);
 		JTextPane jtp2 = printer(title2, text2);
@@ -134,12 +132,6 @@ public class InstructionsMenu extends GameState {
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void render(Graphics g) {
 		// TODO Auto-generated method stub
 
 	}

@@ -29,8 +29,6 @@ public abstract class GameState extends JPanel {
 
 	public abstract void update(float dt);
 
-	public abstract void render(Graphics g);
-
 	public abstract void init();
 
 	protected static void position(GridBagConstraints gbc, int x, int y, int a,

@@ -2,45 +2,44 @@ package controler;
 
 import java.awt.event.KeyEvent;
 
-public class KeysOption {
+import utils.AssetsManager;
 
-	private static int up = KeyEvent.VK_UP, down = KeyEvent.VK_DOWN,
-			left = KeyEvent.VK_LEFT, right = KeyEvent.VK_RIGHT, action = KeyEvent.VK_ESCAPE;
 
-	public static final int getUp() {
-		return up;
+public enum KeysOption {
+
+	Up, Down, Left, Right, Action;
+	
+	private int code ;
+	{
+		code = AssetsManager.prefInt(this.toString());
 	}
-
-	public static void setUp(int up) {
-		KeysOption.up = up;
+	
+	public int get() {
+		return code;
 	}
-
-	public static final int getDown() {
-		return down;
+	public void set(int code){
+		this.code = code;
+		AssetsManager.intPref(toString(), code);
 	}
-
-	public static void setDown(int down) {
-		KeysOption.down = down;
+	
+	@Override
+	public String toString() {
+		return "Keys." + super.toString();
 	}
-
-	public static int getLeft() {
-		return left;
+	
+	public static String toString(int keyCode){
+		switch (keyCode) {
+		case KeyEvent.VK_UP:
+			return "\u2191";
+		case KeyEvent.VK_DOWN:
+			return "\u2193";
+		case KeyEvent.VK_LEFT:
+			return "\u2190";
+		case KeyEvent.VK_RIGHT:
+			return "\u2192";
+		default:
+			return KeyEvent.getKeyText(keyCode);
+		}
 	}
-
-	public static void setLeft(int left) {
-		KeysOption.left = left;
-	}
-
-	public static int getRight() {
-		return right;
-	}
-
-	public static void setRight(int right) {
-		KeysOption.right = right;
-	}
-
-	public static int getAction() { return action; }
-
-	public static void setAction(int action) { KeysOption.action = action; }
 
 }

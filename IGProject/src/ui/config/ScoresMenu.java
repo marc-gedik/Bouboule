@@ -4,22 +4,20 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.BorderFactory;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
+import utils.AssetsManager;
 import controler.BackButtonListener;
 
 public class ScoresMenu extends GameState {
@@ -61,7 +59,7 @@ public class ScoresMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel containerButton = new JPanel();
 		containerButton.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(Game.getConfig()
+		JButton b = new DecoratedButton(AssetsManager
 				.getString("backButton"), GrayStyle.getInstance());
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
@@ -84,9 +82,9 @@ public class ScoresMenu extends GameState {
 		Font f_title = new Font("Helvetica", Font.BOLD, 18);
 		Border bottom = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY);
 
-		JLabel row1 = new JLabel(Game.getConfig().getString("ScoresMenu.rank"));
-		JLabel row2 = new JLabel(Game.getConfig().getString("ScoresMenu.name"));
-		JLabel row3 = new JLabel(Game.getConfig().getString("ScoresMenu.score"));
+		JLabel row1 = new JLabel(AssetsManager.getString("ScoresMenu.rank"));
+		JLabel row2 = new JLabel(AssetsManager.getString("ScoresMenu.name"));
+		JLabel row3 = new JLabel(AssetsManager.getString("ScoresMenu.score"));
 
 		row1.setBorder(bottom);
 		row2.setBorder(bottom);
@@ -134,10 +132,6 @@ public class ScoresMenu extends GameState {
 
 	@Override
 	public void update(float dt) {
-	}
-
-	@Override
-	public void render(Graphics g) {
 	}
 
 }

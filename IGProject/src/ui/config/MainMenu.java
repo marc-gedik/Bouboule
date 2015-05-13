@@ -26,6 +26,7 @@ import controler.MainMenuFocusListener;
 import controler.MainMenuKeyListener;
 import controler.MainMenuListener;
 import ui.game.Sound;
+import utils.AssetsManager;
 
 public class MainMenu extends GameState {
 
@@ -72,7 +73,7 @@ public class MainMenu extends GameState {
 				"MainMenu.score" };
 
 		for (String name : names) {
-			DecoratedButton btn = new DecoratedButton(Game.getConfig()
+			DecoratedButton btn = new DecoratedButton(AssetsManager
 					.getString(name), WhiteStyle.getInstance());
 			addButtonEvent(btn);
 			containerButton.add(btn);
@@ -106,9 +107,5 @@ public class MainMenu extends GameState {
 	public void update(float dt) {
 	}
 
-	@Override
-	public void render(Graphics g) {
-		repaint();
-	}
 
 }

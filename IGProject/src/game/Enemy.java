@@ -3,6 +3,7 @@ package game;
 import java.awt.image.BufferedImage;
 
 import ui.Game;
+import utils.AssetsManager;
 
 public class Enemy extends Dynamic {
 
@@ -15,7 +16,7 @@ public class Enemy extends Dynamic {
 	public Enemy(Body body, int levelEnemy) {
 		super(body);
 		this.levelEnemy = levelEnemy;
-		BufferedImage[] img = Game.assets.getSprites("enemy_v" + levelEnemy, 4);
+		BufferedImage[] img = AssetsManager.getSprites("enemy_v" + levelEnemy, 4);
 		setAnimation(img, 1000 / 12f);
 	}
 
