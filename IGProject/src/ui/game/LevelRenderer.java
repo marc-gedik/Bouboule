@@ -35,7 +35,7 @@ public class LevelRenderer extends GameState {
 		super(gsm);
 		init();
 
-		level = LoadLevel.get("level3");
+		level = LoadLevel.get("level2");
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
