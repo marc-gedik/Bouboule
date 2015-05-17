@@ -82,11 +82,21 @@ public class Level {
 		tiles.add(new Tile(body));
 	}
 
-	public void addEnemy(int x, int y, int i) {
+	public void addEnemy(int x, int y, int i, int version) {
 		Body body = new Body(x, y, 32, 32);
 		body.type = BodyType.DYNAMIC;
 		world.addBody(body);
-		enemies.add(new Enemy(body, i));
+		switch(version){
+		case 1:
+			enemies.add(new EnemyV1(body, i));
+			break;	
+		case 2:
+			enemies.add(new EnemyV2(body, i));
+			break;
+		case 3:
+			enemies.add(new EnemyV3(body, i));
+			break;
+		}
 	}
 
 	public List<Tile> getTiles() {

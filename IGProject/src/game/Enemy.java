@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 import ui.Game;
 import utils.AssetsManager;
 
-public class Enemy extends Dynamic {
+public abstract class Enemy extends Dynamic {
 
 	private int levelEnemy;
 
@@ -20,27 +20,8 @@ public class Enemy extends Dynamic {
 		setAnimation(img, 1000 / 12f);
 	}
 
-	public void strategicMove(Character character) {
-		int dir = determineDirection(character);
-		this.move(dir, 1);
-	}
+	public abstract void strategicMove(Character character);
 
-	public int determineDirection(Character character) {
-		int xC = character.getX();
-		int yC = character.getY();
-		int xE = this.getX();
-		int yE = this.getY();
-		int direction = Direction.None;
-
-		if (yC > yE)
-			direction += Direction.South;
-		else if (yC < yE)
-			direction += Direction.North;
-		if (xC > xE)
-			direction += Direction.East;
-		if (xC < xE)
-			direction += Direction.West;
-		return direction;
-	}
+	public  abstract int determineDirection(Character character);
 
 }
