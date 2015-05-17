@@ -5,9 +5,9 @@ import java.util.Random;
 public class EnemyV2 extends Enemy {
 	
 	
-	private static int dir = Direction.None;
-	private static int flag = 1000;
-	private static int changeDirection =1000;
+	private  int dir = Direction.None;
+	private  int flag = 500;
+	private  int changeDirection =500;
 	
 	public EnemyV2(Body body, int levelEnemy) {
 		super(body, levelEnemy);
@@ -22,7 +22,7 @@ public class EnemyV2 extends Enemy {
 		if(flag==changeDirection){
 			dir = determineDirection(character);
 			flag=0;
-			changeDirection = rand.nextInt(2500 - 100) + 500;
+			changeDirection = rand.nextInt(500 - 300) + 300;
 
 		}
 		else{
@@ -36,7 +36,6 @@ public class EnemyV2 extends Enemy {
 	public int determineDirection(Character character) {
 		Random rand = new Random();
 		int nbAleatoire = rand.nextInt(8) ;
-		System.out.println(nbAleatoire);
 		int direction= Direction.None;
 		
 		switch(nbAleatoire){

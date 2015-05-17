@@ -5,9 +5,9 @@ import java.util.Random;
 public class EnemyV1 extends Enemy{
 
 	
-	private static int dir = Direction.None;
-	private static int flag = 1000;
-	private static int changeDirection =1000;
+	private  int dir = Direction.None;
+	private int flag = 1000;
+	private  int changeDirection =1000;
 	public EnemyV1(Body body, int levelEnemy) {
 		super(body, levelEnemy);
 		// TODO Auto-generated constructor stub
@@ -22,7 +22,7 @@ public class EnemyV1 extends Enemy{
 		if(flag==changeDirection){
 			dir = determineDirection(character);
 			flag=0;
-			changeDirection = rand.nextInt(1500 - 500) + 500;
+			changeDirection = rand.nextInt(1000 - 300) + 300;
 
 		}
 		else{
