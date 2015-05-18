@@ -1,14 +1,10 @@
 package game;
 
-import java.awt.image.BufferedImage;
 
-import ui.Game;
-import utils.AssetsManager;
+public abstract class Enemy extends Dynamic implements Beatable {
 
-public abstract class Enemy extends Dynamic {
-
-	private int levelEnemy;
-
+	protected float life;
+	
 	public Enemy(Body body) {
 		super(body);
 	}
@@ -17,4 +13,13 @@ public abstract class Enemy extends Dynamic {
 
 	public  abstract int determineDirection(Character character);
 
+	@Override
+	public void hit(float pow) {
+		life -= pow;
+	}
+	
+	@Override
+	public boolean isDead() {
+		return life < 0;
+	}
 }

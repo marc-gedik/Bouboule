@@ -14,4 +14,8 @@ public class BodyId {
 	private static boolean is(short id, short what) {
 		return (id & what) == what;
 	}
+
+	public static boolean isEnemy(short id) {
+		return is(id, Enemy);
+	}
 }

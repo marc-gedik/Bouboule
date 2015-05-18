@@ -25,11 +25,11 @@ public class Level {
 		this.height = height;
 
 		world = new PhysicalWorld(width, height);
-		contactListener = new ContactListener();
+		contactListener = new ContactListener(this);
 		world.addContactListener(contactListener);
 
 		tiles = new LinkedList<Tile>();
-		enemies = new LinkedList<Enemy>();
+		enemies = new ArrayList<Enemy>();
 		bullets = new ArrayList<Bullet>();
 
 	}
@@ -55,9 +55,17 @@ public class Level {
 				bullets.remove((Bullet) body.data);
 			world.remove(body);
 		}
-		for (Enemy enemy : enemies) {
-			enemy.strategicMove(character);
-			enemy.update(dt);
+		Iterator<Enemy> iterator = enemies.iterator();
+		while (iterator.hasNext()) {
+			Enemy enemy = iterator.next();
+			if (enemy.isDead()){
+				iterator.remove();
+				world.remove(enemy.body);
+			}
+			else {
+				enemy.strategicMove(character);
+				enemy.update(dt);
+			}
 		}
 		character.update(dt);
 
@@ -71,8 +79,6 @@ public class Level {
 		Input.update();
 		int dir = handleMove();
 		character.move(dir, 4);
-		for (Enemy enemy : enemies)
-			enemy.strategicMove(character);
 		handleShoot();
 	}
 
@@ -93,7 +99,7 @@ public class Level {
 		if (Input.action()) {
 			Bullet b = addBullet(character.getX() + 7, character.getY() + 7,
 					character);
-			bullets.add( b);
+			bullets.add(b);
 		}
 
 	}
@@ -134,17 +140,20 @@ public class Level {
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Enemy;
 		world.addBody(body);
+		Enemy enemy = null;
 		switch (version) {
 		case 1:
-			enemies.add(new EnemyV1(body));
+			enemy = (new EnemyV1(body));
 			break;
 		case 2:
-			enemies.add(new EnemyV2(body));
+			enemy = (new EnemyV2(body));
 			break;
 		case 3:
-			enemies.add(new EnemyV3(body));
+			enemy = (new EnemyV3(body));
 			break;
 		}
+		body.data = enemy;
+		enemies.add(enemy);
 	}
 
 	public List<Tile> getTiles() {
