@@ -8,9 +8,11 @@ public class PhysicalWorld {
 	public final static int PPM = 32;
 
 	private List<Body> bodies;
-
+	private List<CollisionListener> listeners;
+	
 	public PhysicalWorld(int width, int height) {
 		bodies = new LinkedList<Body>();
+		listeners = new LinkedList<CollisionListener>();
 	}
 
 	public void addBody(Body body) {
@@ -23,9 +25,19 @@ public class PhysicalWorld {
 			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())){
 				if(bodyA.getCollision()==false && bodyB.getCollision()==false)
 					return false;
+				for(CollisionListener listener : listeners)
+					listener.colide(bodyA, bodyB);
 				return true;
 			}
 		return false;
+	}
+
+	public void addContactListener(CollisionListener listener) {
+		listeners.add(listener);
+	}
+
+	public void remove(Body body) {
+		bodies.remove(body);
 	}
 }
 

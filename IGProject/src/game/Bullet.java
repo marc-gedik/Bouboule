@@ -1,9 +1,8 @@
 package game;
 
-import ui.Game;
-import utils.AssetsManager;
-
 import java.awt.image.BufferedImage;
+
+import utils.AssetsManager;
 
 public class Bullet extends Dynamic {
 
@@ -19,30 +18,32 @@ public class Bullet extends Dynamic {
     public int getDirection() { return direction; }
 
     public int determineDirection(Character character) {
-        int xC = character.getX();
-        int yC = character.getY();
-        int xB = this.getX();
-        int yB = this.getY();
         int direction = Direction.None;
 
         if (character.getAngle()==0)
-            direction += Direction.North;
-        if (character.getAngle() == 90)
-            direction += Direction.East;
-        if (character.getAngle()==45)
-            direction += Direction.East + Direction.North;
-        if (character.getAngle()==180)
-            direction += Direction.South;
-        if (character.getAngle()==135)
-            direction += Direction.East + Direction.South;
-        if (character.getAngle()==-90)
-            direction += Direction.West;
-        if (character.getAngle()==-45)
-            direction += Direction.North + Direction.West;
-        if (character.getAngle()==-180)
-            direction += Direction.South;
-        if (character.getAngle()==-135)
-            direction += Direction.South + Direction.West;
+            direction = Direction.North;
+        else if (character.getAngle() == 90)
+            direction = Direction.East;
+        else if (character.getAngle()==45)
+            direction = Direction.East + Direction.North;
+        else if (character.getAngle()==180)
+            direction = Direction.South;
+        else if (character.getAngle()==135)
+            direction = Direction.East + Direction.South;
+        else if (character.getAngle()==-90)
+            direction = Direction.West;
+        else if (character.getAngle()==-45)
+            direction = Direction.North + Direction.West;
+        else if (character.getAngle()==-180)
+            direction = Direction.South;
+        else if (character.getAngle()==-135)
+            direction = Direction.South + Direction.West;
         return direction;
+    }
+    
+    @Override
+    public void update(float dt) {
+    	super.update(dt);
+		move(direction, 10);
     }
 }

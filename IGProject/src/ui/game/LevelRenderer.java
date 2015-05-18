@@ -13,6 +13,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import ui.Game;
@@ -90,7 +91,7 @@ public class LevelRenderer extends GameState {
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);
-		
+
 		float scaleX = Game.WIDTH / 800f;
 		float scaleY = Game.WIDTH / 800f;
 
@@ -116,11 +117,9 @@ public class LevelRenderer extends GameState {
 
 		draw(level.getCharacter());
 
-		Iterator<Map.Entry<Integer,Bullet>> iterator = level.getBullets().entrySet().iterator();
-		while (iterator.hasNext()){
-			Map.Entry<Integer,Bullet> bullet = iterator.next();
-			draw(level.getBullets().get(bullet.getKey()));
-		}
+		List<Bullet> bullets = level.getBullets();
+		for(int i = 0; i < bullets.size(); i++)
+			draw(bullets.get(i));
 
 		g2d.drawImage(background, 0, 0, null);
 	}

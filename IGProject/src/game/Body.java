@@ -10,7 +10,10 @@ public class Body {
 	private int width, height;
 	private boolean collision;
 	public BodyType type;
+	public short id;
 
+	public Object data;
+	
 	public Body(int x, int y, int width, int height, boolean collision) {
 		this.x = x;
 		this.y = y;
