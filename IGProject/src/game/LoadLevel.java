@@ -17,7 +17,7 @@ public class LoadLevel {
 	private static final Color CAKE_V2 = new Color(255, 230, 120);
 	private static final Color CAKE_V3 = new Color(255, 200, 120);
 
-	private static final Color ENEMY_V1 = new Color(255, 0, 0);
+	private static final Color ENEMY_V1 = new Color(255, 100, 0);
 	private static final Color ENEMY_V2 = new Color(255, 100, 100);
 	private static final Color ENEMY_V3 = new Color(255, 200, 200);
 	
@@ -47,11 +47,11 @@ public class LoadLevel {
 					else if (tile.equals(PLAYER))
 						level.setCharacter(i * TILE_WIDTH, j * TILE_WIDTH);
 					else if (tile.equals(ENEMY_V1))
-						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, 1, VERSION_1);
+						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, VERSION_1);
 					else if (tile.equals(ENEMY_V2))
-						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, 2, VERSION_2);
+						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, VERSION_2);
 					else if (tile.equals(ENEMY_V3))
-						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, 3, VERSION_3);
+						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, VERSION_3);
 
 					else if (tile.equals(CAKE_V1))
 						level.addCake(i, j, 0);

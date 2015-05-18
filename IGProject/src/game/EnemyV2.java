@@ -1,44 +1,53 @@
 package game;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
+import utils.AssetsManager;
+
 public class EnemyV2 extends Enemy {
-	
-	
-	private  int dir = Direction.None;
-	private  int flag = 500;
-	private  int changeDirection =500;
-	
-	public EnemyV2(Body body, int levelEnemy) {
-		super(body, levelEnemy);
+
+	private int dir = Direction.None;
+	private int flag = 1000;
+	private int changeDirection = 1000;
+	private int lastX = 0, lastY = 0;
+
+	public EnemyV2(Body body) {
+		super(body);
+		BufferedImage[] img = AssetsManager.getSprites("enemy_v2", 4);
+		setAnimation(img, 1000 / 12f);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public void strategicMove(Character character) {
 		Random rand = new Random();
-		
-		
-		if(flag==changeDirection){
-			dir = determineDirection(character);
-			flag=0;
-			changeDirection = rand.nextInt(500 - 300) + 300;
 
+		if (body.getX() == lastX && body.getY() == lastY) {
+			flag=changeDirection;
 		}
-		else{
-		flag++;
+
+		if (flag == changeDirection) {
+			dir = determineDirection(character);
+			flag = 0;
+			changeDirection = rand.nextInt(500);
+
+		} else {
+			flag++;
 		}
+		lastX = body.getX();
+		lastY = body.getY();
 		this.move(dir, 1);
-		
+
 	}
 
 	@Override
 	public int determineDirection(Character character) {
 		Random rand = new Random();
-		int nbAleatoire = rand.nextInt(8) ;
-		int direction= Direction.None;
-		
-		switch(nbAleatoire){
+		int nbAleatoire = rand.nextInt(8);
+		int direction = Direction.None;
+
+		switch (nbAleatoire) {
 		case 0:
 			direction = Direction.South;
 			break;
@@ -68,11 +77,9 @@ public class EnemyV2 extends Enemy {
 			direction += Direction.West;
 			break;
 		}
-		
-		
-		
 		return direction;
 	}
+
 	
 
 }

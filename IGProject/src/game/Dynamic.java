@@ -12,6 +12,7 @@ public abstract class Dynamic extends GameObject {
 	}
 
 	void move(int dir, int distance) {
+
 		int x = 0, y = 0;
 
 		if ((dir & Direction.North) == Direction.North)

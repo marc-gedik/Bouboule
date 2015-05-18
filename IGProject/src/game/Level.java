@@ -129,20 +129,20 @@ public class Level {
 		tiles.add(new Tile(body));
 	}
 
-	public void addEnemy(int x, int y, int i, int version) {
+	public void addEnemy(int x, int y, int version) {
 		Body body = new Body(x, y, 32, 32, true);
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Enemy;
 		world.addBody(body);
 		switch (version) {
 		case 1:
-			enemies.add(new EnemyV1(body, i));
+			enemies.add(new EnemyV1(body));
 			break;
 		case 2:
-			enemies.add(new EnemyV2(body, i));
+			enemies.add(new EnemyV2(body));
 			break;
 		case 3:
-			enemies.add(new EnemyV3(body, i));
+			enemies.add(new EnemyV3(body));
 			break;
 		}
 	}

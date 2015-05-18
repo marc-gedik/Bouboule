@@ -13,13 +13,6 @@ public abstract class Enemy extends Dynamic {
 		super(body);
 	}
 
-	public Enemy(Body body, int levelEnemy) {
-		super(body);
-		this.levelEnemy = levelEnemy;
-		BufferedImage[] img = AssetsManager.getSprites("enemy_v" + levelEnemy, 4);
-		setAnimation(img, 1000 / 12f);
-	}
-
 	public abstract void strategicMove(Character character);
 
 	public  abstract int determineDirection(Character character);

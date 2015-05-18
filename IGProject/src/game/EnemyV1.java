@@ -1,6 +1,9 @@
 package game;
 
+import java.awt.image.BufferedImage;
 import java.util.Random;
+
+import utils.AssetsManager;
 
 public class EnemyV1 extends Enemy{
 
@@ -8,27 +11,42 @@ public class EnemyV1 extends Enemy{
 	private  int dir = Direction.None;
 	private int flag = 1000;
 	private  int changeDirection =1000;
-	public EnemyV1(Body body, int levelEnemy) {
-		super(body, levelEnemy);
+	private int lastX=0, lastY=0;
+	public EnemyV1(Body body) {
+		super(body);
+		BufferedImage[] img = AssetsManager.getSprites("enemy_v1", 4);
+		setAnimation(img, 1000 / 12f);
 		// TODO Auto-generated constructor stub
+	
 	}
+	
 
 	@Override
 	public void strategicMove(Character character) {
+		//System.out.println(body.getX()+ " " + body.getY());
+		
+		
 		
 		Random rand = new Random();
 		
+		if(body.getX()==lastX && body.getY()==lastY){
+			flag=changeDirection;
+		}
 		
 		if(flag==changeDirection){
 			dir = determineDirection(character);
 			flag=0;
-			changeDirection = rand.nextInt(1000 - 300) + 300;
+			changeDirection = rand.nextInt(800);
 
 		}
 		else{
 		flag++;
 		}
-		this.move(dir, 1);		
+		
+		lastX = body.getX();
+		lastY = body.getY();
+		this.move(dir, 1);	
+		
 	}
 
 	@Override
