@@ -20,8 +20,11 @@ public class PhysicalWorld {
 
 	public boolean collide(Body bodyA) {
 		for (Body bodyB : bodies)
-			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds()))
+			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())){
+				if(bodyA.getCollision()==false && bodyB.getCollision()==false)
+					return false;
 				return true;
+			}
 		return false;
 	}
 }

@@ -7,7 +7,7 @@ import utils.AssetsManager;
 
 public enum KeysOption {
 
-	Up, Down, Left, Right, Action;
+	Up, Down, Left, Right, Action, Pause;
 	
 	private int code ;
 	{

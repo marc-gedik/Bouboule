@@ -7,7 +7,7 @@ import javax.sound.sampled.AudioInputStream;
 
 public class Sound {
 
-    public static final AudioInputStream MainMenu = AssetsManager.getMusic("MainMenu");
+    public static AudioInputStream MainMenu = AssetsManager.getMusic("MainMenu");
 
 
 }

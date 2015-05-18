@@ -1,11 +1,6 @@
 package ui.game;
 
-import game.Dynamic;
-import game.Enemy;
-import game.GameObject;
-import game.Level;
-import game.LoadLevel;
-import game.Tile;
+import game.*;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -17,6 +12,8 @@ import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
+import java.util.Iterator;
+import java.util.Map;
 
 import ui.Game;
 import ui.GameState;
@@ -35,7 +32,7 @@ public class LevelRenderer extends GameState {
 		super(gsm);
 		init();
 
-		level = LoadLevel.get("level2");
+		level = LoadLevel.get("level1");
 		setDoubleBuffered(true);
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
@@ -118,6 +115,12 @@ public class LevelRenderer extends GameState {
 			draw(object);
 
 		draw(level.getCharacter());
+
+		Iterator<Map.Entry<Integer,Bullet>> iterator = level.getBullets().entrySet().iterator();
+		while (iterator.hasNext()){
+			Map.Entry<Integer,Bullet> bullet = iterator.next();
+			draw(level.getBullets().get(bullet.getKey()));
+		}
 
 		g2d.drawImage(background, 0, 0, null);
 	}

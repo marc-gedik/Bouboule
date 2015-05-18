@@ -80,6 +80,7 @@ public class AssetsManager {
 		loadImage("enemy_v2");
 		loadImage("enemy_v3");
 		loadImage("cakes");
+		loadImage("bullet");
 		loadImage("wall_1");
 		loadImage("floor_1");
 		loadImage("wall_2");

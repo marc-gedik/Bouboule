@@ -25,6 +25,8 @@ public class Input {
 	public static boolean right() {
 		return keys[KeysOption.Right.get()];
 	}
+	
+	public static boolean action() { return keys[KeysOption.Action.get()]; }
 
 	public static boolean enter() {
 		return keys[KeyEvent.VK_ENTER];

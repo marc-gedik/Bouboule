@@ -8,13 +8,15 @@ public class Body {
 
 	private int x, y;
 	private int width, height;
+	private boolean collision;
 	public BodyType type;
 
-	public Body(int x, int y, int width, int height) {
+	public Body(int x, int y, int width, int height, boolean collision) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.collision = collision;
 	}
 
 	public Rectangle bounds() {
@@ -28,6 +30,8 @@ public class Body {
 	public int getY() {
 		return y;
 	}
+
+	public boolean getCollision() { return collision; }
 
 	public void applyForce(int x, int y) {
 		int n;
