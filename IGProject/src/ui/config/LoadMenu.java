@@ -62,7 +62,7 @@ public class LoadMenu extends GameState {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
 		JButton b = new DecoratedButton(AssetsManager
-				.getString("backButton"), GrayStyle.getInstance());
+				.getString("backButton"), ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);

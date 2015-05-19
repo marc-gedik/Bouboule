@@ -1,4 +1,9 @@
-package game;
+package game.physics;
+
+import game.Beatable;
+import game.Level;
+import game.objects.Character;
+import game.objects.Enemy;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -19,13 +24,17 @@ public class ContactListener implements CollisionListener {
 			bodiesToRemove.add(a);
 			if (BodyId.isEnemy(b.id))
 				((Beatable) b.data).hit(level.getCharacter().getWeapon().power);
-		}
-		if (BodyId.isBullet(b.id)) {
+		} else if (BodyId.isBullet(b.id)) {
 			bodiesToRemove.add(b);
 			if (BodyId.isEnemy(a.id))
 				((Beatable) a.data).hit(level.getCharacter().getWeapon().power);
-
 		}
+
+		else if (BodyId.isEnemy(a.id) && BodyId.isCharacter(b.id))
+			((Enemy) a.data).specialPower((Character) b.data);
+		else if (BodyId.isEnemy(b.id) && BodyId.isCharacter(a.id))
+			((Enemy) b.data).specialPower((Character) a.data);
+
 	}
 
 	public Queue<Body> getBodiesToRemove() {

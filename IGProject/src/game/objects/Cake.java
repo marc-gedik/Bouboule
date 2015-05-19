@@ -1,5 +1,6 @@
-package game;
+package game.objects;
 
+import game.physics.Body;
 import ui.game.LevelRenderer;
 
 public class Cake extends Static {

@@ -45,8 +45,9 @@ public class AssetsManager {
 				preferences.putBoolean("created", true);
 				String[] keys = { "Keys.Up", "Keys.Down", "Keys.Left",
 						"Keys.Right", "Keys.Action" };
-				int[] values = { KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE };
-				for(int i = 0; i < keys.length; i ++)
+				int[] values = { KeyEvent.VK_UP, KeyEvent.VK_DOWN,
+						KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE };
+				for (int i = 0; i < keys.length; i++)
 					preferences.putInt(keys[i], values[i]);
 
 			}
@@ -81,12 +82,10 @@ public class AssetsManager {
 		loadImage("enemy_v3");
 		loadImage("cakes");
 		loadImage("bullet");
-		loadImage("wall_1");
-		loadImage("floor_1");
-		loadImage("wall_2");
-		loadImage("floor_2");
-		loadImage("wall_3");
-		loadImage("floor_3");
+		for (int i = 0; i < 3; i++) {
+			loadImage("wall_" + i);
+			loadImage("floor_" + i);
+		}
 	}
 
 	private static void loadImage(String name) {

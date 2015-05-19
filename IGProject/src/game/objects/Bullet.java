@@ -1,4 +1,7 @@
-package game;
+package game.objects;
+
+import game.Direction;
+import game.physics.Body;
 
 import java.awt.image.BufferedImage;
 
@@ -9,13 +12,11 @@ public class Bullet extends Dynamic {
     private int direction;
 
     public Bullet(Body body, Character character) {
-        super(body);
+        super(body, 15);
         this.direction = determineDirection(character);
         BufferedImage img = AssetsManager.getTexture("bullet");
         setAnimation(img, 0 / 12f);
     }
-
-    public int getDirection() { return direction; }
 
     public int determineDirection(Character character) {
         int direction = Direction.None;
@@ -44,6 +45,6 @@ public class Bullet extends Dynamic {
     @Override
     public void update(float dt) {
     	super.update(dt);
-		move(direction, 10);
+		move(direction);
     }
 }

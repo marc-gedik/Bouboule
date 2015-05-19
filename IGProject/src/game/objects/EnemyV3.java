@@ -1,9 +1,13 @@
-package game;
+package game.objects;
+
+import game.Direction;
+import game.physics.Body;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import utils.AssetsManager;
+import utils.MathUtils;
 
 public class EnemyV3 extends Enemy {
 
@@ -14,7 +18,7 @@ public class EnemyV3 extends Enemy {
 	private int dir = Direction.None;
 
 	public EnemyV3(Body body) {
-		super(body);
+		super(body, 3);
 		BufferedImage[] img = AssetsManager.getSprites("enemy_v3", 4);
 		setAnimation(img, 1000 / 12f);
 		life = 200;
@@ -22,12 +26,9 @@ public class EnemyV3 extends Enemy {
 
 	@Override
 	public void strategicMove(Character character) {
-		int distX = character.getX() - body.getX();
-		distX *= distX;
-		int distY = character.getY() - body.getY();
-		distY *= distY;
-		int dist = distX + distY;
-		int distMax = 50 * 50;
+		int dist = MathUtils.dist2(character.getX(), body.getX(),
+				character.getY(), body.getY());
+		int distMax = 20 * 20;
 
 		if (body.getX() == lastX && body.getY() == lastY && dist > distMax) {
 			dir = bypass(lastDIR);
@@ -48,7 +49,7 @@ public class EnemyV3 extends Enemy {
 		lastX = body.getX();
 		lastY = body.getY();
 		lastDIR = dir;
-		this.move(dir, 1);
+		this.move(dir);
 
 	}
 
@@ -98,6 +99,11 @@ public class EnemyV3 extends Enemy {
 	public int bypass(int lastDIR) {
 		int direction = turnRight(lastDIR);
 		return direction;
+	}
+
+	@Override
+	public void specialPower(Character character) {
+		character.hit(15);
 	}
 
 }

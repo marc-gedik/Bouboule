@@ -1,5 +1,18 @@
 package game;
 
+import game.objects.Bullet;
+import game.objects.Character;
+import game.objects.Enemy;
+import game.objects.EnemyV1;
+import game.objects.EnemyV2;
+import game.objects.EnemyV3;
+import game.objects.Tile;
+import game.physics.Body;
+import game.physics.BodyId;
+import game.physics.BodyType;
+import game.physics.ContactListener;
+import game.physics.PhysicalWorld;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -19,6 +32,7 @@ public class Level {
 	private List<Bullet> bullets;
 
 	private int width, height;
+	private boolean win;
 
 	public Level(int width, int height) {
 		this.width = width;
@@ -43,11 +57,21 @@ public class Level {
 	}
 
 	public boolean isFinished() {
+		if(character.isDead()){
+			win = false;
+			return true;
+		}
+		else if(enemies.size() == 0){
+			win = true;
+			return true;
+		}
+		
 		return false;
 	}
 
 	public void update(float dt) {
 		handleInput();
+		
 		Queue<Body> bodies = contactListener.getBodiesToRemove();
 		while (!bodies.isEmpty()) {
 			Body body = bodies.poll();
@@ -69,16 +93,15 @@ public class Level {
 		}
 		character.update(dt);
 
-		for (Bullet bullet : bullets) {
-			bullet.move(bullet.getDirection(), 10);
+		for (Bullet bullet : bullets)
 			bullet.update(dt);
-		}
-	}
+		
+	}	
 
 	public void handleInput() {
 		Input.update();
 		int dir = handleMove();
-		character.move(dir, 4);
+		character.move(dir);
 		handleShoot();
 	}
 
@@ -101,7 +124,6 @@ public class Level {
 					character);
 			bullets.add(b);
 		}
-
 	}
 
 	public int getWidth() {
@@ -166,6 +188,7 @@ public class Level {
 		body.id = BodyId.Character;
 		world.addBody(body);
 		character = new Character(body);
+		body.data = character;
 	}
 
 	public List<Enemy> getEnemies() {
@@ -174,6 +197,10 @@ public class Level {
 
 	public List<Bullet> getBullets() {
 		return bullets;
+	}
+
+	public boolean win() {
+		return win;
 	}
 
 }

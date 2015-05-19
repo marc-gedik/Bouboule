@@ -17,25 +17,14 @@ public class MainMenuListener implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-		case "Jouer":
-			System.out.println("Jouer");
+		if (e.getActionCommand().equals("MainMenu.play"))
 			gsm.pushState(GameStateManager.GAME);
-			break;
-		case "Charger une partie":
-			System.out.println("Charger une partie");
+		else if (e.getActionCommand().equals("MainMenu.load"))
 			gsm.pushState(GameStateManager.LOAD);
-			break;
-		case "Instructions":
-			System.out.println("Instructions");
+		else if (e.getActionCommand().equals("MainMenu.instructions"))
 			gsm.pushState(GameStateManager.INSTRUCTIONS);
-			break;
-
-		case "Scores":
-			System.out.println("Score");
+		else if (e.getActionCommand().equals("MainMenu.score"))
 			gsm.pushState(GameStateManager.SCORES);
-			break;
-		}
 
 	}
 }

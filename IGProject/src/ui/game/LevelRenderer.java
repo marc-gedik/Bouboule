@@ -1,6 +1,11 @@
 package ui.game;
 
 import game.*;
+import game.objects.Bullet;
+import game.objects.Dynamic;
+import game.objects.Enemy;
+import game.objects.GameObject;
+import game.objects.Tile;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -16,6 +21,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import controler.Input;
 import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
@@ -33,8 +39,7 @@ public class LevelRenderer extends GameState {
 		super(gsm);
 		init();
 
-		level = LoadLevel.get("level2");
-		setDoubleBuffered(true);
+		level = LoadLevel.get(Levels.getLevel());
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
@@ -52,7 +57,11 @@ public class LevelRenderer extends GameState {
 	private void createStatics() {
 		statics = new BufferedImage(level.getWidth() * tileSize,
 				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
-		BufferedImage floor = AssetsManager.getTexture("floor_1");
+		BufferedImage floor = AssetsManager.getTexture("floor_"
+				+ Levels.getLevel());
+		BufferedImage wall = AssetsManager.getTexture("wall_"
+				+ Levels.getLevel());
+
 		int iw = floor.getWidth();
 		int ih = floor.getHeight(this);
 
@@ -61,13 +70,12 @@ public class LevelRenderer extends GameState {
 			for (int y = 0; y < level.getHeight(); y++)
 				g2d.drawImage(floor, x * iw, y * ih, iw, ih, this);
 		for (Tile o : level.getTiles()) {
-			BufferedImage img = o.getAnimation().getFrame();
 			Rectangle bounds = o.bounds();
 			g2d.drawImage(
-					img,
-					(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
-					(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
-					img.getWidth(), img.getHeight(), null);
+					wall,
+					(int) (o.getX() - (wall.getWidth() - bounds.getWidth()) / 2),
+					(int) (o.getY() - (wall.getHeight() - bounds.getHeight()) / 2),
+					wall.getWidth(), wall.getHeight(), null);
 		}
 
 	}
@@ -146,6 +154,16 @@ public class LevelRenderer extends GameState {
 	@Override
 	public void update(float dt) {
 		level.update(dt);
+		if (level.isFinished()) {
+			if (level.win()) {
+				if (Levels.hasNext()) {
+					Levels.next();
+					gsm.setState(GameStateManager.GAME);
+				} else
+					gsm.setState(GameStateManager.MAIN);
+			} else
+				gsm.setState(GameStateManager.GAMEOVER);
+		}
 	}
 
 	@Override

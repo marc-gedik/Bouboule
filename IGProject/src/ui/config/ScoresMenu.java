@@ -60,7 +60,7 @@ public class ScoresMenu extends GameState {
 		JPanel containerButton = new JPanel();
 		containerButton.setBackground(Color.WHITE);
 		JButton b = new DecoratedButton(AssetsManager
-				.getString("backButton"), GrayStyle.getInstance());
+				.getString("backButton"), ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		containerButton.add(b);

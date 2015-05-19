@@ -74,16 +74,10 @@ public class MainMenu extends GameState {
 
 		for (String name : names) {
 			DecoratedButton btn = new DecoratedButton(AssetsManager
-					.getString(name), WhiteStyle.getInstance());
+					.getString(name), ButtonStyle.WhiteStyle, downKeys, upKeys);
 			addButtonEvent(btn);
+			btn.setActionCommand(name);
 			containerButton.add(btn);
-
-			int down = KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS;
-			int up = KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS;
-			downKeys.addAll(btn.getFocusTraversalKeys(down));
-			upKeys.addAll(btn.getFocusTraversalKeys(up));
-			btn.setFocusTraversalKeys(down, downKeys);
-			btn.setFocusTraversalKeys(up, upKeys);
 		}
 		containerButton.getComponent(0).requestFocusInWindow();
 		containerButton.setPreferredSize(new Dimension(450, 300));

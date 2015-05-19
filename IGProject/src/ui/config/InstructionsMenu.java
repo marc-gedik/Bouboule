@@ -16,7 +16,6 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
@@ -42,7 +41,7 @@ public class InstructionsMenu extends GameState {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
 		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
-				GrayStyle.getInstance());
+				ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);

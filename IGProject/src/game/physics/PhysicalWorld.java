@@ -1,4 +1,4 @@
-package game;
+package game.physics;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -41,6 +41,3 @@ public class PhysicalWorld {
 	}
 }
 
-enum BodyType {
-	STATIC, DYNAMIC
-}

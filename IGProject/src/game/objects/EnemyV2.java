@@ -1,4 +1,7 @@
-package game;
+package game.objects;
+
+import game.Direction;
+import game.physics.Body;
 
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -12,8 +15,9 @@ public class EnemyV2 extends Enemy {
 	private int changeDirection = 1000;
 	private int lastX = 0, lastY = 0;
 
+	
 	public EnemyV2(Body body) {
-		super(body);
+		super(body, 2);
 		BufferedImage[] img = AssetsManager.getSprites("enemy_v2", 4);
 		setAnimation(img, 1000 / 12f);
 		life = 150;
@@ -37,7 +41,7 @@ public class EnemyV2 extends Enemy {
 		}
 		lastX = body.getX();
 		lastY = body.getY();
-		this.move(dir, 1);
+		this.move(dir);
 
 	}
 
@@ -45,39 +49,32 @@ public class EnemyV2 extends Enemy {
 	public int determineDirection(Character character) {
 		Random rand = new Random();
 		int nbAleatoire = rand.nextInt(8);
-		int direction = Direction.None;
 
 		switch (nbAleatoire) {
 		case 0:
-			direction = Direction.South;
-			break;
+			return Direction.South;
 		case 1:
-			direction = Direction.North;
-			break;
+			return Direction.North;
 		case 2:
-			direction = Direction.West;
-			break;
+			return Direction.West;
 		case 3:
-			direction = Direction.East;
-			break;
+			return Direction.East;
 		case 4:
-			direction = Direction.North;
-			direction += Direction.East;
-			break;
+			return Direction.NEast;
 		case 5:
-			direction = Direction.South;
-			direction += Direction.East;
-			break;
+			return Direction.SEast;
 		case 6:
-			direction = Direction.North;
-			direction += Direction.West;
-			break;
+			return Direction.NWest;
 		case 7:
-			direction = Direction.South;
-			direction += Direction.West;
-			break;
+			return Direction.SWest;
 		}
-		return direction;
+		return Direction.None;
+	}
+
+	@Override
+	public void specialPower(Character character) {
+		character.hit(10);
+		character.slowDown(3);
 	}
 
 	

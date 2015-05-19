@@ -28,7 +28,7 @@ public class LoadLevel {
 
 	private static final int TILE_WIDTH = 32;
 
-	public static Level get(String levelID) {
+	public static Level get(int levelID) {
 		try {
 			BufferedImage image = ImageIO.read(new File("levels/" + levelID
 					+ ".png"));

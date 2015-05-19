@@ -1,4 +1,6 @@
-package game;
+package game.objects;
+
+import game.physics.Body;
 
 import java.awt.image.BufferedImage;
 
@@ -10,7 +12,5 @@ public class Tile extends Static {
 
 	public Tile(Body body) {
 		super(body);
-		BufferedImage img = AssetsManager.getTexture("wall_1");
-		setAnimation(img, 1000 / 12f);
 	}
 }

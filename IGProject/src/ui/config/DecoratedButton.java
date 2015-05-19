@@ -1,6 +1,9 @@
 package ui.config;
 
+import java.awt.AWTKeyStroke;
 import java.awt.Graphics;
+import java.awt.KeyboardFocusManager;
+import java.util.Set;
 
 import javax.swing.JButton;
 
@@ -19,6 +22,18 @@ public class DecoratedButton extends JButton {
 				repaint();
 			}
 		});
+	}
+
+	public DecoratedButton(String s, ButtonStyle style,
+			Set<AWTKeyStroke> downKeys, Set<AWTKeyStroke> upKeys) {
+		this(s, style);
+
+		int down = KeyboardFocusManager.FORWARD_TRAVERSAL_KEYS;
+		int up = KeyboardFocusManager.BACKWARD_TRAVERSAL_KEYS;
+		downKeys.addAll(getFocusTraversalKeys(down));
+		upKeys.addAll(getFocusTraversalKeys(up));
+		setFocusTraversalKeys(down, downKeys);
+		setFocusTraversalKeys(up, upKeys);
 	}
 
 	public void init() {

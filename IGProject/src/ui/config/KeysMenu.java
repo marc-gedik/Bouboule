@@ -39,7 +39,7 @@ public class KeysMenu extends GameState {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
 		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
-				GrayStyle.getInstance());
+				ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);
@@ -63,7 +63,7 @@ public class KeysMenu extends GameState {
 			JPanel jPanel = new JPanel();
 			jPanel.setBackground(Color.WHITE);
 			JLabel keyLabel = new JLabel(AssetsManager.getString(key));
-			JButton keyButton = new DecoratedButton(KeysOption.toString(AssetsManager.prefInt(key)), BlueStyle.getInstance());
+			JButton keyButton = new DecoratedButton(KeysOption.toString(AssetsManager.prefInt(key)), ButtonStyle.BlueStyle);
 			keyButton.setActionCommand(key);
 			keyButton.addActionListener(fl);
 

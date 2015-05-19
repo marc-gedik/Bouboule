@@ -1,4 +1,4 @@
-package game;
+package game.physics;
 
 public interface CollisionListener {
 	
