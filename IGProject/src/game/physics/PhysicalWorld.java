@@ -1,5 +1,6 @@
 package game.physics;
 
+import java.awt.Rectangle;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -7,25 +8,34 @@ public class PhysicalWorld {
 
 	public final static int PPM = 32;
 
-	private List<Body> bodies;
+	private Body[][] statics;
+	private List<Body> dynamics;
 	private List<CollisionListener> listeners;
-	
+
 	public PhysicalWorld(int width, int height) {
-		bodies = new LinkedList<Body>();
+		dynamics = new LinkedList<Body>();
+		statics = new Body[width][height];
 		listeners = new LinkedList<CollisionListener>();
 	}
 
 	public void addBody(Body body) {
 		body.setWorld(this);
-		bodies.add(body);
+		if (body.type == BodyType.DYNAMIC)
+			dynamics.add(body);
+		else if (body.type == BodyType.STATIC) {
+			Rectangle r = body.bounds();
+			statics[(int) (body.getX() / r.getWidth())][(int) (body.getY() / r
+					.getHeight())] = body;
+		}
 	}
 
 	public boolean collide(Body bodyA) {
-		for (Body bodyB : bodies)
-			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())){
-				if(bodyA.getCollision()==false && bodyB.getCollision()==false)
+		for (Body bodyB : dynamics)
+			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())) {
+				if (bodyA.getCollision() == false
+						&& bodyB.getCollision() == false)
 					return false;
-				for(CollisionListener listener : listeners)
+				for (CollisionListener listener : listeners)
 					listener.colide(bodyA, bodyB);
 				return true;
 			}
@@ -37,7 +47,23 @@ public class PhysicalWorld {
 	}
 
 	public void remove(Body body) {
-		bodies.remove(body);
+		dynamics.remove(body);
 	}
-}
 
+	public boolean staticCollide(Body body) {
+		int x = body.getX() / PPM;
+		int y = body.getY() / PPM;
+		Rectangle r = body.bounds();
+		if (x >= 0 && y >= 0 && x < statics.length && y < statics.length)
+			for (int i = 0; i < 2; i++)
+				for (int j = 0; j < 2; j++)
+					if (statics[x + i][y + j] != null
+							&& statics[x + i][y + j].bounds().intersects(r)){
+						for (CollisionListener listener : listeners)
+							listener.colide(statics[x + i][y + j], body);
+						return true;
+					}
+		return false;
+	}
+
+}

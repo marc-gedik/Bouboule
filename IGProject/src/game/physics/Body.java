@@ -41,12 +41,12 @@ public class Body {
 
 		n = this.x;
 		this.x += x;
-		if (world.collide(this))
+		if (world.staticCollide(this) || world.collide(this))
 			this.x = n;
 
 		n = this.y;
 		this.y += y;
-		if (world.collide(this))
+		if (world.staticCollide(this) || world.collide(this))
 			this.y = n;
 
 	}
