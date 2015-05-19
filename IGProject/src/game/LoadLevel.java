@@ -17,7 +17,7 @@ public class LoadLevel {
 	private static final Color CAKE_V2 = new Color(255, 230, 120);
 	private static final Color CAKE_V3 = new Color(255, 200, 120);
 
-	private static final Color ENEMY_V1 = new Color(255, 100, 0);
+	private static final Color ENEMY_V1 = new Color(255, 0, 0);
 	private static final Color ENEMY_V2 = new Color(255, 100, 100);
 	private static final Color ENEMY_V3 = new Color(255, 200, 200);
 	
