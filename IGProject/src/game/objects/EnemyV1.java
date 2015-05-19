@@ -30,7 +30,7 @@ public class EnemyV1 extends Enemy {
 			flag = changeDirection;
 
 		if (flag == changeDirection) {
-			dir = determineDirection(character);
+			dir = determineDirection();
 			flag = 0;
 			changeDirection = rand.nextInt(800);
 
@@ -42,8 +42,7 @@ public class EnemyV1 extends Enemy {
 		lastY = body.getY();
 	}
 
-	@Override
-	public int determineDirection(Character character) {
+	public int determineDirection() {
 		Random rand = new Random();
 		int nbAleatoire = rand.nextInt(4);
 

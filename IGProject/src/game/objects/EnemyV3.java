@@ -36,7 +36,7 @@ public class EnemyV3 extends Enemy {
 		}
 
 		if (flag)
-			dir = determineDirection(character);
+			dir = followCharacter(character);
 		else {
 			cpt++;
 			if (cpt == sizeBypass) {
@@ -51,25 +51,6 @@ public class EnemyV3 extends Enemy {
 		lastDIR = dir;
 		this.move(dir);
 
-	}
-
-	@Override
-	public int determineDirection(Character character) {
-		int xC = character.getX();
-		int yC = character.getY();
-		int xE = this.getX();
-		int yE = this.getY();
-		int direction = Direction.None;
-
-		if (yC > yE)
-			direction += Direction.South;
-		else if (yC < yE)
-			direction += Direction.North;
-		if (xC > xE)
-			direction += Direction.East;
-		if (xC < xE)
-			direction += Direction.West;
-		return direction;
 	}
 
 	public int turnRight(int d) {

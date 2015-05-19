@@ -7,6 +7,7 @@ import java.awt.image.BufferedImage;
 import java.util.Random;
 
 import utils.AssetsManager;
+import utils.MathUtils;
 
 public class EnemyV2 extends Enemy {
 
@@ -15,7 +16,6 @@ public class EnemyV2 extends Enemy {
 	private int changeDirection = 1000;
 	private int lastX = 0, lastY = 0;
 
-	
 	public EnemyV2(Body body) {
 		super(body, 2);
 		BufferedImage[] img = AssetsManager.getSprites("enemy_v2", 4);
@@ -28,14 +28,16 @@ public class EnemyV2 extends Enemy {
 		Random rand = new Random();
 
 		if (body.getX() == lastX && body.getY() == lastY) {
-			flag=changeDirection;
+			flag = changeDirection;
 		}
 
-		if (flag == changeDirection) {
-			dir = determineDirection(character);
+		if (MathUtils.dist2(lastX, character.getX(), lastY, character.getY()) < 150 * 150){
+			System.out.println("ok");
+			dir = followCharacter(character);
+		}else if (flag == changeDirection) {
+			dir = determineDirection();
 			flag = 0;
 			changeDirection = rand.nextInt(500);
-
 		} else {
 			flag++;
 		}
@@ -45,8 +47,7 @@ public class EnemyV2 extends Enemy {
 
 	}
 
-	@Override
-	public int determineDirection(Character character) {
+	public int determineDirection() {
 		Random rand = new Random();
 		int nbAleatoire = rand.nextInt(8);
 
@@ -76,7 +77,5 @@ public class EnemyV2 extends Enemy {
 		character.hit(10);
 		character.slowDown(3);
 	}
-
-	
 
 }

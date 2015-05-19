@@ -34,6 +34,7 @@ public class LevelRenderer extends GameState {
 	private BufferedImage statics;
 	private BufferedImage background;
 	private Graphics2D bg;
+	private Rectangle bgBounds;
 
 	public LevelRenderer(GameStateManager gsm) {
 		super(gsm);
@@ -112,6 +113,8 @@ public class LevelRenderer extends GameState {
 		Graphics2D g2d = (Graphics2D) g;
 
 		bg = (Graphics2D) background.getGraphics();
+		bgBounds = new Rectangle((int) camera.getX() - Game.WIDTH / 2,
+				(int) camera.getY() - Game.HEIGHT / 2, Game.WIDTH, Game.HEIGHT);
 		bg.setPaint(Color.BLACK);
 		bg.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 
@@ -142,12 +145,15 @@ public class LevelRenderer extends GameState {
 
 	private void draw(GameObject o, BufferedImage img) {
 		Rectangle bounds = o.bounds();
-		bg.drawImage(img,
-				(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
-				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
-				img.getWidth(), img.getHeight(), null);
-		if (debug) {
-			bg.draw(bounds);
+		if (bounds.intersects(bgBounds)) {
+			bg.drawImage(
+					img,
+					(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
+					(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
+					img.getWidth(), img.getHeight(), null);
+			if (debug) {
+				bg.draw(bounds);
+			}
 		}
 	}
 

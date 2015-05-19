@@ -48,7 +48,7 @@ public class Game extends JFrame {
 
 		pack();
 		setVisible(true);
-		soundManager = new SoundManager();
+//		soundManager = new SoundManager();
 
 		addComponentListener(new ComponentAdapter() {
 			@Override
@@ -83,8 +83,9 @@ public class Game extends JFrame {
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
-			else
+			else {
 				sleep_time = 0;
+			}
 		}
 	}
 
