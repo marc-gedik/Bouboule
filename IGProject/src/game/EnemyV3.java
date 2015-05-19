@@ -7,45 +7,43 @@ import utils.AssetsManager;
 
 public class EnemyV3 extends Enemy {
 
+	private int lastX = 0, lastY = 0, lastDIR = 0;
+	private int cpt = 0;
+	private int sizeBypass = 50;
+	private boolean flag = true;
+	private int dir = Direction.None;
 
-	private int lastX=0, lastY=0, lastDIR=0;
-	private int cpt=0;
-	private int sizeBypass= 50;
-	private boolean flag =true;
-	private int dir=Direction.None;
 	public EnemyV3(Body body) {
 		super(body);
 		BufferedImage[] img = AssetsManager.getSprites("enemy_v3", 4);
 		setAnimation(img, 1000 / 12f);
-		// TODO Auto-generated constructor stub
+		life = 200;
 	}
 
 	@Override
 	public void strategicMove(Character character) {
-		Random rand = new Random();
-		
+		int distX = character.getX() - body.getX();
+		distX *= distX;
+		int distY = character.getY() - body.getY();
+		distY *= distY;
+		int dist = distX + distY;
+		int distMax = 50 * 50;
 
-
-
-
-		if(body.getX()==lastX && body.getY()==lastY){
-			dir= bypass(lastDIR);
-			flag=false;
+		if (body.getX() == lastX && body.getY() == lastY && dist > distMax) {
+			dir = bypass(lastDIR);
+			flag = false;
 		}
 
-		if(flag)
+		if (flag)
 			dir = determineDirection(character);
-		else{
+		else {
 			cpt++;
-			if(cpt==sizeBypass){
-				flag=true;
-				cpt=0;
+			if (cpt == sizeBypass) {
+				flag = true;
+				cpt = 0;
 			}
 
 		}
-
-
-
 
 		lastX = body.getX();
 		lastY = body.getY();
@@ -73,57 +71,33 @@ public class EnemyV3 extends Enemy {
 		return direction;
 	}
 
+	public int turnRight(int d) {
 
-
-
-
-	public int oppositeDirection(int d) {
-
-		int direction = Direction.None;
 		switch (d) {
-		case 0:
-			direction = Direction.None;
-			break;
-		case 1:
-			direction = Direction.South;
-			break;
-		case 2:
-			direction = Direction.North;
-			break;
-		case 4:
-			direction = Direction.West;
-			break;
-		case 5:
-			direction = Direction.South;
-			direction += Direction.West;
-			break;
-		case 6:
-			direction = Direction.North;
-			direction += Direction.West;
-			break;
-		case 8:
-			direction += Direction.East;
-			break;
-		case 9:
-			direction = Direction.South;
-			direction += Direction.East;
-			break;
-		case 10:
-			direction = Direction.North;
-			direction += Direction.East;
-			break;
+		case Direction.North:
+			return Direction.NWest;
+		case Direction.NWest:
+			return Direction.West;
+		case Direction.West:
+			return Direction.SWest;
+		case Direction.SWest:
+			return Direction.South;
+		case Direction.South:
+			return Direction.SEast;
+		case Direction.SEast:
+			return Direction.East;
+		case Direction.East:
+			return Direction.NEast;
+		case Direction.NEast:
+			return Direction.North;
+		default:
+			return Direction.None;
 		}
-
-		return direction;
 	}
 
-
-	public int bypass(int lastDIR){
-		int direction = oppositeDirection(lastDIR);
-		direction+=Direction.West;
+	public int bypass(int lastDIR) {
+		int direction = turnRight(lastDIR);
 		return direction;
 	}
-
-
 
 }

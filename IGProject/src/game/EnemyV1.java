@@ -16,8 +16,7 @@ public class EnemyV1 extends Enemy{
 		super(body);
 		BufferedImage[] img = AssetsManager.getSprites("enemy_v1", 4);
 		setAnimation(img, 1000 / 12f);
-		// TODO Auto-generated constructor stub
-	
+		life = 100;
 	}
 	
 

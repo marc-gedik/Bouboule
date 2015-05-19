@@ -112,13 +112,14 @@ public class LevelRenderer extends GameState {
 
 		bg.drawImage(statics, 0, 0, null);
 
-		for (Enemy object : level.getEnemies())
-			draw(object);
+		List<Enemy> enemies = level.getEnemies();
+		for (int i = 0; i < enemies.size(); i++)
+			draw(enemies.get(i));
 
 		draw(level.getCharacter());
 
 		List<Bullet> bullets = level.getBullets();
-		for(int i = 0; i < bullets.size(); i++)
+		for (int i = 0; i < bullets.size(); i++)
 			draw(bullets.get(i));
 
 		g2d.drawImage(background, 0, 0, null);
