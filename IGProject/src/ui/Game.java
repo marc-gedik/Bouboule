@@ -16,6 +16,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
+import ui.config.SoundManager;
 import ui.game.Camera;
 import utils.AssetsManager;
 import controler.GameControler;
@@ -29,6 +30,7 @@ public class Game extends JFrame {
 	
 	private GameStateManager gsm;
 	private Camera camera;
+	private SoundManager soundManager;
 
 	public Game() {
 		camera = new Camera();
@@ -46,6 +48,7 @@ public class Game extends JFrame {
 
 		pack();
 		setVisible(true);
+		soundManager = new SoundManager();
 
 		addComponentListener(new ComponentAdapter() {
 			@Override

@@ -2,30 +2,23 @@ package ui.config;
 
 import java.awt.AWTKeyStroke;
 import java.awt.Dimension;
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.sound.sampled.*;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.KeyStroke;
 
-import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 import controler.MainMenuFocusListener;
 import controler.MainMenuKeyListener;
 import controler.MainMenuListener;
-import ui.game.Sound;
 import utils.AssetsManager;
 
 public class MainMenu extends GameState {
@@ -33,7 +26,6 @@ public class MainMenu extends GameState {
 	private MainMenuListener action;
 	private MainMenuKeyListener keyAction;
 	private MainMenuFocusListener focusAction;
-	private SoundThread soundthread;
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
@@ -44,14 +36,12 @@ public class MainMenu extends GameState {
 		action = new MainMenuListener(gsm);
 		keyAction = new MainMenuKeyListener();
 		focusAction = new MainMenuFocusListener();
-		soundthread = new SoundThread();
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(buttonContainer(), gbc);
 		addBackground(gbc, "img/texture3.png");
-		//soundthread.start();
 	}
 
 	public void addButtonEvent(JButton btn) {

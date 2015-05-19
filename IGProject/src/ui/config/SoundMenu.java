@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
+import controler.SoundListener;
 import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
@@ -52,17 +53,15 @@ public class SoundMenu extends GameState {
 		tmp.setLayout(new GridBagLayout());
 
 		GridBagConstraints gbc = new GridBagConstraints();
-		position(gbc, 0, 0, 1, 1);
+		position(gbc, 0, 10, 1, 1);
 
-		JLabel bgm = new JLabel(AssetsManager.getString("Sound.Bgm"));
 		JLabel volume = new JLabel(AssetsManager.getString("Sound.Music"));
 
-		JSlider forBgm = new JSlider(0, 10);
-		JSlider forVolume = new JSlider(0, 10);
+		SoundListener sl = new SoundListener();
+		JSlider forVolume = new JSlider(0, 5);
+		forVolume.setValue(SoundManager.get());
+		forVolume.addChangeListener(sl);
 
-		tmp.add(bgm);
-		tmp.add(forBgm);
-		gbc.gridy += 10;
 		tmp.add(volume);
 		tmp.add(forVolume);
 

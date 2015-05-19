@@ -44,8 +44,9 @@ public class AssetsManager {
 			if (!preferences.getBoolean("created", false)) {
 				preferences.putBoolean("created", true);
 				String[] keys = { "Keys.Up", "Keys.Down", "Keys.Left",
-						"Keys.Right", "Keys.Action" };
-				int[] values = { KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE };
+						"Keys.Right", "Keys.Action", "Sound.Volume" };
+				int[] values = { KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT,
+						KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE, 3 };
 				for(int i = 0; i < keys.length; i ++)
 					preferences.putInt(keys[i], values[i]);
 
@@ -59,6 +60,7 @@ public class AssetsManager {
 	private static void loadSounds() {
 		sounds = new HashMap<String, AudioInputStream>();
 		loadSound("MainMenu");
+		loadSound("SimpleShoot");
 	}
 
 	public static void loadSound(String name) {
