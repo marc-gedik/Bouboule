@@ -56,7 +56,7 @@ public class LoadLevel {
 				}
 			}
 			System.out.println("mmmoider");
-			level.addCake(10, 10, 1);
+			level.addCake(10, 10, VERSION_1);
 			System.out.println("coucou");
 
 			return level;

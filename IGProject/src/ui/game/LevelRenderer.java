@@ -143,7 +143,9 @@ public class LevelRenderer extends GameState {
 		for (int i = 0; i < bullets.size(); i++)
 			draw(bullets.get(i));
 
+		drawCake();
 		g2d.drawImage(background, 0, 0, null);
+
 	}
 	
 	
@@ -156,7 +158,7 @@ public class LevelRenderer extends GameState {
 	}
 	
 	
-	private void draw(Static s ){
+	private void drawCake(){
 		for (Cake c : level.getCakes()) {
 			draw(c , c.getImg());
 		}
