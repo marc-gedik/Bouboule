@@ -95,7 +95,7 @@ public class Level {
 
 		for (Bullet bullet : bullets)
 			bullet.update(dt);
-		
+
 	}	
 
 	public void handleInput() {

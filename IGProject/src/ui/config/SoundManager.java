@@ -14,7 +14,7 @@ public class SoundManager implements  LineListener {
     private Line line;
     private Line.Info info;
     private BufferedInputStream audioSrc;
-    public static Clip clip;
+    public Clip clip;
 
     private static int volume = AssetsManager.prefInt("Sound.Volume");
 
@@ -26,21 +26,20 @@ public class SoundManager implements  LineListener {
         AssetsManager.intPref("Sound.Volume", v);
     }
 
-    public SoundManager() {
+    public SoundManager(AudioInputStream src) {
+        if(volume<0)
+            set(0);
 
         info = new Line.Info(Clip.class);
         try {
             line = AudioSystem.getLine(info);
             clip = (Clip) line;
             clip.addLineListener(this);
-            audioSrc = new BufferedInputStream(Sound.MainMenu);
-            Sound.MainMenu = new AudioInputStream(audioSrc, Sound.MainMenu.getFormat(), Sound.MainMenu.getFrameLength());
-            clip.open(Sound.MainMenu);
-            FloatControl gainControl =
-                    (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(volume);
-            play();
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+            audioSrc = new BufferedInputStream(src);
+            src =
+                    new AudioInputStream(audioSrc, src.getFormat(), src.getFrameLength());
+            clip.open(src);
+            setGain(volume);
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -48,13 +47,30 @@ public class SoundManager implements  LineListener {
         }
     }
 
-    public static void play(){
+    public void play(){
         clip.start();
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public static void end(){
+    public  void playShort(){
+        clip.start();
+    }
+
+    public void end(){
         clip.stop();
+    }
+
+    public void setGain(int volume){
+        if(line.isControlSupported(FloatControl.Type.VOLUME)) {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
+            System.out.println(volume);
+            gainControl.setValue(volume);
+        }
+        else {
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            System.out.println(volume);
+            gainControl.setValue(volume);
+        }
     }
 
     @Override

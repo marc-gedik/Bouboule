@@ -1,6 +1,7 @@
 package controler;
 
 
+import ui.Game;
 import ui.config.SoundMenu;
 import ui.config.SoundManager;
 
@@ -21,16 +22,14 @@ public class SoundListener implements ChangeListener {
             System.out.println(v);
             if(SoundManager.get()!=0) {
                 if (v == 0)
-                    SoundManager.end();
+                    Game.soundManager.end();
                 else {
-                    FloatControl gainControl =
-                            (FloatControl) SoundManager.clip.getControl(FloatControl.Type.MASTER_GAIN);
-                    gainControl.setValue(v);
+                    Game.soundManager.setGain(v);
                 }
             }
             else{
                 if (v != 0)
-                    SoundManager.play();
+                    Game.soundManager.play();
             }
             SoundManager.set(v);
         }
