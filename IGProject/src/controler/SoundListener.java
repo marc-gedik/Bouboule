@@ -19,7 +19,6 @@ public class SoundListener implements ChangeListener {
         JSlider slider = (JSlider) changeEvent.getSource();
         if(!slider.getValueIsAdjusting()){
             int v = slider.getValue();
-            System.out.println(v);
             if(SoundManager.get()!=0) {
                 if (v == 0)
                     Game.soundManager.end();

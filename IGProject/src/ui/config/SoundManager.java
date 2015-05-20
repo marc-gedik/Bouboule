@@ -10,7 +10,6 @@ import java.io.InputStream;
 
 public class SoundManager implements  LineListener {
 
-    private AudioInputStream stream;
     private Line line;
     private Line.Info info;
     private BufferedInputStream audioSrc;
@@ -27,19 +26,18 @@ public class SoundManager implements  LineListener {
     }
 
     public SoundManager(AudioInputStream src) {
-        if(volume<0)
-            set(0);
-
-        info = new Line.Info(Clip.class);
         try {
+            if(volume<0)
+                set(0);
+            info = new Line.Info(Clip.class);
             line = AudioSystem.getLine(info);
             clip = (Clip) line;
             clip.addLineListener(this);
             audioSrc = new BufferedInputStream(src);
-            src =
-                    new AudioInputStream(audioSrc, src.getFormat(), src.getFrameLength());
+            src = new AudioInputStream(audioSrc, src.getFormat(), src.getFrameLength());
             clip.open(src);
             setGain(volume);
+            play();
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -52,7 +50,7 @@ public class SoundManager implements  LineListener {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public  void playShort(){
+    public void playShort(){
         clip.start();
     }
 
@@ -63,12 +61,10 @@ public class SoundManager implements  LineListener {
     public void setGain(int volume){
         if(line.isControlSupported(FloatControl.Type.VOLUME)) {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.VOLUME);
-            System.out.println(volume);
             gainControl.setValue(volume);
         }
         else {
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            System.out.println(volume);
             gainControl.setValue(volume);
         }
     }
@@ -78,20 +74,19 @@ public class SoundManager implements  LineListener {
         LineEvent.Type type = lineEvent.getType();
         if(type == LineEvent.Type.OPEN)
             System.out.println("Open sound file");
-        else
-        if(type == LineEvent.Type.CLOSE) {
-            System.out.println("Close sound file");
-            System.exit(0);
-        }
-        else
-        if (type == LineEvent.Type.START) {
-            System.out.println("Start sound file");
-            play();
-        }
-        else
-        if(type == LineEvent.Type.STOP) {
-            System.out.println("Stop sound file");
-            end();
+        else {
+            if (type == LineEvent.Type.CLOSE) {
+                System.out.println("Close sound file");
+                System.exit(0);
+            } else {
+                if (type == LineEvent.Type.START) {
+                    System.out.println("Start sound file");
+                    play();
+                } else if (type == LineEvent.Type.STOP) {
+                    System.out.println("Stop sound file");
+                    end();
+                }
+            }
         }
     }
 }
