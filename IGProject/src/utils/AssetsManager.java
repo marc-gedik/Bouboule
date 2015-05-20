@@ -81,7 +81,7 @@ public class AssetsManager {
 		loadImage("enemy_v1");
 		loadImage("enemy_v2");
 		loadImage("enemy_v3");
-		loadImage("cakes");
+		loadImage("cake");
 		loadImage("bullet");
 		for (int i = 0; i < 3; i++) {
 			loadImage("wall_" + i);

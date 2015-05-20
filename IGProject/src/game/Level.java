@@ -1,6 +1,8 @@
 package game;
 
 import game.objects.Bullet;
+import game.objects.Cake;
+import game.objects.CakeV1;
 import game.objects.Character;
 import game.objects.Enemy;
 import game.objects.EnemyV1;
@@ -29,6 +31,8 @@ public class Level {
 	private Character character;
 	private List<Enemy> enemies;
 	private List<Tile> tiles;
+	private List<Cake> cakes;
+
 	private List<Bullet> bullets;
 
 	private int width, height;
@@ -43,9 +47,12 @@ public class Level {
 		world.addContactListener(contactListener);
 
 		tiles = new LinkedList<Tile>();
+		
+		
 		enemies = new ArrayList<Enemy>();
 		bullets = new ArrayList<Bullet>();
-
+		cakes = new ArrayList<Cake>();
+		
 	}
 
 	public Character getCharacter() {
@@ -134,8 +141,13 @@ public class Level {
 		return height;
 	}
 
-	public void addCake(int x, int y, int i) {
-
+	public void addCake(int x, int y, int version) {
+		Body body = new Body(x, y, 32, 32, true);
+		body.type = BodyType.STATIC;
+	//	body.id = BodyId.Wall;
+		world.addBody(body);
+		//if( version==1)
+		cakes.add(new CakeV1(body));
 	}
 
 	public Bullet addBullet(int x, int y, Character character) {
@@ -195,6 +207,11 @@ public class Level {
 		return enemies;
 	}
 
+	
+	public List<Cake> getCakes() {
+		return cakes;
+	}
+	
 	public List<Bullet> getBullets() {
 		return bullets;
 	}

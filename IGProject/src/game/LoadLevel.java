@@ -13,9 +13,6 @@ public class LoadLevel {
 	private static final Color WALL = Color.BLACK;
 	private static final Color PLAYER = Color.GREEN;
 
-	private static final Color CAKE_V1 = new Color(255, 255, 0);
-	private static final Color CAKE_V2 = new Color(255, 230, 120);
-	private static final Color CAKE_V3 = new Color(255, 200, 120);
 
 	private static final Color ENEMY_V1 = new Color(255, 0, 0);
 	private static final Color ENEMY_V2 = new Color(255, 100, 100);
@@ -37,6 +34,9 @@ public class LoadLevel {
 			int height = image.getHeight();
 
 			Level level = new Level(width, height);
+			System.out.println("ICI1");
+			level.addCake(10, 10, 1);
+			System.out.println("IC2");
 			Color tile;
 			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
@@ -52,15 +52,13 @@ public class LoadLevel {
 						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, VERSION_2);
 					else if (tile.equals(ENEMY_V3))
 						level.addEnemy(i * TILE_WIDTH, j * TILE_WIDTH, VERSION_3);
-
-					else if (tile.equals(CAKE_V1))
-						level.addCake(i, j, 0);
-					else if (tile.equals(CAKE_V2))
-						level.addCake(i, j, 1);
-					else if (tile.equals(CAKE_V3))
-						level.addCake(i, j, 2);
+					
 				}
 			}
+			System.out.println("mmmoider");
+			level.addCake(10, 10, 1);
+			System.out.println("coucou");
+
 			return level;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

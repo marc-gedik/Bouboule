@@ -2,9 +2,11 @@ package ui.game;
 
 import game.*;
 import game.objects.Bullet;
+import game.objects.Cake;
 import game.objects.Dynamic;
 import game.objects.Enemy;
 import game.objects.GameObject;
+import game.objects.Static;
 import game.objects.Tile;
 
 import java.awt.Color;
@@ -55,6 +57,9 @@ public class LevelRenderer extends GameState {
 		createStatics();
 	}
 
+
+	
+
 	private void createStatics() {
 		statics = new BufferedImage(level.getWidth() * tileSize,
 				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
@@ -62,6 +67,8 @@ public class LevelRenderer extends GameState {
 				+ Levels.getLevel());
 		BufferedImage wall = AssetsManager.getTexture("wall_"
 				+ Levels.getLevel());
+
+
 
 		int iw = floor.getWidth();
 		int ih = floor.getHeight(this);
@@ -78,8 +85,11 @@ public class LevelRenderer extends GameState {
 					(int) (o.getY() - (wall.getHeight() - bounds.getHeight()) / 2),
 					wall.getWidth(), wall.getHeight(), null);
 		}
-
 	}
+
+
+
+
 
 	BufferedImage rotate(BufferedImage img, double rot) {
 		AffineTransform tx = new AffineTransform();
@@ -135,6 +145,8 @@ public class LevelRenderer extends GameState {
 
 		g2d.drawImage(background, 0, 0, null);
 	}
+	
+	
 
 	private void draw(Dynamic o) {
 		BufferedImage img = o.getAnimation().getFrame();
@@ -142,6 +154,15 @@ public class LevelRenderer extends GameState {
 			img = rotate(img, o.getAngle());
 		draw(o, img);
 	}
+	
+	
+	private void draw(Static s ){
+		for (Cake c : level.getCakes()) {
+			draw(c , c.getImg());
+		}
+
+	}
+
 
 	private void draw(GameObject o, BufferedImage img) {
 		Rectangle bounds = o.bounds();

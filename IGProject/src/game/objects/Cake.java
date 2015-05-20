@@ -1,14 +1,26 @@
 package game.objects;
 
+import java.awt.image.BufferedImage;
+
 import game.physics.Body;
 import ui.game.LevelRenderer;
+import utils.AssetsManager;
 
-public class Cake extends Static {
+public abstract class Cake extends Static {
 	private int levelCake;
+	private BufferedImage img;
 
-	public Cake(Body body, int levelCake) {
+	public Cake(Body body) {
 		super(body);
-		this.levelCake = levelCake;
 	}
+	
+	
 
+	public BufferedImage getImg(){
+		return this.img;
+	}
+	
+	public void setImg(BufferedImage img){
+	this.img=img;
+	}
 }

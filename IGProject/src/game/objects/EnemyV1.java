@@ -40,6 +40,8 @@ public class EnemyV1 extends Enemy {
 
 		lastX = body.getX();
 		lastY = body.getY();
+		this.move(dir);
+
 	}
 
 	public int determineDirection() {
