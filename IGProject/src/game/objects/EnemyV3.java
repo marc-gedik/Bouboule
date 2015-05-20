@@ -22,6 +22,8 @@ public class EnemyV3 extends Enemy {
 		BufferedImage[] img = AssetsManager.getSprites("enemy_v3", 4);
 		setAnimation(img, 1000 / 12f);
 		life = 200;
+		setVersion(3);
+
 	}
 
 	@Override

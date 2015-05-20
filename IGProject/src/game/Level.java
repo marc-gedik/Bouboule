@@ -3,6 +3,8 @@ package game;
 import game.objects.Bullet;
 import game.objects.Cake;
 import game.objects.CakeV1;
+import game.objects.CakeV2;
+import game.objects.CakeV3;
 import game.objects.Character;
 import game.objects.Enemy;
 import game.objects.EnemyV1;
@@ -92,6 +94,7 @@ public class Level {
 			if (enemy.isDead()){
 				iterator.remove();
 				world.remove(enemy.body);
+				addCake(enemy.getX(), enemy.getY(), enemy.getVersion());
 			}
 			else {
 				enemy.strategicMove(character);
@@ -146,8 +149,17 @@ public class Level {
 		body.type = BodyType.STATIC;
 	//	body.id = BodyId.Wall;
 		world.addBody(body);
-		//if( version==1)
-		cakes.add(new CakeV1(body));
+		switch(version){
+		case 1:			
+			cakes.add(new CakeV1(body));
+			break;
+		case 2:
+			cakes.add(new CakeV2(body));
+			break;
+		case 3:
+			cakes.add(new CakeV3(body));
+			break;
+		}
 	}
 
 	public Bullet addBullet(int x, int y, Character character) {

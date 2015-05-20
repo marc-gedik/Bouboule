@@ -1,5 +1,7 @@
 package game.objects;
 
+import java.awt.image.BufferedImage;
+
 import game.Beatable;
 import game.Direction;
 import game.physics.Body;
@@ -8,6 +10,8 @@ import game.physics.Body;
 public abstract class Enemy extends Dynamic implements Beatable {
 
 	protected float life;
+	private int version;
+
 	
 	public Enemy(Body body, float speed) {
 		super(body, speed);
@@ -44,4 +48,12 @@ public abstract class Enemy extends Dynamic implements Beatable {
 	}
 	
 	public abstract void specialPower(Character character);
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 }

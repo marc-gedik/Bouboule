@@ -27,7 +27,6 @@ public class AssetsManager {
 	private static Preferences preferences;
 
 	static {
-		System.out.println("ok");
 		loadBundle();
 		loadPrefs();
 		loadImages();
@@ -81,7 +80,10 @@ public class AssetsManager {
 		loadImage("enemy_v1");
 		loadImage("enemy_v2");
 		loadImage("enemy_v3");
-		loadImage("cake");
+		loadImage("cake_v1");
+		loadImage("cake_v2");
+		loadImage("cake_v3");
+
 		loadImage("bullet");
 		for (int i = 0; i < 3; i++) {
 			loadImage("wall_" + i);

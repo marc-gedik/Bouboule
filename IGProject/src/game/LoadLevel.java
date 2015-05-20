@@ -34,9 +34,6 @@ public class LoadLevel {
 			int height = image.getHeight();
 
 			Level level = new Level(width, height);
-			System.out.println("ICI1");
-			level.addCake(10, 10, 1);
-			System.out.println("IC2");
 			Color tile;
 			for (int i = 0; i < width; i++) {
 				for (int j = 0; j < height; j++) {
@@ -55,10 +52,7 @@ public class LoadLevel {
 					
 				}
 			}
-			System.out.println("mmmoider");
-			level.addCake(10, 10, VERSION_1);
-			System.out.println("coucou");
-
+	
 			return level;
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
