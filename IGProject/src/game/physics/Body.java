@@ -8,11 +8,13 @@ public class Body {
 
 	private int x, y;
 	private int width, height;
-	private boolean collision;
+	final boolean collision;
 	public BodyType type;
 	public short id;
+	public boolean isSensor;
 
 	public Object data;
+
 	
 	public Body(int x, int y, int width, int height, boolean collision) {
 		this.x = x;
@@ -34,8 +36,6 @@ public class Body {
 		return y;
 	}
 
-	public boolean getCollision() { return collision; }
-
 	public void applyForce(int x, int y) {
 		int n;
 
@@ -53,5 +53,9 @@ public class Body {
 
 	public void setWorld(PhysicalWorld physicalWorld) {
 		world = physicalWorld;
+	}
+
+	public void applyForce(double x, double y) {
+		
 	}
 }

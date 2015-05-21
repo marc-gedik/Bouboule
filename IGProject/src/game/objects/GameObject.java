@@ -10,7 +10,7 @@ import ui.game.Animation;
 public abstract class GameObject {
 
 	public Body body;
-	protected double angle;
+	protected int angle;
 
 	public GameObject(Body body) {
 		this.body = body;
@@ -24,7 +24,7 @@ public abstract class GameObject {
 		return body.getY();
 	}
 
-	public double getAngle() {
+	public int getAngle() {
 		return angle;
 	}
 	

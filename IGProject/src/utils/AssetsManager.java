@@ -44,9 +44,10 @@ public class AssetsManager {
 				preferences.putBoolean("created", true);
 				String[] keys = { "Keys.Up", "Keys.Down", "Keys.Left",
 						"Keys.Right", "Keys.Action", "Sound.Volume" };
-				int[] values = { KeyEvent.VK_UP, KeyEvent.VK_DOWN, KeyEvent.VK_LEFT,
-						KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE, 3 };
-				for(int i = 0; i < keys.length; i ++)
+				int[] values = { KeyEvent.VK_UP, KeyEvent.VK_DOWN,
+						KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT, KeyEvent.VK_SPACE,
+						3 };
+				for (int i = 0; i < keys.length; i++)
 					preferences.putInt(keys[i], values[i]);
 
 			}
@@ -77,6 +78,10 @@ public class AssetsManager {
 	private static void loadImages() {
 		images = new HashMap<String, BufferedImage>();
 		loadImage("character");
+		loadImage("bullet");
+		loadImage("empty_hearth");
+		loadImage("full_hearth");
+		
 		loadImage("enemy_v1");
 		loadImage("enemy_v2");
 		loadImage("enemy_v3");
@@ -84,7 +89,6 @@ public class AssetsManager {
 		loadImage("cake_v2");
 		loadImage("cake_v3");
 
-		loadImage("bullet");
 		for (int i = 0; i < 3; i++) {
 			loadImage("wall_" + i);
 			loadImage("floor_" + i);

@@ -1,9 +1,11 @@
-package game.objects;
+package game.objects.enemies;
 
 import java.awt.image.BufferedImage;
 
 import game.Beatable;
 import game.Direction;
+import game.objects.Character;
+import game.objects.Dynamic;
 import game.physics.Body;
 
 
@@ -30,10 +32,10 @@ public abstract class Enemy extends Dynamic implements Beatable {
 	}
 
 	public int followCharacter(Character character) {
-		int xC = character.getX();
-		int yC = character.getY();
-		int xE = this.getX();
-		int yE = this.getY();
+		double xC = character.getX();
+		double yC = character.getY();
+		double xE = this.getX();
+		double yE = this.getY();
 		int direction = Direction.None;
 
 		if (yC > yE)

@@ -9,42 +9,50 @@ import utils.AssetsManager;
 
 public class Bullet extends Dynamic {
 
-    private int direction;
+	private int direction;
+	private int dist;
+	
+	public Bullet(Body body, int dir, int dist) {
+		super(body, 15);
+		this.direction = determineDirection(dir);
+		this.dist = dist;
+		BufferedImage img = AssetsManager.getTexture("bullet");
+		setAnimation(img, 0 / 12f);
+	}
 
-    public Bullet(Body body, Character character) {
-        super(body, 15);
-        this.direction = determineDirection(character);
-        BufferedImage img = AssetsManager.getTexture("bullet");
-        setAnimation(img, 0 / 12f);
-    }
+	public int determineDirection(int angle) {
+		int direction = Direction.None;
 
-    public int determineDirection(Character character) {
-        int direction = Direction.None;
+		if (angle == 0)
+			direction = Direction.North;
+		else if (angle == 90)
+			direction = Direction.East;
+		else if (angle == 45)
+			direction = Direction.East + Direction.North;
+		else if (angle == 180)
+			direction = Direction.South;
+		else if (angle == 135)
+			direction = Direction.East + Direction.South;
+		else if (angle == -90)
+			direction = Direction.West;
+		else if (angle == -45)
+			direction = Direction.North + Direction.West;
+		else if (angle == -180)
+			direction = Direction.South;
+		else if (angle == -135)
+			direction = Direction.South + Direction.West;
+		return direction;
+	}
 
-        if (character.getAngle()==0)
-            direction = Direction.North;
-        else if (character.getAngle() == 90)
-            direction = Direction.East;
-        else if (character.getAngle()==45)
-            direction = Direction.East + Direction.North;
-        else if (character.getAngle()==180)
-            direction = Direction.South;
-        else if (character.getAngle()==135)
-            direction = Direction.East + Direction.South;
-        else if (character.getAngle()==-90)
-            direction = Direction.West;
-        else if (character.getAngle()==-45)
-            direction = Direction.North + Direction.West;
-        else if (character.getAngle()==-180)
-            direction = Direction.South;
-        else if (character.getAngle()==-135)
-            direction = Direction.South + Direction.West;
-        return direction;
-    }
-    
-    @Override
-    public void update(float dt) {
-    	super.update(dt);
+	@Override
+	public void move(int dir) {
+		super.move(dir);
+		
+	}
+	
+	@Override
+	public void update(float dt) {
+		super.update(dt);
 		move(direction);
-    }
+	}
 }

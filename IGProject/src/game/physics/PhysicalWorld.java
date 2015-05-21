@@ -30,16 +30,17 @@ public class PhysicalWorld {
 	}
 
 	public boolean collide(Body bodyA) {
+		boolean b = false;
 		for (Body bodyB : dynamics)
 			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())) {
-				if (bodyA.getCollision() == false
-						&& bodyB.getCollision() == false)
-					return false;
+				if (bodyA.collision == false && bodyB.collision == false)
+					continue;
 				for (CollisionListener listener : listeners)
 					listener.colide(bodyA, bodyB);
-				return true;
+				if (!bodyA.isSensor && !bodyB.isSensor)
+					b = true;
 			}
-		return false;
+		return b;
 	}
 
 	public void addContactListener(CollisionListener listener) {
@@ -50,20 +51,23 @@ public class PhysicalWorld {
 		dynamics.remove(body);
 	}
 
-	public boolean staticCollide(Body body) {
-		int x = body.getX() / PPM;
-		int y = body.getY() / PPM;
-		Rectangle r = body.bounds();
-		if (x >= 0 && y >= 0 && x < statics.length && y < statics.length)
-			for (int i = 0; i < 2; i++)
-				for (int j = 0; j < 2; j++)
-					if (statics[x + i][y + j] != null
-							&& statics[x + i][y + j].bounds().intersects(r)){
+	public boolean staticCollide(Body bodyA) {
+		int x = bodyA.getX() / PPM;
+		int y = bodyA.getY() / PPM;
+		boolean b = false;
+		Rectangle r = bodyA.bounds();
+		if (x >= 0 && y >= 0)
+			for (int i = 0; i < 2 && x + i< statics.length ; i++)
+				for (int j = 0; j < 2 && y + j< statics.length; j++) {
+					Body bodyB = statics[x + i][y + j];
+					if (bodyB != null && bodyB.bounds().intersects(r)) {
 						for (CollisionListener listener : listeners)
-							listener.colide(statics[x + i][y + j], body);
-						return true;
+							listener.colide(bodyB, bodyA);
+						if (!bodyA.isSensor && !bodyB.isSensor)
+							b = true;
 					}
-		return false;
+				}
+		return b;
 	}
 
 }
