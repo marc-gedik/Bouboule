@@ -1,8 +1,12 @@
 package game.physics;
 
 public class BodyId {
-	public static final short Character = 0b0001, Wall = 0b0010,
-			Enemy = 0b0100, Bullet = 0b1000, Cake = 0;
+	public static final short 
+	Character = 0b1,
+	Wall      = 0b10,
+	Enemy     = 0b100,
+	Bullet    = 0b1000,
+	Cake      = 0b10000;
 
 	public static boolean isBullet(short id) {
 		return is(id, Bullet);

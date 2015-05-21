@@ -1,16 +1,14 @@
 package game;
 
 import game.objects.Bullet;
-import game.objects.Cake;
-import game.objects.CakeV1;
-import game.objects.CakeV2;
-import game.objects.CakeV3;
 import game.objects.Character;
-import game.objects.Enemy;
-import game.objects.EnemyV1;
-import game.objects.EnemyV2;
-import game.objects.EnemyV3;
 import game.objects.Tile;
+import game.objects.cakes.Cake;
+import game.objects.cakes.CakeV1;
+import game.objects.enemies.Enemy;
+import game.objects.enemies.EnemyV1;
+import game.objects.enemies.EnemyV2;
+import game.objects.enemies.EnemyV3;
 import game.physics.Body;
 import game.physics.BodyId;
 import game.physics.BodyType;
@@ -49,12 +47,11 @@ public class Level {
 		world.addContactListener(contactListener);
 
 		tiles = new LinkedList<Tile>();
-		
-		
+
 		enemies = new ArrayList<Enemy>();
 		bullets = new ArrayList<Bullet>();
 		cakes = new ArrayList<Cake>();
-		
+
 	}
 
 	public Character getCharacter() {
@@ -66,37 +63,38 @@ public class Level {
 	}
 
 	public boolean isFinished() {
-		if(character.isDead()){
+		if (character.isDead()) {
 			win = false;
 			return true;
-		}
-		else if(enemies.size() == 0){
+		} else if (enemies.size() == 0) {
 			win = true;
 			return true;
 		}
-		
+
 		return false;
 	}
 
 	public void update(float dt) {
 		handleInput();
-		
+
 		Queue<Body> bodies = contactListener.getBodiesToRemove();
 		while (!bodies.isEmpty()) {
 			Body body = bodies.poll();
 			if (BodyId.isBullet(body.id))
 				bullets.remove((Bullet) body.data);
+			else if (BodyId.isCake(body.id))
+				cakes.remove((Cake) body.data);
+
 			world.remove(body);
 		}
 		Iterator<Enemy> iterator = enemies.iterator();
 		while (iterator.hasNext()) {
 			Enemy enemy = iterator.next();
-			if (enemy.isDead()){
+			if (enemy.isDead()) {
 				iterator.remove();
 				world.remove(enemy.body);
 				addCake(enemy.getX(), enemy.getY(), enemy.getVersion());
-			}
-			else {
+			} else {
 				enemy.strategicMove(character);
 				enemy.update(dt);
 			}
@@ -106,7 +104,7 @@ public class Level {
 		for (Bullet bullet : bullets)
 			bullet.update(dt);
 
-	}	
+	}
 
 	public void handleInput() {
 		Input.update();
@@ -130,9 +128,7 @@ public class Level {
 
 	private void handleShoot() {
 		if (Input.action()) {
-			Bullet b = addBullet(character.getX() + 7, character.getY() + 7,
-					character);
-			bullets.add(b);
+			character.shot(this);
 		}
 	}
 
@@ -147,30 +143,27 @@ public class Level {
 	public void addCake(int x, int y, int version) {
 		Body body = new Body(x, y, 32, 32, true);
 		body.type = BodyType.STATIC;
-	//	body.id = BodyId.Wall;
+		body.id = BodyId.Cake;
+		body.isSensor = true;
 		world.addBody(body);
-		switch(version){
-		case 1:			
-			cakes.add(new CakeV1(body));
-			break;
-		case 2:
-			cakes.add(new CakeV2(body));
-			break;
-		case 3:
-			cakes.add(new CakeV3(body));
+		Cake cake = null;
+		switch (version) {
+		case 1:
+			cake = new CakeV1(body);
 			break;
 		}
+		cakes.add(cake);
+		body.data = cake;
 	}
 
-	public Bullet addBullet(int x, int y, Character character) {
+	public void addBullet(int x, int y, int angle, int dist) {
 		Body body = new Body(x, y, 5, 5, false);
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Bullet;
 		world.addBody(body);
-		Bullet bullet = new Bullet(body, character);
+		Bullet bullet = new Bullet(body, angle, dist);
 		body.data = bullet;
-		return bullet;
-
+		bullets.add(bullet);
 	}
 
 	public void addTile(int x, int y) {
@@ -219,11 +212,10 @@ public class Level {
 		return enemies;
 	}
 
-	
 	public List<Cake> getCakes() {
 		return cakes;
 	}
-	
+
 	public List<Bullet> getBullets() {
 		return bullets;
 	}

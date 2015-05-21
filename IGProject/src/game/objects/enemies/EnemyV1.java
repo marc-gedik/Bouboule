@@ -1,6 +1,7 @@
-package game.objects;
+package game.objects.enemies;
 
 import game.Direction;
+import game.objects.Character;
 import game.physics.Body;
 
 import java.awt.image.BufferedImage;
@@ -13,7 +14,7 @@ public class EnemyV1 extends Enemy {
 	private int dir = Direction.None;
 	private int flag = 1000;
 	private int changeDirection = 1000;
-	private int lastX = 0, lastY = 0;
+	private double lastX = 0, lastY = 0;
 
 	public EnemyV1(Body body) {
 		super(body, 1);

@@ -1,15 +1,17 @@
 package ui.game;
 
-import game.*;
+import game.Level;
+import game.Levels;
+import game.LoadLevel;
 import game.objects.Bullet;
-import game.objects.Cake;
 import game.objects.Dynamic;
-import game.objects.Enemy;
 import game.objects.GameObject;
-import game.objects.Static;
 import game.objects.Tile;
+import game.objects.cakes.Cake;
+import game.objects.enemies.Enemy;
 
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -19,11 +21,8 @@ import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
-import controler.Input;
 import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
@@ -38,6 +37,8 @@ public class LevelRenderer extends GameState {
 	private Graphics2D bg;
 	private Rectangle bgBounds;
 
+	private HUD hud;
+	
 	public LevelRenderer(GameStateManager gsm) {
 		super(gsm);
 		init();
@@ -45,10 +46,12 @@ public class LevelRenderer extends GameState {
 		level = LoadLevel.get(Levels.getLevel());
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
+		hud = new HUD(level);
 		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice();
-		int width = gd.getDisplayMode().getWidth();
-		int height = gd.getDisplayMode().getHeight();
+
+		int width = Game.WIDTH;
+		int height = Game.HEIGHT;
 
 		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration()
@@ -57,9 +60,6 @@ public class LevelRenderer extends GameState {
 		createStatics();
 	}
 
-
-	
-
 	private void createStatics() {
 		statics = new BufferedImage(level.getWidth() * tileSize,
 				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
@@ -67,8 +67,6 @@ public class LevelRenderer extends GameState {
 				+ Levels.getLevel());
 		BufferedImage wall = AssetsManager.getTexture("wall_"
 				+ Levels.getLevel());
-
-
 
 		int iw = floor.getWidth();
 		int ih = floor.getHeight(this);
@@ -87,10 +85,6 @@ public class LevelRenderer extends GameState {
 		}
 	}
 
-
-
-
-
 	BufferedImage rotate(BufferedImage img, double rot) {
 		AffineTransform tx = new AffineTransform();
 		tx.rotate(Math.toRadians(rot), img.getWidth() / 2, img.getHeight() / 2);
@@ -108,8 +102,8 @@ public class LevelRenderer extends GameState {
 	}
 
 	@Override
-	public void paint(Graphics g) {
-		super.paint(g);
+	protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
 
 		float scaleX = Game.WIDTH / 800f;
 		float scaleY = Game.WIDTH / 800f;
@@ -133,6 +127,8 @@ public class LevelRenderer extends GameState {
 
 		bg.drawImage(statics, 0, 0, null);
 
+		drawCake();
+
 		List<Enemy> enemies = level.getEnemies();
 		for (int i = 0; i < enemies.size(); i++)
 			draw(enemies.get(i));
@@ -143,28 +139,28 @@ public class LevelRenderer extends GameState {
 		for (int i = 0; i < bullets.size(); i++)
 			draw(bullets.get(i));
 
-		drawCake();
+		bg.translate(-offsetX, -offsetY);
+		hud.paint(bg);
 		g2d.drawImage(background, 0, 0, null);
-
+		bg.dispose();
 	}
-	
-	
 
 	private void draw(Dynamic o) {
 		BufferedImage img = o.getAnimation().getFrame();
-		if (o.getAngle() != 0)
-			img = rotate(img, o.getAngle());
-		draw(o, img);
+		Rectangle bounds = o.bounds();
+		if (bounds.intersects(bgBounds)) {
+			if (o.getAngle() != 0)
+				img = rotate(img, o.getAngle());
+			draw(o, img);
+		}
 	}
-	
-	
-	private void drawCake(){
+
+	private void drawCake() {
 		for (Cake c : level.getCakes()) {
-			draw(c , c.getImg());
+			draw(c, c.getImg());
 		}
 
 	}
-
 
 	private void draw(GameObject o, BufferedImage img) {
 		Rectangle bounds = o.bounds();

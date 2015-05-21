@@ -54,6 +54,13 @@ public abstract class Dynamic extends GameObject {
 		body.applyForce(x, y);
 	}
 	
+	void move(double angle){
+		double w = Math.toRadians(angle);
+		double x = Math.cos(w);
+		double y = Math.sin(w);
+		
+		body.applyForce(x, y);
+	}
 	protected void setAnimation(BufferedImage reg, float delay) {
 		setAnimation(new BufferedImage[] { reg }, delay);
 	}

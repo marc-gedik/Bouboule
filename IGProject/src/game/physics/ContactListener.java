@@ -3,7 +3,8 @@ package game.physics;
 import game.Beatable;
 import game.Level;
 import game.objects.Character;
-import game.objects.Enemy;
+import game.objects.cakes.Cake;
+import game.objects.enemies.Enemy;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -34,6 +35,15 @@ public class ContactListener implements CollisionListener {
 			((Enemy) a.data).specialPower((Character) b.data);
 		else if (BodyId.isEnemy(b.id) && BodyId.isCharacter(a.id))
 			((Enemy) b.data).specialPower((Character) a.data);
+
+		else if (BodyId.isCake(a.id) && BodyId.isCharacter(b.id)){
+			bodiesToRemove.add(a);
+			((Character) b.data).setWeapon(((Cake) a.data).getWeapon());
+		}
+		else if (BodyId.isCake(b.id) && BodyId.isCharacter(a.id)){
+			bodiesToRemove.add(b);
+			((Character) a.data).setWeapon(((Cake) b.data).getWeapon());
+		}
 
 	}
 

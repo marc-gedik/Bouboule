@@ -1,6 +1,7 @@
-package game.objects;
+package game.objects.enemies;
 
 import game.Direction;
+import game.objects.Character;
 import game.physics.Body;
 
 import java.awt.image.BufferedImage;
@@ -11,7 +12,8 @@ import utils.MathUtils;
 
 public class EnemyV3 extends Enemy {
 
-	private int lastX = 0, lastY = 0, lastDIR = 0;
+	private double lastX = 0, lastY = 0;
+	private int lastDIR = 0;
 	private int cpt = 0;
 	private int sizeBypass = 50;
 	private boolean flag = true;
@@ -28,7 +30,7 @@ public class EnemyV3 extends Enemy {
 
 	@Override
 	public void strategicMove(Character character) {
-		int dist = MathUtils.dist2(character.getX(), body.getX(),
+		double dist = MathUtils.dist2(character.getX(), body.getX(),
 				character.getY(), body.getY());
 		int distMax = 20 * 20;
 

@@ -2,10 +2,10 @@ package utils;
 
 public class MathUtils {
 
-	public static int dist2(int xA, int xB, int yA, int yB) {
-		int distX = xA - xB;
+	public static double dist2(double xA, double xB, double yA, double yB) {
+		double distX = xA - xB;
 		distX *= distX;
-		int distY = yA - yB;
+		double distY = yA - yB;
 		distY *= distY;
 		return distX + distY;
 	}
