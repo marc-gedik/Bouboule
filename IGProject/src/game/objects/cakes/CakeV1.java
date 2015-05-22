@@ -1,8 +1,9 @@
 package game.objects.cakes;
 
 import game.objects.weapons.ShotGun;
-import game.objects.weapons.Weapon;
 import game.physics.Body;
+import game.objects.Character;
+
 import utils.AssetsManager;
 
 public class CakeV1 extends Cake {
@@ -14,8 +15,8 @@ public class CakeV1 extends Cake {
 	}
 
 	@Override
-	public Weapon getWeapon() {
-		return new ShotGun();
+	public void power(Character character) {
+		character.setWeapon(new ShotGun());
 	}
 
 }

@@ -5,14 +5,17 @@ import game.Level;
 public class ShotGun extends Weapon {
 
 	public ShotGun() {
-		super(25, 2, 2f, 1f);
+		super(25, 2, 2f, 1f, 150f, 9f);
 	}
 
 	@Override
-	public void shot(int x, int y, int angle, Level level) {
+	public void shot(float x, float y, float angle, Level level) {
 		if (shot()) {
-			level.addBullet(x - 5, y - 5, angle, 5);
-			level.addBullet(x + 5, y + 5, angle, 5);
+			addBullet(level, x, y, angle - 10);
+			addBullet(level, x, y, angle - 5);
+			addBullet(level, x, y, angle);
+			addBullet(level, x, y, angle + 5);
+			addBullet(level, x, y, angle - 10);
 		}
 	}
 

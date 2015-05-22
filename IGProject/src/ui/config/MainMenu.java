@@ -1,6 +1,7 @@
 package ui.config;
 
 import java.awt.AWTKeyStroke;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -24,8 +25,7 @@ import utils.AssetsManager;
 public class MainMenu extends GameState {
 
 	private MainMenuListener action;
-	private MainMenuKeyListener keyAction;
-	private MainMenuFocusListener focusAction;
+	private Component focus;
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
@@ -34,8 +34,6 @@ public class MainMenu extends GameState {
 	@Override
 	public void init() {
 		action = new MainMenuListener(gsm);
-		keyAction = new MainMenuKeyListener();
-		focusAction = new MainMenuFocusListener();
 
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
@@ -46,9 +44,6 @@ public class MainMenu extends GameState {
 
 	public void addButtonEvent(JButton btn) {
 		btn.addActionListener(action);
-		btn.addFocusListener(focusAction);
-		btn.addKeyListener(keyAction);
-
 	}
 
 	JPanel buttonContainer() {
@@ -63,13 +58,15 @@ public class MainMenu extends GameState {
 				"MainMenu.score" };
 
 		for (String name : names) {
-			DecoratedButton btn = new DecoratedButton(AssetsManager
-					.getString(name), ButtonStyle.WhiteStyle, downKeys, upKeys);
+			DecoratedButton btn = new DecoratedButton(
+					AssetsManager.getString(name), ButtonStyle.WhiteStyle,
+					downKeys, upKeys);
 			addButtonEvent(btn);
 			btn.setActionCommand(name);
 			containerButton.add(btn);
 		}
-		containerButton.getComponent(0).requestFocusInWindow();
+		focus = containerButton.getComponent(0);
+		focus.requestFocusInWindow();
 		containerButton.setPreferredSize(new Dimension(450, 300));
 		containerButton.setMinimumSize(new Dimension(450, 300));
 		containerButton.setSize(new Dimension(450, 300));
@@ -91,5 +88,9 @@ public class MainMenu extends GameState {
 	public void update(float dt) {
 	}
 
+	@Override
+	public void onBack() {
+		focus.requestFocusInWindow();
+	}
 
 }

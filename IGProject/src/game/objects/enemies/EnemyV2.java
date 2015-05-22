@@ -12,7 +12,6 @@ import utils.MathUtils;
 
 public class EnemyV2 extends Enemy {
 
-	private int dir = Direction.None;
 	private int flag = 1000;
 	private int changeDirection = 1000;
 	private double lastX = 0, lastY = 0;
@@ -35,9 +34,9 @@ public class EnemyV2 extends Enemy {
 		}
 
 		if (MathUtils.dist2(lastX, character.getX(), lastY, character.getY()) < 150 * 150){
-			dir = followCharacter(character);
+			angle = followCharacter(character);
 		}else if (flag == changeDirection) {
-			dir = determineDirection();
+			angle = determineDirection();
 			flag = 0;
 			changeDirection = rand.nextInt(500);
 		} else {
@@ -45,33 +44,13 @@ public class EnemyV2 extends Enemy {
 		}
 		lastX = body.getX();
 		lastY = body.getY();
-		this.move(dir);
+		this.move(angle);
 
 	}
 
 	public int determineDirection() {
 		Random rand = new Random();
-		int nbAleatoire = rand.nextInt(8);
-
-		switch (nbAleatoire) {
-		case 0:
-			return Direction.South;
-		case 1:
-			return Direction.North;
-		case 2:
-			return Direction.West;
-		case 3:
-			return Direction.East;
-		case 4:
-			return Direction.NEast;
-		case 5:
-			return Direction.SEast;
-		case 6:
-			return Direction.NWest;
-		case 7:
-			return Direction.SWest;
-		}
-		return Direction.None;
+		return rand.nextInt(360);
 	}
 
 	@Override

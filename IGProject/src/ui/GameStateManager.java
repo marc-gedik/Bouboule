@@ -78,6 +78,7 @@ public class GameStateManager {
 	public void popState() {
 		gameStates.pop();
 		set(gameStates.peek());
+		gameStates.peek().onBack();
 	}
 
 	public void set(GameState gameState) {

@@ -2,6 +2,7 @@ package game.objects.enemies;
 
 import java.awt.image.BufferedImage;
 
+import utils.MathUtils;
 import game.Beatable;
 import game.Direction;
 import game.objects.Character;
@@ -31,22 +32,12 @@ public abstract class Enemy extends Dynamic implements Beatable {
 		return life < 0;
 	}
 
-	public int followCharacter(Character character) {
-		double xC = character.getX();
-		double yC = character.getY();
-		double xE = this.getX();
-		double yE = this.getY();
-		int direction = Direction.None;
-
-		if (yC > yE)
-			direction += Direction.South;
-		else if (yC < yE)
-			direction += Direction.North;
-		if (xC > xE)
-			direction += Direction.East;
-		if (xC < xE)
-			direction += Direction.West;
-		return direction;
+	public float followCharacter(Character character) {
+		float xC = character.getX();
+		float yC = character.getY();
+		float xE = this.getX();
+		float yE = this.getY();
+		return (float) Math.toDegrees(Math.atan2(yC - yE, xC - xE));
 	}
 	
 	public abstract void specialPower(Character character);

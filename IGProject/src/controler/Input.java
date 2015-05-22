@@ -25,8 +25,10 @@ public class Input {
 	public static boolean right() {
 		return keys[KeysOption.Right.get()];
 	}
-	
-	public static boolean action() { return keys[KeysOption.Action.get()]; }
+
+	public static boolean action() {
+		return keys[KeysOption.Action.get()];
+	}
 
 	public static boolean enter() {
 		return keys[KeyEvent.VK_ENTER];
@@ -34,6 +36,11 @@ public class Input {
 
 	public static void update() {
 
+	}
+
+	public static boolean touched() {
+		return keys[KeysOption.Up.get()] || keys[KeysOption.Down.get()]
+				|| keys[KeysOption.Left.get()] || keys[KeysOption.Right.get()];
 	}
 
 }

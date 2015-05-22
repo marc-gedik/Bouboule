@@ -3,6 +3,7 @@ package game.objects;
 import game.physics.Body;
 
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.BufferedImage;
 
 import ui.game.Animation;
@@ -10,25 +11,25 @@ import ui.game.Animation;
 public abstract class GameObject {
 
 	public Body body;
-	protected int angle;
+	protected float angle;
 
 	public GameObject(Body body) {
 		this.body = body;
 	}
 
-	public int getX() {
+	public float getX() {
 		return body.getX();
 	}
 
-	public int getY() {
+	public float getY() {
 		return body.getY();
 	}
 
-	public int getAngle() {
+	public float getAngle() {
 		return angle;
 	}
 	
-	public Rectangle bounds(){
+	public Float bounds(){
 		return body.bounds();
 	}
 }

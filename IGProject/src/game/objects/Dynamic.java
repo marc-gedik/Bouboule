@@ -1,10 +1,10 @@
 package game.objects;
 
+import game.physics.Body;
+
 import java.awt.image.BufferedImage;
 
 import ui.game.Animation;
-import game.Direction;
-import game.physics.Body;
 
 
 public abstract class Dynamic extends GameObject {
@@ -19,48 +19,13 @@ public abstract class Dynamic extends GameObject {
 		this.speed = speed;
 	}
 
-	public void move(int dir) {
-		int x = 0, y = 0;
-
-		if ((dir & Direction.North) == Direction.North)
-			y -= speed;
-		if ((dir & Direction.South) == Direction.South)
-			y += speed;
-		if ((dir & Direction.East) == Direction.East)
-			x += speed;
-		if ((dir & Direction.West) == Direction.West)
-			x -= speed;
-
-		if (y < 0) {
-			if (x < 0)
-				angle = -45;
-			else if (x == 0)
-				angle = 0;
-			else if (x > 0)
-				angle = 45;
-		} else if (y == 0) {
-			if (x < 0)
-				angle = -90;
-			else if (x > 0)
-				angle = 90;
-		} else if (y > 0) {
-			if (x < 0)
-				angle = -135;
-			else if (x == 0)
-				angle = 180;
-			else if (x > 0)
-				angle = 135;
-		}
-		body.applyForce(x, y);
-	}
-	
-	void move(double angle){
+	public void move(float angle) {
 		double w = Math.toRadians(angle);
-		double x = Math.cos(w);
-		double y = Math.sin(w);
-		
+		float x = (float) (Math.cos(w) * speed);
+		float y = (float) (Math.sin(w) * speed);
 		body.applyForce(x, y);
 	}
+
 	protected void setAnimation(BufferedImage reg, float delay) {
 		setAnimation(new BufferedImage[] { reg }, delay);
 	}

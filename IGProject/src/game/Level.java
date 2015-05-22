@@ -1,14 +1,16 @@
 package game;
 
-import game.objects.Bullet;
 import game.objects.Character;
 import game.objects.Tile;
 import game.objects.cakes.Cake;
 import game.objects.cakes.CakeV1;
+import game.objects.cakes.CakeV2;
+import game.objects.cakes.CakeV3;
 import game.objects.enemies.Enemy;
 import game.objects.enemies.EnemyV1;
 import game.objects.enemies.EnemyV2;
 import game.objects.enemies.EnemyV3;
+import game.objects.weapons.Bullet;
 import game.physics.Body;
 import game.physics.BodyId;
 import game.physics.BodyType;
@@ -21,6 +23,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import utils.MathUtils;
 import controler.Input;
 
 public class Level {
@@ -101,29 +104,34 @@ public class Level {
 		}
 		character.update(dt);
 
-		for (Bullet bullet : bullets)
-			bullet.update(dt);
-
+		Iterator<Bullet> bulletIt = bullets.iterator();
+		while (bulletIt.hasNext()) {
+			Bullet bullet = bulletIt.next();
+			if (bullet.remove()) {
+				bulletIt.remove();
+				world.remove(bullet.body);
+			} else
+				bullet.update(dt);
+		}
 	}
 
 	public void handleInput() {
 		Input.update();
-		int dir = handleMove();
-		character.move(dir);
+		handleMove();
+		if (Input.up())
+			character.forward();
+		if(Input.down())
+			character.backward();
 		handleShoot();
 	}
 
-	private int handleMove() {
-		int dir = Direction.None;
-		if (Input.up())
-			dir = dir | Direction.North;
-		if (Input.down())
-			dir = dir | Direction.South;
+	private void handleMove() {
+		float dir = character.getAngle();
 		if (Input.left())
-			dir = dir | Direction.West;
+			dir -= 4;
 		if (Input.right())
-			dir = dir | Direction.East;
-		return dir;
+			dir += 4;
+		character.setAngle(dir);
 	}
 
 	private void handleShoot() {
@@ -140,7 +148,7 @@ public class Level {
 		return height;
 	}
 
-	public void addCake(int x, int y, int version) {
+	public void addCake(float x, float y, int version) {
 		Body body = new Body(x, y, 32, 32, true);
 		body.type = BodyType.STATIC;
 		body.id = BodyId.Cake;
@@ -151,18 +159,19 @@ public class Level {
 		case 1:
 			cake = new CakeV1(body);
 			break;
+		case 2:
+			cake = new CakeV2(body);
+			break;
+		case 3:
+			cake = new CakeV3(body);
+			break;
 		}
 		cakes.add(cake);
 		body.data = cake;
 	}
 
-	public void addBullet(int x, int y, int angle, int dist) {
-		Body body = new Body(x, y, 5, 5, false);
-		body.type = BodyType.DYNAMIC;
-		body.id = BodyId.Bullet;
-		world.addBody(body);
-		Bullet bullet = new Bullet(body, angle, dist);
-		body.data = bullet;
+	public void addBullet(Bullet bullet) {
+		world.addBody(bullet.body);
 		bullets.add(bullet);
 	}
 

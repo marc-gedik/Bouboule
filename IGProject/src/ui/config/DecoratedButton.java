@@ -3,19 +3,29 @@ package ui.config;
 import java.awt.AWTKeyStroke;
 import java.awt.Graphics;
 import java.awt.KeyboardFocusManager;
+import java.awt.event.FocusListener;
+import java.awt.event.KeyListener;
 import java.util.Set;
 
 import javax.swing.JButton;
 
+import controler.MainMenuFocusListener;
+import controler.MainMenuKeyListener;
+
 @SuppressWarnings("serial")
 public class DecoratedButton extends JButton {
 	private ButtonStyle style;
-
+	
+	private static FocusListener focusListener= new MainMenuFocusListener();
+	private static KeyListener keyListener = new MainMenuKeyListener();
+	
 	public DecoratedButton(String s, ButtonStyle style) {
 		super(s);
 		this.style = style;
 		init();
 
+		addFocusListener(focusListener);
+		addKeyListener(keyListener);
 		addMouseListener(new java.awt.event.MouseAdapter() {
 			public void mouseEntered(java.awt.event.MouseEvent evt) {
 				requestFocus();

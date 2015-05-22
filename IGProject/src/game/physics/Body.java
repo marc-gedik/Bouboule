@@ -1,13 +1,14 @@
 package game.physics;
 
-import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 
 public class Body {
 
 	private PhysicalWorld world;
 
-	private int x, y;
-	private int width, height;
+	private float x, y;
+	private float width, height;
 	final boolean collision;
 	public BodyType type;
 	public short id;
@@ -16,7 +17,7 @@ public class Body {
 	public Object data;
 
 	
-	public Body(int x, int y, int width, int height, boolean collision) {
+	public Body(float x, float y, float width, float height, boolean collision) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -24,20 +25,20 @@ public class Body {
 		this.collision = collision;
 	}
 
-	public Rectangle bounds() {
-		return new Rectangle(x, y, width, height);
+	public Float bounds() {
+		return new Rectangle2D.Float(x, y, width, height);
 	}
 
-	public int getX() {
+	public float getX() {
 		return x;
 	}
 
-	public int getY() {
+	public float getY() {
 		return y;
 	}
 
-	public void applyForce(int x, int y) {
-		int n;
+	public void applyForce(float x, float y) {
+		float n;
 
 		n = this.x;
 		this.x += x;
@@ -53,9 +54,5 @@ public class Body {
 
 	public void setWorld(PhysicalWorld physicalWorld) {
 		world = physicalWorld;
-	}
-
-	public void applyForce(double x, double y) {
-		
 	}
 }

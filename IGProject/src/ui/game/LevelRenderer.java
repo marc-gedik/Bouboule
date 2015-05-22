@@ -3,12 +3,12 @@ package ui.game;
 import game.Level;
 import game.Levels;
 import game.LoadLevel;
-import game.objects.Bullet;
 import game.objects.Dynamic;
 import game.objects.GameObject;
 import game.objects.Tile;
 import game.objects.cakes.Cake;
 import game.objects.enemies.Enemy;
+import game.objects.weapons.Bullet;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -22,6 +22,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.List;
+import java.awt.geom.Rectangle2D.Float;
 
 import ui.Game;
 import ui.GameState;
@@ -38,7 +39,7 @@ public class LevelRenderer extends GameState {
 	private Rectangle bgBounds;
 
 	private HUD hud;
-	
+
 	public LevelRenderer(GameStateManager gsm) {
 		super(gsm);
 		init();
@@ -76,7 +77,7 @@ public class LevelRenderer extends GameState {
 			for (int y = 0; y < level.getHeight(); y++)
 				g2d.drawImage(floor, x * iw, y * ih, iw, ih, this);
 		for (Tile o : level.getTiles()) {
-			Rectangle bounds = o.bounds();
+			Float bounds = o.bounds();
 			g2d.drawImage(
 					wall,
 					(int) (o.getX() - (wall.getWidth() - bounds.getWidth()) / 2),
@@ -147,10 +148,9 @@ public class LevelRenderer extends GameState {
 
 	private void draw(Dynamic o) {
 		BufferedImage img = o.getAnimation().getFrame();
-		Rectangle bounds = o.bounds();
+		Float bounds = o.bounds();
 		if (bounds.intersects(bgBounds)) {
-			if (o.getAngle() != 0)
-				img = rotate(img, o.getAngle());
+			img = rotate(img, o.getAngle()+90);
 			draw(o, img);
 		}
 	}
@@ -163,16 +163,13 @@ public class LevelRenderer extends GameState {
 	}
 
 	private void draw(GameObject o, BufferedImage img) {
-		Rectangle bounds = o.bounds();
-		if (bounds.intersects(bgBounds)) {
-			bg.drawImage(
-					img,
-					(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
-					(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
-					img.getWidth(), img.getHeight(), null);
-			if (debug) {
-				bg.draw(bounds);
-			}
+		Float bounds = o.bounds();
+		bg.drawImage(img,
+				(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
+				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
+				img.getWidth(), img.getHeight(), null);
+		if (debug) {
+			bg.draw(bounds);
 		}
 	}
 

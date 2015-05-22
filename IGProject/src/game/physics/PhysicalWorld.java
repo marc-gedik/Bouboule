@@ -1,6 +1,7 @@
 package game.physics;
 
 import java.awt.Rectangle;
+import java.awt.geom.Rectangle2D.Float;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class PhysicalWorld {
 		if (body.type == BodyType.DYNAMIC)
 			dynamics.add(body);
 		else if (body.type == BodyType.STATIC) {
-			Rectangle r = body.bounds();
+			Float r = body.bounds();
 			statics[(int) (body.getX() / r.getWidth())][(int) (body.getY() / r
 					.getHeight())] = body;
 		}
@@ -52,14 +53,14 @@ public class PhysicalWorld {
 	}
 
 	public boolean staticCollide(Body bodyA) {
-		int x = bodyA.getX() / PPM;
-		int y = bodyA.getY() / PPM;
+		float x = bodyA.getX() / PPM;
+		float y = bodyA.getY() / PPM;
 		boolean b = false;
-		Rectangle r = bodyA.bounds();
+		Float r = bodyA.bounds();
 		if (x >= 0 && y >= 0)
 			for (int i = 0; i < 2 && x + i< statics.length ; i++)
 				for (int j = 0; j < 2 && y + j< statics.length; j++) {
-					Body bodyB = statics[x + i][y + j];
+					Body bodyB = statics[(int) (x + i)][(int) (y + j)];
 					if (bodyB != null && bodyB.bounds().intersects(r)) {
 						for (CollisionListener listener : listeners)
 							listener.colide(bodyB, bodyA);

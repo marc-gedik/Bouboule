@@ -50,24 +50,7 @@ public class EnemyV1 extends Enemy {
 		Random rand = new Random();
 		int nbAleatoire = rand.nextInt(4);
 
-		int direction = Direction.None;
-
-		switch (nbAleatoire) {
-		case 0:
-			direction = Direction.South;
-			break;
-		case 1:
-			direction = Direction.North;
-			break;
-		case 2:
-			direction = Direction.West;
-			break;
-		case 3:
-			direction = Direction.East;
-			break;
-		}
-
-		return direction;
+		return nbAleatoire * 90;
 	}
 
 	@Override

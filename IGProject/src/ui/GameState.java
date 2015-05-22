@@ -47,4 +47,7 @@ public abstract class GameState extends JPanel {
 		this.add(wallpaper, gbc);
 	}
 
+	public void onBack() {
+	}
+
 }

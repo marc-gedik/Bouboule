@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.SwingUtilities;
 import javax.swing.border.EmptyBorder;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.MutableAttributeSet;
@@ -26,7 +27,6 @@ public class InstructionsMenu extends GameState {
 	public InstructionsMenu(GameStateManager gsm) {
 		super(gsm);
 	}
-
 	@Override
 	public void init() {
 		this.setLayout(new GridBagLayout());
@@ -40,9 +40,10 @@ public class InstructionsMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
+		 JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
 				ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
+		b.requestFocusInWindow();
 		b.addActionListener(bl);
 		tmp.add(b);
 
@@ -52,7 +53,7 @@ public class InstructionsMenu extends GameState {
 
 	JPanel textContainer() {
 		JPanel containerText = new JPanel();
-
+		
 		containerText.setLayout(new BorderLayout());
 		String title1 = AssetsManager.getString("Instructions.title1");
 		String text1 = AssetsManager.getString("Instructions.text1");
@@ -60,11 +61,14 @@ public class InstructionsMenu extends GameState {
 		String text2 = AssetsManager.getString("Instructions.text2");
 
 		JTextPane jtp1 = printer(title1, text1);
+		jtp1.setFocusable(false);
 		JTextPane jtp2 = printer(title2, text2);
 		jtp1.setPreferredSize((new Dimension(600, 180)));
 		jtp2.setPreferredSize((new Dimension(600, 120)));
+		jtp2.setFocusable(false);
 		containerText.add(jtp1, BorderLayout.NORTH);
 		containerText.add(jtp2, BorderLayout.SOUTH);
+
 		return containerText;
 	}
 

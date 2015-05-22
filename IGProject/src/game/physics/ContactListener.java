@@ -38,11 +38,11 @@ public class ContactListener implements CollisionListener {
 
 		else if (BodyId.isCake(a.id) && BodyId.isCharacter(b.id)){
 			bodiesToRemove.add(a);
-			((Character) b.data).setWeapon(((Cake) a.data).getWeapon());
+			((Cake) a.data).power(((Character) b.data));
 		}
 		else if (BodyId.isCake(b.id) && BodyId.isCharacter(a.id)){
 			bodiesToRemove.add(b);
-			((Character) a.data).setWeapon(((Cake) b.data).getWeapon());
+			((Cake) b.data).power(((Character) a.data));
 		}
 
 	}

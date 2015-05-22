@@ -1,12 +1,10 @@
 package game.objects.cakes;
 
-import java.awt.image.BufferedImage;
-
+import game.objects.Character;
 import game.objects.Static;
-import game.objects.weapons.Weapon;
 import game.physics.Body;
-import ui.game.LevelRenderer;
-import utils.AssetsManager;
+
+import java.awt.image.BufferedImage;
 
 public abstract class Cake extends Static {
 	private int levelCake;
@@ -20,7 +18,7 @@ public abstract class Cake extends Static {
 		return this.img;
 	}
 	
-	public abstract Weapon getWeapon();
+	public abstract void power(Character character);
 	
 	public void setImg(BufferedImage img){
 	this.img=img;

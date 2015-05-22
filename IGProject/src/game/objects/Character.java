@@ -2,6 +2,7 @@ package game.objects;
 
 import game.Beatable;
 import game.Level;
+import game.objects.weapons.FlameThrower;
 import game.objects.weapons.Pistol;
 import game.objects.weapons.Weapon;
 import game.physics.Body;
@@ -30,7 +31,8 @@ public class Character extends Dynamic implements Beatable {
 		super(body, characterSpeed);
 		BufferedImage[] img = AssetsManager.getSprites("character", 4);
 		setAnimation(img, 1000 / 12f);
-		weapon = new Pistol();
+//		weapon = new Pistol();
+		weapon = new FlameThrower();
 		life = 100;
 		maxLife = 100;
 	}
@@ -77,7 +79,7 @@ public class Character extends Dynamic implements Beatable {
 	}
 
 	public void shot(Level level) {
-		weapon.shot(getX(), getY(), getAngle(), level);
+		weapon.shot(getX(), getY(), angle, level);
 	}
 
 	public void setWeapon(Weapon weapon) {
@@ -91,4 +93,18 @@ public class Character extends Dynamic implements Beatable {
 	public boolean charging() {
 		return weapon.isCharging();
 	}
+
+	public void forward() {
+		move(angle);
+	}
+
+
+	public void backward() {
+		move(angle + 180);
+	}
+	
+	public void setAngle(float dir) {
+		angle = dir;
+	}
+
 }
