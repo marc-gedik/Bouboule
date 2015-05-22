@@ -2,10 +2,8 @@ package game.objects.weapons;
 
 import game.Level;
 import game.physics.Body;
-import game.physics.Category;
+import game.physics.BodyId;
 import game.physics.BodyType;
-import game.physics.LBody;
-import game.physics.RBody;
 
 public abstract class Weapon {
 
@@ -30,19 +28,15 @@ public abstract class Weapon {
 		this.power = power;
 		this.maxCapacity = capacity;
 		this.chargingTiming = chargingTiming;
-		this.chargingTime = chargingTiming;
-		
 		this.shootTiming = shootTiming;
-		this.shootTime = shootTiming;
-		
 		this.dist = dist;
 		this.speed = speed;
 	}
 
 	protected void addBullet(Level level, float x, float y, float angle){
-		Body body = new LBody(BodyType.DYNAMIC, x, y, 50, angle);
-		body.category = Category.Bullet;
-		body.mask = Category.Enemy;
+		Body body = new Body(x, y, 5, 5, false);
+		body.type = BodyType.DYNAMIC;
+		body.id = BodyId.Bullet;
 		Bullet bullet = new Bullet(body, angle, dist, speed);
 		body.data = bullet;
 		level.addBullet(bullet);
@@ -76,7 +70,7 @@ public abstract class Weapon {
 
 		if (chargingTime < chargingTiming) {
 			chargingTime += dt / 1000;
-			if (chargingTime >= chargingTiming)
+			if (chargingTime > chargingTiming)
 				charging = false;
 		}
 

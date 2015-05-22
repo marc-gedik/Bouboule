@@ -1,45 +1,58 @@
 package game.physics;
 
 import java.awt.geom.Rectangle2D;
+import java.awt.geom.Rectangle2D.Float;
 
-public abstract class Body {
+public class Body {
 
-	protected PhysicalWorld world;
-	
-	public final Shapes shape;
-	public final BodyType type;
-	
-	public short category, mask;
+	private PhysicalWorld world;
+
+	private float x, y;
+	private float width, height;
+	final boolean collision;
+	public BodyType type;
+	public short id;
 	public boolean isSensor;
 
 	public Object data;
 
-	protected float x, y;
-
-
-	public Body(Shapes shape, BodyType bodyType, float x, float y) {
-		this.shape = shape;
-		this.type = bodyType;
+	
+	public Body(float x, float y, float width, float height, boolean collision) {
 		this.x = x;
 		this.y = y;
+		this.width = width;
+		this.height = height;
+		this.collision = collision;
 	}
 
-	public abstract java.awt.Shape shape();
+	public Float bounds() {
+		return new Rectangle2D.Float(x, y, width, height);
+	}
 
-	public float getX(){return x;}
-	public float getY(){return y;}
+	public float getX() {
+		return x;
+	}
 
-	public abstract void applyForce(float pow, float dir);
+	public float getY() {
+		return y;
+	}
+
+	public void applyForce(float x, float y) {
+		float n;
+
+		n = this.x;
+		this.x += x;
+		if (world.staticCollide(this) || world.collide(this))
+			this.x = n;
+
+		n = this.y;
+		this.y += y;
+		if (world.staticCollide(this) || world.collide(this))
+			this.y = n;
+
+	}
 
 	public void setWorld(PhysicalWorld physicalWorld) {
 		world = physicalWorld;
-	}
-
-	public boolean intersect(Body body) {
-		if (shape == Shapes.Rectangle)
-			return body.shape().intersects((Rectangle2D.Float) shape());
-		if (body.shape == Shapes.Rectangle)
-			return shape().intersects((Rectangle2D.Float) body.shape());
-		return false;
 	}
 }

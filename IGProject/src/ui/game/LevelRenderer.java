@@ -77,7 +77,7 @@ public class LevelRenderer extends GameState {
 			for (int y = 0; y < level.getHeight(); y++)
 				g2d.drawImage(floor, x * iw, y * ih, iw, ih, this);
 		for (Tile o : level.getTiles()) {
-			Rectangle bounds = o.bounds().getBounds();
+			Float bounds = o.bounds();
 			g2d.drawImage(
 					wall,
 					(int) (o.getX() - (wall.getWidth() - bounds.getWidth()) / 2),
@@ -148,7 +148,7 @@ public class LevelRenderer extends GameState {
 
 	private void draw(Dynamic o) {
 		BufferedImage img = o.getAnimation().getFrame();
-		Rectangle bounds = o.bounds().getBounds();
+		Float bounds = o.bounds();
 		if (bounds.intersects(bgBounds)) {
 			img = rotate(img, o.getAngle()+90);
 			draw(o, img);
@@ -163,13 +163,13 @@ public class LevelRenderer extends GameState {
 	}
 
 	private void draw(GameObject o, BufferedImage img) {
-		Rectangle bounds = o.bounds().getBounds();
+		Float bounds = o.bounds();
 		bg.drawImage(img,
 				(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
 				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
 				img.getWidth(), img.getHeight(), null);
 		if (debug) {
-			bg.draw(o.bounds());
+			bg.draw(bounds);
 		}
 	}
 

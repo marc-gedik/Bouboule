@@ -9,14 +9,13 @@ public class PhysicalWorld {
 
 	public final static int PPM = 32;
 
-	private RBody[][] statics;
+	private Body[][] statics;
 	private List<Body> dynamics;
-
 	private List<CollisionListener> listeners;
 
 	public PhysicalWorld(int width, int height) {
 		dynamics = new LinkedList<Body>();
-		statics = new RBody[width][height];
+		statics = new Body[width][height];
 		listeners = new LinkedList<CollisionListener>();
 	}
 
@@ -25,22 +24,23 @@ public class PhysicalWorld {
 		if (body.type == BodyType.DYNAMIC)
 			dynamics.add(body);
 		else if (body.type == BodyType.STATIC) {
-			Float r = (Float) body.shape();
+			Float r = body.bounds();
 			statics[(int) (body.getX() / r.getWidth())][(int) (body.getY() / r
-					.getHeight())] = (RBody) body;
+					.getHeight())] = body;
 		}
 	}
 
 	public boolean collide(Body bodyA) {
 		boolean b = false;
 		for (Body bodyB : dynamics)
-			if (Category.isIn(bodyA.mask, bodyB.category))
-				if (bodyA != bodyB && bodyA.intersect(bodyB)) {
-					for (CollisionListener listener : listeners)
-						listener.colide(bodyA, bodyB);
-					if (!bodyA.isSensor && !bodyB.isSensor)
-						b = true;
-				}
+			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())) {
+				if (bodyA.collision == false && bodyB.collision == false)
+					continue;
+				for (CollisionListener listener : listeners)
+					listener.colide(bodyA, bodyB);
+				if (!bodyA.isSensor && !bodyB.isSensor)
+					b = true;
+			}
 		return b;
 	}
 
@@ -56,11 +56,12 @@ public class PhysicalWorld {
 		float x = bodyA.getX() / PPM;
 		float y = bodyA.getY() / PPM;
 		boolean b = false;
+		Float r = bodyA.bounds();
 		if (x >= 0 && y >= 0)
-			for (int i = 0; i < 2 && x + i < statics.length; i++)
-				for (int j = 0; j < 2 && y + j < statics.length; j++) {
+			for (int i = 0; i < 2 && x + i< statics.length ; i++)
+				for (int j = 0; j < 2 && y + j< statics.length; j++) {
 					Body bodyB = statics[(int) (x + i)][(int) (y + j)];
-					if (bodyB != null && bodyB.intersect(bodyA)) {
+					if (bodyB != null && bodyB.bounds().intersects(r)) {
 						for (CollisionListener listener : listeners)
 							listener.colide(bodyB, bodyA);
 						if (!bodyA.isSensor && !bodyB.isSensor)

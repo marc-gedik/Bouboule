@@ -10,6 +10,8 @@ import ui.game.Animation;
 public abstract class Dynamic extends GameObject {
 	private Animation animation;
 
+	protected int idSprite = 0;
+
 	protected float speed;
 
 	public Dynamic(Body body, float speed) {
@@ -18,7 +20,10 @@ public abstract class Dynamic extends GameObject {
 	}
 
 	public void move(float angle) {
-		body.applyForce(angle, speed);
+		double w = Math.toRadians(angle);
+		float x = (float) (Math.cos(w) * speed);
+		float y = (float) (Math.sin(w) * speed);
+		body.applyForce(x, y);
 	}
 
 	protected void setAnimation(BufferedImage reg, float delay) {

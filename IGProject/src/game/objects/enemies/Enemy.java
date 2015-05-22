@@ -24,7 +24,6 @@ public abstract class Enemy extends Dynamic implements Beatable {
 
 	@Override
 	public void hit(float pow) {
-		System.out.println("ok");
 		life -= pow;
 	}
 	
