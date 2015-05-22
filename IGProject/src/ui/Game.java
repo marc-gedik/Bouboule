@@ -28,7 +28,7 @@ public class Game extends JFrame {
 	public static int WIDTH = 800;
 	public static int HEIGHT = 600;
 	public static final int ratio = WIDTH / HEIGHT;
-	
+
 	private GameStateManager gsm;
 	private Camera camera;
 	public static SoundManager soundManager;
@@ -54,12 +54,12 @@ public class Game extends JFrame {
 		soundManager.play();
 
 		addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent arg0) {
-                WIDTH = getWidth();
-                HEIGHT = getHeight();
-            }
-        });
+			@Override
+			public void componentResized(ComponentEvent arg0) {
+				WIDTH = getWidth();
+				HEIGHT = getHeight();
+			}
+		});
 
 		run();
 	}
@@ -111,6 +111,9 @@ public class Game extends JFrame {
 
 	JMenuBar menuBar;
 	private void createMenuBar() {
+		if (System.getProperty("os.name").contains("Mac")) {
+			System.setProperty("apple.laf.useScreenMenuBar", "true");
+		}
 		menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
 
@@ -140,13 +143,6 @@ public class Game extends JFrame {
 		menu.add(createItem("Menu.Config.Keys", null, controler));
 		menu.add(createItem("Menu.Config.Sound", null, controler));
 
-		JMenu display = new JMenu(AssetsManager.getString(
-				"Menu.Config.Display"));
-		ButtonGroup buttonGroup = new ButtonGroup();
-		resolution(display, buttonGroup, "640 * 360", "360");
-		resolution(display, buttonGroup, "1280 * 720", "720");
-		resolution(display, buttonGroup, "1920 * 1080", "1080");
-		menu.add(display);
 
 		menu = new JMenu(AssetsManager.getString("Menu.Help"));
 		menu.add(createItem("Menu.Help.Instruction", null, controler));
