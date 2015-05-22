@@ -21,26 +21,26 @@ public class ContactListener implements CollisionListener {
 
 	@Override
 	public void colide(Body a, Body b) {
-		if (BodyId.isBullet(a.id)) {
+		if (Category.isBullet(a.category)) {
 			bodiesToRemove.add(a);
-			if (BodyId.isEnemy(b.id))
+			if (Category.isEnemy(b.category))
 				((Beatable) b.data).hit(level.getCharacter().getWeapon().power);
-		} else if (BodyId.isBullet(b.id)) {
+		} else if (Category.isBullet(b.category)) {
 			bodiesToRemove.add(b);
-			if (BodyId.isEnemy(a.id))
+			if (Category.isEnemy(a.category))
 				((Beatable) a.data).hit(level.getCharacter().getWeapon().power);
 		}
 
-		else if (BodyId.isEnemy(a.id) && BodyId.isCharacter(b.id))
+		else if (Category.isEnemy(a.category) && Category.isCharacter(b.category))
 			((Enemy) a.data).specialPower((Character) b.data);
-		else if (BodyId.isEnemy(b.id) && BodyId.isCharacter(a.id))
+		else if (Category.isEnemy(b.category) && Category.isCharacter(a.category))
 			((Enemy) b.data).specialPower((Character) a.data);
 
-		else if (BodyId.isCake(a.id) && BodyId.isCharacter(b.id)){
+		else if (Category.isCake(a.category) && Category.isCharacter(b.category)){
 			bodiesToRemove.add(a);
 			((Cake) a.data).power(((Character) b.data));
 		}
-		else if (BodyId.isCake(b.id) && BodyId.isCharacter(a.id)){
+		else if (Category.isCake(b.category) && Category.isCharacter(a.category)){
 			bodiesToRemove.add(b);
 			((Cake) b.data).power(((Character) a.data));
 		}

@@ -12,10 +12,11 @@ import game.objects.enemies.EnemyV2;
 import game.objects.enemies.EnemyV3;
 import game.objects.weapons.Bullet;
 import game.physics.Body;
-import game.physics.BodyId;
+import game.physics.Category;
 import game.physics.BodyType;
 import game.physics.ContactListener;
 import game.physics.PhysicalWorld;
+import game.physics.RBody;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -83,9 +84,9 @@ public class Level {
 		Queue<Body> bodies = contactListener.getBodiesToRemove();
 		while (!bodies.isEmpty()) {
 			Body body = bodies.poll();
-			if (BodyId.isBullet(body.id))
+			if (Category.isBullet(body.category))
 				bullets.remove((Bullet) body.data);
-			else if (BodyId.isCake(body.id))
+			else if (Category.isCake(body.category))
 				cakes.remove((Cake) body.data);
 
 			world.remove(body);
@@ -149,9 +150,8 @@ public class Level {
 	}
 
 	public void addCake(float x, float y, int version) {
-		Body body = new Body(x, y, 32, 32, true);
-		body.type = BodyType.STATIC;
-		body.id = BodyId.Cake;
+		Body body = new RBody(BodyType.STATIC, x, y, 32, 32);
+		body.category = Category.Cake;
 		body.isSensor = true;
 		world.addBody(body);
 		Cake cake = null;
@@ -176,17 +176,16 @@ public class Level {
 	}
 
 	public void addTile(int x, int y) {
-		Body body = new Body(x, y, 32, 32, true);
-		body.type = BodyType.STATIC;
-		body.id = BodyId.Wall;
+		Body body = new RBody(BodyType.STATIC,x, y, 32, 32);
+		body.category = Category.Wall;
 		world.addBody(body);
 		tiles.add(new Tile(body));
 	}
 
 	public void addEnemy(int x, int y, int version) {
-		Body body = new Body(x, y, 32, 32, true);
-		body.type = BodyType.DYNAMIC;
-		body.id = BodyId.Enemy;
+		Body body = new RBody(BodyType.DYNAMIC, x, y, 32, 32);
+		body.category = Category.Enemy;
+		body.mask = Category.Character;
 		world.addBody(body);
 		Enemy enemy = null;
 		switch (version) {
@@ -208,10 +207,10 @@ public class Level {
 		return tiles;
 	}
 
-	public void setCharacter(int x, int y) {
-		Body body = new Body(x, y, 20, 20, false);
-		body.type = BodyType.DYNAMIC;
-		body.id = BodyId.Character;
+	public void setCharacter(float x, float y) {
+		Body body = new RBody(BodyType.DYNAMIC, x, y, 20, 20);
+		body.category = Category.Character;
+		body.mask = Category.Cake | Category.Enemy;
 		world.addBody(body);
 		character = new Character(body);
 		body.data = character;

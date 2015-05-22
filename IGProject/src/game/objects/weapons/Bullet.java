@@ -23,11 +23,7 @@ public class Bullet extends Dynamic {
 
 	@Override
 	public void move(float angle) {
-		double w = Math.toRadians(angle);
-		this.angle = angle;
-		float x = (float) (Math.cos(w) * speed);
-		float y = (float) (Math.sin(w) * speed);
-		body.applyForce(x, y);
+		super.move(angle);
 		dist += speed;
 	}
 
