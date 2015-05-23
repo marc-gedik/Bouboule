@@ -24,12 +24,10 @@ public class PlayMenuControler implements ActionListener {
 			break;
 		case "Menu.Game.Restart":
 			System.out.println("Restart");
+			gsm.setState(GameStateManager.GAME);
 			break;
 		case "Menu.Game.Pause":
 			System.out.println("Pause");
-			break;
-		case "Menu.Game.Resume":
-			System.out.println("Resume");
 			break;
 		case "Menu.Game.Save":
 			System.out.println("Save");
@@ -57,7 +55,7 @@ public class PlayMenuControler implements ActionListener {
 		case "Menu.Help.About":
 			System.out.println("About");
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-					"Projet d'interfaces graphiques presenté par :\n \n" +
+					"Projet d'interfaces graphiques presentï¿½ par :\n \n" +
 							"- Marc Gedik\n" +
 							"- Safir Medjeber\n" +
 							"- Celia Hammouche\n \n" +

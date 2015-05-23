@@ -6,7 +6,8 @@ import java.awt.Font;
 enum ButtonStyle {
 	WhiteStyle(new Font("Helvetica", Font.BOLD, 16), Color.GRAY, Color.WHITE, new Color(240, 240, 240)), 
 	BlueStyle(new Font("Helvetica", 0, 16),	Color.BLACK, new Color(220, 240, 240), new Color(240, 240, 240)),
-	GrayStyle(new Font("Helvetica", Font.BOLD, 16), Color.WHITE, new Color(117,	117, 117), new Color(160, 160, 160));
+	GrayStyle(new Font("Helvetica", Font.BOLD, 16), Color.WHITE, new Color(117,	117, 117), new Color(160, 160, 160)),
+	DarkStyle(new Font("Helvetica", Font.BOLD, 24), Color.BLACK, Color.WHITE, new Color(240, 240, 240));;
 
 	public final Font font;
 	public final Color fg, bg, hover;

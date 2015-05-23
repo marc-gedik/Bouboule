@@ -43,7 +43,7 @@ public class GameOver extends GameState {
 		gbc.gridwidth = 2;
 
 		JLabel title = new JLabel(AssetsManager.getString("GameOver.GameOver"));
-		title.setFont(ButtonStyle.WhiteStyle.font());
+		title.setFont(ButtonStyle.DarkStyle.font());
 		containerButton.add(title, gbc);
 
 		JButton restart = button("GameOver.Restart");

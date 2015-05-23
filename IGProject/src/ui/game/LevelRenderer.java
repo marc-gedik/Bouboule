@@ -179,8 +179,7 @@ public class LevelRenderer extends GameState {
 		if (level.isFinished()) {
 			if (level.win()) {
 				if (Levels.hasNext()) {
-					Levels.next();
-					gsm.setState(GameStateManager.GAME);
+					gsm.setState(GameStateManager.LEVELTRANSITION);
 				} else
 					gsm.setState(GameStateManager.MAIN);
 			} else

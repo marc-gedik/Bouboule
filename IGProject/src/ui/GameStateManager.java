@@ -23,6 +23,7 @@ public class GameStateManager {
 	public static final int KEYS = 5;
 	public static final int SOUND = 6;
 	public static final int GAMEOVER = 7;
+	public static final int LEVELTRANSITION = 8;
 
 	private Game game;
 	private Stack<GameState> gameStates;
@@ -60,6 +61,8 @@ public class GameStateManager {
 			return new SoundMenu(this);
 		case GAMEOVER:
 			return new GameOver(this);
+		case LEVELTRANSITION:
+			return new LevelTransition(this);
 		}
 		return null;
 	}
