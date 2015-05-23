@@ -44,5 +44,9 @@ public class Animation {
 	public BufferedImage getFrame() {
 		return frames[currentFrame];
 	}
+	
+	public void reset(){
+		currentFrame = 0;
+	}
 
 }

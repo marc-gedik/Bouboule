@@ -50,4 +50,8 @@ public abstract class GameState extends JPanel {
 	public void onBack() {
 	}
 
+	public void resized(int width, int height) {
+		
+	}
+
 }

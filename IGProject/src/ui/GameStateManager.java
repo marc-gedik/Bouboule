@@ -87,4 +87,9 @@ public class GameStateManager {
 		game.revalidate();
 	}
 
+	public void resize(int width, int height) {
+		gameStates.peek().resized(width, height);
+		
+	}
+
 }

@@ -4,18 +4,19 @@ import ui.game.Animation;
 import utils.AssetsManager;
 import game.Level;
 
-public class FlameThrower extends Weapon {
+public class Bolt extends Weapon {
 
-	public FlameThrower() {
-		super(2, 500, 5f, .1f, 240, 8f);
-		animation = new Animation(AssetsManager.getSprites("flamethrower", 29),
+	public Bolt() {
+		super(10, 1, 1f, .1f, 242, 10f);
+		animation = new Animation(AssetsManager.getSprites("bolt", 10),
 				1000 / 60f);
+
 	}
 
 	@Override
 	public void shot(float x, float y, float angle, Level level) {
 		if (shot())
-			addBullet(level, x, y, 16, 16, angle, speed);
+			addBullet(level, x, y, 20, 20, angle, speed);
 	}
 
 }
