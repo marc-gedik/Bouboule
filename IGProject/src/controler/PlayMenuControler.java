@@ -2,8 +2,10 @@ package controler;
 
 import ui.Game;
 import ui.GameStateManager;
+import game.Level;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -31,6 +33,9 @@ public class PlayMenuControler implements ActionListener {
 			break;
 		case "Menu.Game.Save":
 			System.out.println("Save");
+			gsm.pushState(GameStateManager.SAVE);
+			
+			
 			break;
 		case "Menu.Game.Load":
 			System.out.println("Load");

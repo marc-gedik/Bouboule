@@ -10,6 +10,8 @@ public class CakeV3 extends Cake{
 	public CakeV3(Body body) {
 		super(body);
 		this.setImg(AssetsManager.getTexture("cake_v3"));
+		setVersion(3);
+
 	}
 
 	@Override

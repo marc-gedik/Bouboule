@@ -31,10 +31,10 @@ public class Level {
 	private PhysicalWorld world;
 	private ContactListener contactListener;
 
-	private Character character;
-	private List<Enemy> enemies;
+	private static Character character;
+	private static List<Enemy> enemies;
 	private List<Tile> tiles;
-	private List<Cake> cakes;
+	private static List<Cake> cakes;
 
 	private List<Bullet> bullets;
 
@@ -232,5 +232,26 @@ public class Level {
 	public boolean win() {
 		return win;
 	}
+	
+	
+	public static String saveLevel(){
+		String infoLevel="";
+		infoLevel += LoadLevel.getLevelID()+"\n";
+		infoLevel += (int)character.getX() +"_"+(int)character.getY() + "\n" ;
+		for (Cake c : cakes) {
+			infoLevel += (int)c.getX() +"_"+ (int)c.getY() +"_"+c.getVersion()+"_";
+		}
+		infoLevel +="\n";
+		
+		for (Enemy e : enemies) {
+			infoLevel += (int)e.getX() +"_"+ (int)e.getY()+ "_"+ e.getVersion()+"_";
+		}
+		System.out.println(infoLevel);
+		
+		return infoLevel;
+		
+		
+	}
+	
 
 }

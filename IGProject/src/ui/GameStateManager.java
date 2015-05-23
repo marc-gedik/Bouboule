@@ -2,15 +2,16 @@ package ui;
 
 import java.util.Stack;
 
-import ui.config.*;
-
+import ui.config.GameOver;
 import ui.config.InstructionsMenu;
 import ui.config.KeysMenu;
 import ui.config.LoadMenu;
 import ui.config.MainMenu;
+import ui.config.SaveMenu;
 import ui.config.ScoresMenu;
-
+import ui.config.SoundMenu;
 import ui.game.LevelRenderer;
+import controler.LoadMenuListener;
 
 public class GameStateManager {
 
@@ -24,6 +25,7 @@ public class GameStateManager {
 	public static final int SOUND = 6;
 	public static final int GAMEOVER = 7;
 	public static final int LEVELTRANSITION = 8;
+	public static final int SAVE = 9;
 
 	private Game game;
 	private Stack<GameState> gameStates;
@@ -46,7 +48,11 @@ public class GameStateManager {
 	private GameState getState(int state) {
 		switch (state) {
 		case GAME:
-			return new LevelRenderer(this);
+			if(LoadMenuListener.getInfoLevel().equals(""))
+				return new LevelRenderer(this);
+			else
+				return new LevelRenderer(this, LoadMenuListener.getInfoLevel());
+
 		case MAIN:
 			return new MainMenu(this);
 		case LOAD:
@@ -61,8 +67,12 @@ public class GameStateManager {
 			return new SoundMenu(this);
 		case GAMEOVER:
 			return new GameOver(this);
+
 		case LEVELTRANSITION:
-			return new LevelTransition(this);
+			//return new LevelTransition(this);
+
+		case SAVE:
+			return new SaveMenu(this);
 		}
 		return null;
 	}

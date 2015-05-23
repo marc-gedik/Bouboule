@@ -38,7 +38,7 @@ public class Game extends JFrame {
 	public Game() {
 		camera = new Camera();
 		gsm = new GameStateManager(this);
-		soundManager = new SoundManager(Sound.MainMenu);
+		//soundManager = new SoundManager(Sound.MainMenu);
 
 		setTitle(AssetsManager.getString("Title"));
 		setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -53,7 +53,7 @@ public class Game extends JFrame {
 		pack();
 		setVisible(true);
 
-		soundManager.play();
+		//soundManager.play();
 
 		addComponentListener(new ComponentAdapter() {
 			@Override

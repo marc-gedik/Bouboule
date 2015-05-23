@@ -7,7 +7,6 @@ import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -18,35 +17,13 @@ import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.BackButtonListener;
 import controler.LoadMenuListener;
+import controler.SaveMenuListener;
 
-public class LoadMenu extends GameState {	
-	
-	
-	private static Preferences pref = Preferences.userNodeForPackage(LoadMenu.class);
+public class  SaveMenu extends GameState {
 
-	private static String[] save = new String[]{
-		getPref().get("save0", ""), 
-		getPref().get("save1", ""), 
-		getPref().get("save2", ""), 
-		getPref().get("save3", ""), 
-		getPref().get("save4", ""), 
-		getPref().get("save5", ""), 
-		getPref().get("save6", ""), 
-		getPref().get("save7", ""), 
-		getPref().get("save8", ""), 
-		getPref().get("save9", ""), 
-		getPref().get("save10", ""), 
-		getPref().get("save11", ""), 
-		getPref().get("save12", ""), 
-		getPref().get("save13", ""), 
-		getPref().get("save14", ""), 
-	};
-
-	
-	
-	
-	public LoadMenu(GameStateManager gsm) {
+	public SaveMenu(GameStateManager gsm) {
 		super(gsm);
+		// TODO Auto-generated constructor stub
 	}
 
 	public void init() {
@@ -59,7 +36,7 @@ public class LoadMenu extends GameState {
 	}
 
 	JPanel levelContainer() {
-		LoadMenuListener l = new LoadMenuListener(gsm, getSave());
+		SaveMenuListener l = new SaveMenuListener();
 		JPanel containerLevel = new JPanel();
 		containerLevel.setLayout(new GridLayout(3, 5, 0, 15));
 		containerLevel.setPreferredSize(new Dimension(480, 240));
@@ -69,13 +46,10 @@ public class LoadMenu extends GameState {
 		containerLevel.setBackground(Color.WHITE);
 
 		for (int i = 0; i < level.length; i++) {
-			if (getSave()[i].equals("")){
-				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i+ 1 + "");
-				level[i].setEnabled(false);
-			}
+			if (LoadMenu.getSave().equals(""))
+				level[i] = new ImageButton("img/d2_over.png", "img/d2_over.png", i+ 1 + "");
 			else {
-				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i+ 1 + "");
-				
+				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i + 1+ "");
 			}
 			level[i].addActionListener(l);
 			containerLevel.add(level[i]);
@@ -124,21 +98,4 @@ public class LoadMenu extends GameState {
 		// TODO Auto-generated method stub
 
 	}
-
-	public static Preferences getPref() {
-		return pref;
-	}
-
-	public static void setPref(Preferences pref) {
-		LoadMenu.pref = pref;
-	}
-
-	public static String[] getSave() {
-		return save;
-	}
-
-	public static void setSave(String[] save) {
-		LoadMenu.save = save;
-	}
-
 }

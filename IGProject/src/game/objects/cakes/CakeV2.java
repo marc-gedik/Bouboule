@@ -11,7 +11,7 @@ public class CakeV2 extends Cake{
 	public CakeV2(Body body) {
 		super(body);
 		this.setImg(AssetsManager.getTexture("cake_v2"));
-		// TODO Auto-generated constructor stub
+		setVersion(2);
 	}
 
 	@Override
