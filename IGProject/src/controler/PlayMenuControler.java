@@ -55,7 +55,7 @@ public class PlayMenuControler implements ActionListener {
 		case "Menu.Help.About":
 			System.out.println("About");
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-					"Projet d'interfaces graphiques presentï¿½ par :\n \n" +
+					"Projet d'interfaces graphiques presenté par :\n \n" +
 							"- Marc Gedik\n" +
 							"- Safir Medjeber\n" +
 							"- Celia Hammouche\n \n" +
