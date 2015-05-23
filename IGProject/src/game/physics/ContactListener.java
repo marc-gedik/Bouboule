@@ -22,11 +22,9 @@ public class ContactListener implements CollisionListener {
 	@Override
 	public void colide(Body a, Body b) {
 		if (BodyId.isBullet(a.id)) {
-			bodiesToRemove.add(a);
 			if (BodyId.isEnemy(b.id))
 				((Beatable) b.data).hit(level.getCharacter().getWeapon().power);
 		} else if (BodyId.isBullet(b.id)) {
-			bodiesToRemove.add(b);
 			if (BodyId.isEnemy(a.id))
 				((Beatable) a.data).hit(level.getCharacter().getWeapon().power);
 		}

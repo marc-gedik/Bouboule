@@ -38,17 +38,27 @@ public class Body {
 	}
 
 	public void applyForce(float x, float y) {
-		float n;
+		float nx, ny;
 
-		n = this.x;
+		nx = this.x;
+		ny = this.y;
+
 		this.x += x;
-		if (world.staticCollide(this) || world.collide(this))
-			this.x = n;
-
-		n = this.y;
 		this.y += y;
-		if (world.staticCollide(this) || world.collide(this))
-			this.y = n;
+		if (world.staticCollide(this, true) || world.collide(this, true)){
+			this.y = ny;
+			this.x = nx;
+			
+			this.x += x;
+			if (world.staticCollide(this, false) || world.collide(this, false))
+				this.x = nx;
+
+			this.y += y;
+			if (world.staticCollide(this, false) || world.collide(this, false))
+				this.y = ny;
+
+		}
+
 
 	}
 

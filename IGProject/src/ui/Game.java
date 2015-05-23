@@ -6,6 +6,8 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowStateListener;
 import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
@@ -58,6 +60,7 @@ public class Game extends JFrame {
 			public void componentResized(ComponentEvent arg0) {
 				WIDTH = getWidth();
 				HEIGHT = getHeight();
+				gsm.resize(WIDTH, HEIGHT);
 			}
 		});
 
@@ -92,14 +95,6 @@ public class Game extends JFrame {
 		}
 	}
 
-	private void resolution(JMenu menu, ButtonGroup buttonGroup, String label,
-			String action) {
-		JRadioButtonMenuItem item = new JRadioButtonMenuItem(label);
-		item.setActionCommand(action);
-		buttonGroup.add(item);
-		menu.add(item);
-	}
-
 	private JMenuItem createItem(String res, KeyStroke accelerator,
 			ActionListener listener) {
 		JMenuItem item = new JMenuItem(AssetsManager.getString(res));
@@ -109,12 +104,11 @@ public class Game extends JFrame {
 		return item;
 	}
 
-	JMenuBar menuBar;
 	private void createMenuBar() {
 		if (System.getProperty("os.name").contains("Mac")) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
 		}
-		menuBar = new JMenuBar();
+		JMenuBar menuBar = new JMenuBar();
 		this.setJMenuBar(menuBar);
 
 		ActionListener controler = new PlayMenuControler(gsm);
@@ -142,7 +136,6 @@ public class Game extends JFrame {
 		menuBar.add(menu);
 		menu.add(createItem("Menu.Config.Keys", null, controler));
 		menu.add(createItem("Menu.Config.Sound", null, controler));
-
 
 		menu = new JMenu(AssetsManager.getString("Menu.Help"));
 		menu.add(createItem("Menu.Help.Instruction", null, controler));

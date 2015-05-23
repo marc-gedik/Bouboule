@@ -1,6 +1,5 @@
 package game.physics;
 
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D.Float;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,14 +29,15 @@ public class PhysicalWorld {
 		}
 	}
 
-	public boolean collide(Body bodyA) {
+	public boolean collide(Body bodyA, boolean collisions) {
 		boolean b = false;
 		for (Body bodyB : dynamics)
 			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())) {
 				if (bodyA.collision == false && bodyB.collision == false)
 					continue;
-				for (CollisionListener listener : listeners)
-					listener.colide(bodyA, bodyB);
+				if (collisions)
+					for (CollisionListener listener : listeners)
+						listener.colide(bodyA, bodyB);
 				if (!bodyA.isSensor && !bodyB.isSensor)
 					b = true;
 			}
@@ -52,18 +52,19 @@ public class PhysicalWorld {
 		dynamics.remove(body);
 	}
 
-	public boolean staticCollide(Body bodyA) {
+	public boolean staticCollide(Body bodyA, boolean collisions) {
 		float x = bodyA.getX() / PPM;
 		float y = bodyA.getY() / PPM;
 		boolean b = false;
 		Float r = bodyA.bounds();
 		if (x >= 0 && y >= 0)
-			for (int i = 0; i < 2 && x + i< statics.length ; i++)
-				for (int j = 0; j < 2 && y + j< statics.length; j++) {
+			for (int i = 0; i < 2 && x + i < statics.length; i++)
+				for (int j = 0; j < 2 && y + j < statics.length; j++) {
 					Body bodyB = statics[(int) (x + i)][(int) (y + j)];
 					if (bodyB != null && bodyB.bounds().intersects(r)) {
-						for (CollisionListener listener : listeners)
-							listener.colide(bodyB, bodyA);
+						if (collisions)
+							for (CollisionListener listener : listeners)
+								listener.colide(bodyB, bodyA);
 						if (!bodyA.isSensor && !bodyB.isSensor)
 							b = true;
 					}

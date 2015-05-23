@@ -3,15 +3,14 @@ package ui.game;
 import game.Level;
 import game.Levels;
 import game.LoadLevel;
-import game.objects.Dynamic;
-import game.objects.GameObject;
-import game.objects.Tile;
+import game.objects.*;
+import game.objects.Character;
 import game.objects.cakes.Cake;
 import game.objects.enemies.Enemy;
 import game.objects.weapons.Bullet;
+import game.objects.weapons.Weapon;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GraphicsDevice;
@@ -19,10 +18,10 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.Rectangle2D.Float;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.util.List;
-import java.awt.geom.Rectangle2D.Float;
 
 import ui.Game;
 import ui.GameState;
@@ -118,8 +117,10 @@ public class LevelRenderer extends GameState {
 		Graphics2D g2d = (Graphics2D) g;
 
 		bg = (Graphics2D) background.getGraphics();
-		bgBounds = new Rectangle((int) camera.getX() - Game.WIDTH / 2,
-				(int) camera.getY() - Game.HEIGHT / 2, Game.WIDTH, Game.HEIGHT);
+		bgBounds = new Rectangle(
+				(int) (camera.getX() - Game.WIDTH * scaleX / 2),
+				(int) (camera.getY() - Game.HEIGHT * scaleY / 2),
+				(int) (Game.WIDTH * scaleX), (int) (Game.HEIGHT * scaleY));
 		bg.setPaint(Color.BLACK);
 		bg.fillRect(0, 0, Game.WIDTH, Game.HEIGHT);
 
@@ -134,23 +135,48 @@ public class LevelRenderer extends GameState {
 		for (int i = 0; i < enemies.size(); i++)
 			draw(enemies.get(i));
 
-		draw(level.getCharacter());
-
 		List<Bullet> bullets = level.getBullets();
-		for (int i = 0; i < bullets.size(); i++)
-			draw(bullets.get(i));
-
-		bg.translate(-offsetX, -offsetY);
-		hud.paint(bg);
-		g2d.drawImage(background, 0, 0, null);
+		for (Bullet bullet : bullets)
+			draw(bullet);
+		drawCharacter(level.getCharacter());
 		bg.dispose();
+
+		bg = (Graphics2D) background.getGraphics();
+		hud.paint(bg);
+
+		g2d.drawImage(background, 0, 0, null);
+	}
+
+	private void drawCharacter(Character character) {
+		BufferedImage img;
+		Float bounds = character.bounds();
+		bg.rotate(Math.toRadians(character.getAngle() + 90), character.getX()
+				+ bounds.getWidth() / 2, character.getY() + bounds.getHeight()
+				/ 2);
+
+		double x;
+		double y;
+
+		if (character.shooting()) {
+			x = character.getX() - bounds.getWidth() / 2;
+			y = character.getY() + bounds.getHeight() / 2;
+			img = character.getWeapon().getFrame();
+			bg.drawImage(img, (int) x - img.getWidth() / 2,
+					(int) y - img.getHeight(), null);
+		}
+
+		img = character.getAnimation().getFrame();
+		x = character.getX() - (img.getWidth() - bounds.getWidth()) / 2;
+		y = character.getY() - (img.getHeight() - bounds.getHeight()) / 2;
+		bg.drawImage(img, (int) x, (int) y, null);
+
 	}
 
 	private void draw(Dynamic o) {
 		BufferedImage img = o.getAnimation().getFrame();
 		Float bounds = o.bounds();
 		if (bounds.intersects(bgBounds)) {
-			img = rotate(img, o.getAngle()+90);
+			img = rotate(img, o.getAngle() + 90);
 			draw(o, img);
 		}
 	}
@@ -191,4 +217,10 @@ public class LevelRenderer extends GameState {
 	public void handleInput() {
 	}
 
+	@Override
+	public void resized(int width, int height) {
+		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().getDefaultConfiguration()
+				.createCompatibleImage(width, height, Transparency.OPAQUE);
+	}
 }
