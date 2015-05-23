@@ -61,6 +61,38 @@ public class LevelRenderer extends GameState {
 		createStatics();
 	}
 
+
+
+	public LevelRenderer(GameStateManager gsm, String levelInfo) {
+		super(gsm);
+		init();
+		
+		level = LoadLevel.getSavedLevel(levelInfo);
+		
+		
+
+		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
+				* tileSize);
+		hud = new HUD(level);
+		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice();
+
+		int width = Game.WIDTH;
+		int height = Game.HEIGHT;
+
+		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
+				.getDefaultScreenDevice().getDefaultConfiguration()
+				.createCompatibleImage(width, height, Transparency.OPAQUE);
+
+		createStatics();
+	}
+
+
+
+
+
+
+
 	private void createStatics() {
 		statics = new BufferedImage(level.getWidth() * tileSize,
 				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
@@ -86,7 +118,9 @@ public class LevelRenderer extends GameState {
 		}
 	}
 
-	BufferedImage rotate(BufferedImage img, double rot) {
+
+
+	private BufferedImage rotate(BufferedImage img, double rot) {
 		AffineTransform tx = new AffineTransform();
 		tx.rotate(Math.toRadians(rot), img.getWidth() / 2, img.getHeight() / 2);
 

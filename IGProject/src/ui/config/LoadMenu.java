@@ -16,6 +16,7 @@ import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.BackButtonListener;
+import controler.LoadMenuListener;
 
 public class LoadMenu extends GameState {
 
@@ -33,7 +34,7 @@ public class LoadMenu extends GameState {
 	}
 
 	JPanel levelContainer() {
-
+		LoadMenuListener l = new LoadMenuListener(gsm);
 		JPanel containerLevel = new JPanel();
 		containerLevel.setLayout(new GridLayout(3, 5, 0, 15));
 		containerLevel.setPreferredSize(new Dimension(480, 240));
@@ -44,13 +45,12 @@ public class LoadMenu extends GameState {
 
 		for (int i = 0; i < level.length; i++) {
 			if (i < 8)
-				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i
-						+ 1 + "");
+				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i+ 1 + "");
 			else {
-				level[i] = new ImageButton("img/d2.png", "img/d2.png", i + 1
-						+ "");
+				level[i] = new ImageButton("img/d2.png", "img/d2.png", i + 1+ "");
 				level[i].setEnabled(false);
 			}
+			level[i].addActionListener(l);
 			containerLevel.add(level[i]);
 		}
 

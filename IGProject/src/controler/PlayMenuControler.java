@@ -2,8 +2,10 @@ package controler;
 
 import ui.Game;
 import ui.GameStateManager;
+import game.Level;
 
 import javax.swing.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -33,6 +35,10 @@ public class PlayMenuControler implements ActionListener {
 			break;
 		case "Menu.Game.Save":
 			System.out.println("Save");
+			
+			System.out.println(Level.saveLevel());
+			
+			
 			break;
 		case "Menu.Game.Load":
 			System.out.println("Load");
@@ -57,7 +63,7 @@ public class PlayMenuControler implements ActionListener {
 		case "Menu.Help.About":
 			System.out.println("About");
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-					"Projet d'interfaces graphiques presenté par :\n \n" +
+					"Projet d'interfaces graphiques presentï¿½ par :\n \n" +
 							"- Marc Gedik\n" +
 							"- Safir Medjeber\n" +
 							"- Celia Hammouche\n \n" +

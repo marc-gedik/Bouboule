@@ -49,4 +49,9 @@ public abstract class Enemy extends Dynamic implements Beatable {
 	public void setVersion(int version) {
 		this.version = version;
 	}
+	
+
+
+	
+	
 }
