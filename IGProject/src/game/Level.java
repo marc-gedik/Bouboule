@@ -246,7 +246,7 @@ public class Level {
 		for (Enemy e : enemies) {
 			infoLevel += (int)e.getX() +"_"+ (int)e.getY()+ "_"+ e.getVersion()+"_";
 		}
-		
+		System.out.println(infoLevel);
 		
 		return infoLevel;
 		

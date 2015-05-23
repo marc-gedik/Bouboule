@@ -69,12 +69,15 @@ public class LoadLevel {
 
 
 	public static Level getSavedLevel(String levelInfo) {
-
+System.out.println(levelInfo);
+		
 		String[] parts = levelInfo.split("\n");
 
 		String saveIdLevel = parts[0];
 		String[] characterPosition = parts[1].split("_");
 		String[] cakesPositions = parts[2].split("_");
+		System.out.println("lol"+ cakesPositions.length+"ok");
+
 		String[] enemiesPositions = parts[3].split("_");
 
 
@@ -97,15 +100,15 @@ public class LoadLevel {
 			}
 			level.setCharacter(Integer.parseInt(characterPosition[0]), Integer.parseInt(characterPosition[1]));
 
+			if(cakesPositions.length>=3){
+				for (int i=0; i <cakesPositions.length; i=i+3) {
+					level.addCake(Integer.parseInt(cakesPositions[i]),
+							Integer.parseInt(cakesPositions[i+1]),
+							Integer.parseInt(cakesPositions[i+2]));
 
-			for (int i=0; i <cakesPositions.length; i=i+3) {
-				level.addCake(Integer.parseInt(cakesPositions[i]),
-						Integer.parseInt(cakesPositions[i+1]),
-						Integer.parseInt(cakesPositions[i+2]));
 
-
+				}
 			}
-
 			for (int i=0; i <enemiesPositions.length; i=i+3) {
 				level.addEnemy(Integer.parseInt(enemiesPositions[i]),
 						Integer.parseInt(enemiesPositions[i+1]),

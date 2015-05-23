@@ -35,13 +35,10 @@ public class LoadMenuListener  implements ActionListener {
 		// TODO Auto-generated method stub
 		switch (Integer.parseInt(e.getActionCommand())) {
 		case 1:
-			LoadMenu.getSave()[0]=Level.saveLevel();
-			LoadMenu.getPref().put("save0",LoadMenu.getSave()[0]);
+			infoLevel=save[0];
 			break;
 		case 2:
-			LoadMenu.getSave()[1]=Level.saveLevel();
-			LoadMenu.getPref().put("save1",LoadMenu.getSave()[1]);
-
+			infoLevel=save[1];
 			break;
 		case 3:
 			infoLevel=save[2];
