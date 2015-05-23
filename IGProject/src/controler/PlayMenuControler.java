@@ -35,8 +35,7 @@ public class PlayMenuControler implements ActionListener {
 			break;
 		case "Menu.Game.Save":
 			System.out.println("Save");
-			
-			System.out.println(Level.saveLevel());
+			gsm.pushState(GameStateManager.SAVE);
 			
 			
 			break;
