@@ -81,7 +81,9 @@ public class AssetsManager {
 		loadImage("bullet");
 		loadImage("empty_hearth");
 		loadImage("full_hearth");
-		
+		loadImage("flamethrower");
+		loadImage("bolt");
+
 		loadImage("enemy_v1");
 		loadImage("enemy_v2");
 		loadImage("enemy_v3");

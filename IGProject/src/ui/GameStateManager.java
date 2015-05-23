@@ -24,8 +24,8 @@ public class GameStateManager {
 	public static final int KEYS = 5;
 	public static final int SOUND = 6;
 	public static final int GAMEOVER = 7;
-	public static final int SAVE = 8;
-
+	public static final int LEVELTRANSITION = 8;
+	public static final int SAVE = 9;
 
 	private Game game;
 	private Stack<GameState> gameStates;
@@ -67,6 +67,10 @@ public class GameStateManager {
 			return new SoundMenu(this);
 		case GAMEOVER:
 			return new GameOver(this);
+
+		case LEVELTRANSITION:
+			//return new LevelTransition(this);
+
 		case SAVE:
 			return new SaveMenu(this);
 		}
@@ -94,6 +98,11 @@ public class GameStateManager {
 		game.requestFocusInWindow();
 		game.setContentPane(gameState);
 		game.revalidate();
+	}
+
+	public void resize(int width, int height) {
+		gameStates.peek().resized(width, height);
+		
 	}
 
 }

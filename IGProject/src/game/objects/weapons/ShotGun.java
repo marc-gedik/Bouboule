@@ -11,11 +11,6 @@ public class ShotGun extends Weapon {
 	@Override
 	public void shot(float x, float y, float angle, Level level) {
 		if (shot()) {
-			addBullet(level, x, y, angle - 10);
-			addBullet(level, x, y, angle - 5);
-			addBullet(level, x, y, angle);
-			addBullet(level, x, y, angle + 5);
-			addBullet(level, x, y, angle - 10);
 		}
 	}
 

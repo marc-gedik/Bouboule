@@ -2,6 +2,7 @@ package game.objects.cakes;
 
 import utils.AssetsManager;
 import game.objects.Character;
+import game.objects.weapons.FlameThrower;
 import game.objects.weapons.Weapon;
 import game.physics.Body;
 
@@ -15,8 +16,7 @@ public class CakeV2 extends Cake{
 
 	@Override
 	public void power(Character character) {
-		// TODO Auto-generated method stub
-		
+		character.setWeapon(new FlameThrower());
 	}
 
 

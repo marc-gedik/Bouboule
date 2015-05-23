@@ -26,12 +26,10 @@ public class PlayMenuControler implements ActionListener {
 			break;
 		case "Menu.Game.Restart":
 			System.out.println("Restart");
+			gsm.setState(GameStateManager.GAME);
 			break;
 		case "Menu.Game.Pause":
 			System.out.println("Pause");
-			break;
-		case "Menu.Game.Resume":
-			System.out.println("Resume");
 			break;
 		case "Menu.Game.Save":
 			System.out.println("Save");
