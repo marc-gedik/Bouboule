@@ -1,8 +1,7 @@
 package ui.config;
 
-
-import controler.GameOverListener;
 import controler.LevelTransitionListener;
+import controler.WinListener;
 import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
@@ -11,18 +10,18 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class LevelTransition extends GameState {
+public class Win extends GameState {
 
     private ActionListener listener;
 
-    public LevelTransition(GameStateManager gsm) {
+    public Win(GameStateManager gsm) {
         super(gsm);
     }
 
     @Override
     public void init() {
 
-        listener = new LevelTransitionListener(gsm);
+        listener = new WinListener(gsm);
         this.setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         position(gbc, 0, 0, 1, 1);
@@ -33,21 +32,22 @@ public class LevelTransition extends GameState {
 
     private Component buttonContainer() {
         JPanel containerButton = new JPanel();
-        containerButton.setLayout(new GridLayout(4, 0 , 50 , 50));
+        containerButton.setLayout(new GridBagLayout());
+        GridBagConstraints gbc = new GridBagConstraints();
 
-        JLabel title = new JLabel(AssetsManager.getString("Win.Next"));
+        gbc.insets = new Insets(7, 10, 10, 10);
+        gbc.gridwidth = 2;
+
+        JLabel title = new JLabel(AssetsManager.getString("Win.victory"));
         title.setFont(ButtonStyle.DarkStyle.font());
-        containerButton.add(title, BorderLayout.CENTER);
+        containerButton.add(title, gbc);
 
-        JButton next = button("Win.Move");
-        JButton save = button("Win.Save");
-        JButton menu = button("Win.Menu");
+        JButton next = button("Win.Menu");
 
-        containerButton.add(next);
+        gbc.gridwidth = GridBagConstraints.RELATIVE;
+        gbc.gridy = 1;
+        containerButton.add(next, gbc);
 
-        containerButton.add(save);
-
-        containerButton.add(menu);
 
         next.requestFocusInWindow();
         containerButton.setPreferredSize(new Dimension(450, 300));
@@ -60,7 +60,6 @@ public class LevelTransition extends GameState {
     private JButton button(String string) {
         JButton button = new DecoratedButton(AssetsManager.getString(string),
                 ButtonStyle.WhiteStyle);
-        button.setSize(new Dimension(450, 100));
         button.addActionListener(listener);
         button.setActionCommand(string);
         return button;
@@ -75,5 +74,4 @@ public class LevelTransition extends GameState {
     public void update(float dt) {
 
     }
-
 }

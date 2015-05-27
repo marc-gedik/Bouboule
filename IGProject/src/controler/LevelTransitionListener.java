@@ -17,10 +17,15 @@ public class LevelTransitionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Win.move")){
+        if(e.getActionCommand().equals("Win.Move")){
             Levels.next();
             gsm.setState(GameStateManager.GAME);
         }
+        else if(e.getActionCommand().equals("Win.Save")){
+            gsm.pushState(GameStateManager.SAVE);
+        }
+        else if (e.getActionCommand().equals("Win.Menu"))
+            gsm.popState();
 
     }
 }
