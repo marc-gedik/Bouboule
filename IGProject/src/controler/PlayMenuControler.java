@@ -46,7 +46,7 @@ public class PlayMenuControler implements ActionListener {
 		case "Menu.Config.Keys":
 			System.out.println("Keys");
 			gsm.pushState(GameStateManager.KEYS);
-			gsm.setState(GameStateManager.LEVELTRANSITION);
+			gsm.setState(GameStateManager.WIN);
 			break;
 		case "Menu.Config.Sound":
 			System.out.println("Sound");

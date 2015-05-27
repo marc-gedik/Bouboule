@@ -38,7 +38,7 @@ public class Win extends GameState {
         gbc.insets = new Insets(7, 10, 10, 10);
         gbc.gridwidth = 2;
 
-        JLabel title = new JLabel(AssetsManager.getString("Win.victory"));
+        JLabel title = new JLabel(AssetsManager.getString("Win.Victory"));
         title.setFont(ButtonStyle.DarkStyle.font());
         containerButton.add(title, gbc);
 
@@ -46,6 +46,7 @@ public class Win extends GameState {
 
         gbc.gridwidth = GridBagConstraints.RELATIVE;
         gbc.gridy = 1;
+        gbc.gridx = 1;
         containerButton.add(next, gbc);
 
 
