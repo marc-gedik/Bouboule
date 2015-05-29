@@ -132,6 +132,8 @@ public class Game extends JFrame {
 				controler);
 		menu.add(load);
 		menu.addSeparator();
+		menu.add(createItem("Menu.Game.MainMenu", KeyStroke.getKeyStroke(
+				KeyEvent.VK_M, InputEvent.CTRL_MASK), controler));
 		menu.add(createItem("Menu.Game.Exit", KeyStroke.getKeyStroke(
 				KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), controler));
 
