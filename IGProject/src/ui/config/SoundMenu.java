@@ -57,8 +57,9 @@ public class SoundMenu extends GameState {
 
 		JLabel volume = new JLabel(AssetsManager.getString("Sound.Music"));
 
-		SoundListener sl = new SoundListener();
-		JSlider forVolume = new JSlider(0, 5);
+		SoundListener sl = new SoundListener(game.soundManager);
+		JSlider forVolume = new JSlider(-80, 6);
+
 		forVolume.setValue(SoundManager.get());
 		forVolume.addChangeListener(sl);
 

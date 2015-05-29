@@ -4,6 +4,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -24,7 +25,7 @@ public class AssetsManager {
 
 	private static ResourceBundle config;
 	private static HashMap<String, BufferedImage> images;
-	private static HashMap<String, AudioInputStream> sounds;
+	private static HashMap<String, File> sounds;
 	private static Preferences preferences;
 
 	static {
@@ -60,21 +61,14 @@ public class AssetsManager {
 	}
 
 	private static void loadSounds() {
-		sounds = new HashMap<String, AudioInputStream>();
+		sounds = new HashMap<String, File>();
 		loadSound("MainMenu");
 		loadSound("SimpleShoot");
 	}
 
 	public static void loadSound(String name) {
-		try {
-			AudioInputStream sound = AudioSystem.getAudioInputStream(new File(
-					"sound/" + name + ".wav"));
-			sounds.put(name, sound);
-		} catch (UnsupportedAudioFileException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		File file = new File("sound/" + name + ".wav");
+		sounds.put(name, file);
 	}
 
 	private static void loadImages() {
@@ -111,7 +105,7 @@ public class AssetsManager {
 		}
 	}
 
-	public static AudioInputStream getMusic(String key) {
+	public static File getMusic(String key) {
 		return sounds.get(key);
 	}
 
@@ -183,8 +177,8 @@ public class AssetsManager {
 
 	private static void decaleScore(int from) {
 		for (int j = ScoresMenu.NB - 1; j > from; j--) {
-			String name =  preferences.get("score" + (j-1), "");
-			long score =  preferences.getLong("score" + (j-1), -1);
+			String name = preferences.get("score" + (j - 1), "");
+			long score = preferences.getLong("score" + (j - 1), -1);
 			preferences.put("score" + j, name);
 			preferences.putLong("score" + j, score);
 		}

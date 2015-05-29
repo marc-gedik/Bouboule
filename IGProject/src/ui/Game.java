@@ -18,6 +18,7 @@ import javax.swing.KeyStroke;
 import ui.config.SaveMenu;
 import ui.config.SoundManager;
 import ui.game.Camera;
+import ui.game.Sound;
 import utils.AssetsManager;
 import controler.PlayMenuControler;
 
@@ -33,12 +34,12 @@ public class Game extends JFrame {
 	private JMenuItem save;
 	private JMenuItem load;
 
-	public static SoundManager soundManager;
+	public final SoundManager soundManager;
 
 	public Game() {
 		camera = new Camera();
 		gsm = new GameStateManager(this);
-		// soundManager = new SoundManager(Sound.MainMenu);
+		 soundManager = new SoundManager();
 
 		setTitle(AssetsManager.getString("Title"));
 		setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -52,7 +53,7 @@ public class Game extends JFrame {
 		pack();
 		setVisible(true);
 
-		// soundManager.play();
+		soundManager.playMusic(Sound.MainMenu);
 
 		addComponentListener(new ComponentAdapter() {
 			@Override

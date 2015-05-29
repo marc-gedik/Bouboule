@@ -8,6 +8,7 @@ import game.physics.BodyType;
 
 import java.awt.image.BufferedImage;
 
+import ui.config.SoundManager;
 import ui.game.Animation;
 
 public abstract class Weapon {
@@ -29,6 +30,8 @@ public abstract class Weapon {
 
 	public final float dist;
 	public final float speed;
+
+	private boolean shootSound;
 
 	Weapon(float power, int capacity, float chargingTiming, float shootTiming,
 			float dist, float speed) {
@@ -68,6 +71,7 @@ public abstract class Weapon {
 
 		shootTime = 0;
 		shooting = true;
+		shootSound = false;
 		capacity++;
 		return true;
 	}
@@ -114,5 +118,12 @@ public abstract class Weapon {
 		else if(w.equals("bolt"))
 			return new Bolt();
 		return null;
+	}
+
+	public void sound(SoundManager soundManager) {
+		if(!shootSound && shooting){
+			soundManager.playSound("SimpleShoot");
+			shootSound = true;
+		}
 	}
 }

@@ -1,6 +1,5 @@
 package controler;
 
-
 import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -10,25 +9,17 @@ import ui.config.SoundManager;
 
 public class SoundListener implements ChangeListener {
 
+	private SoundManager player;
 
-    @Override
-    public void stateChanged(ChangeEvent changeEvent) {
+	public SoundListener(SoundManager soundManager) {
+		player = soundManager;
+	}
 
-        JSlider slider = (JSlider) changeEvent.getSource();
-        if(!slider.getValueIsAdjusting()){
-            int v = slider.getValue();
-            if(SoundManager.get()!=0) {
-                if (v == 0)
-                    Game.soundManager.end();
-                else {
-                    Game.soundManager.setGain(v);
-                }
-            }
-            else{
-                if (v != 0)
-                    Game.soundManager.play();
-            }
-            SoundManager.set(v);
-        }
-    }
+	@Override
+	public void stateChanged(ChangeEvent changeEvent) {
+
+		JSlider slider = (JSlider) changeEvent.getSource();
+		int v = slider.getValue();
+		player.setVolume(v);
+	}
 }

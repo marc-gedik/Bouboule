@@ -161,6 +161,7 @@ public class LevelRenderer extends GameState {
 		double y;
 
 		if (character.shooting()) {
+			character.getWeapon().sound(game.soundManager);
 			x = character.getX() - bounds.getWidth() / 2;
 			y = character.getY() + bounds.getHeight() / 2;
 			img = character.getWeapon().getFrame();
