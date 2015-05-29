@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.KeyboardFocusManager;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Set;
@@ -17,10 +16,8 @@ import javax.swing.KeyStroke;
 
 import ui.GameState;
 import ui.GameStateManager;
-import controler.MainMenuFocusListener;
-import controler.MainMenuKeyListener;
-import controler.MainMenuListener;
 import utils.AssetsManager;
+import controler.MainMenuListener;
 
 public class MainMenu extends GameState {
 

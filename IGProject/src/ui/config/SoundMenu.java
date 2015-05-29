@@ -11,11 +11,11 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 
-import controler.SoundListener;
 import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.BackButtonListener;
+import controler.SoundListener;
 
 public class SoundMenu extends GameState {
 

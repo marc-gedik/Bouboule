@@ -1,11 +1,9 @@
 package game.objects.enemies;
 
-import game.Direction;
 import game.objects.Character;
 import game.physics.Body;
 
 import java.awt.image.BufferedImage;
-import java.util.Random;
 
 import utils.AssetsManager;
 import utils.MathUtils;

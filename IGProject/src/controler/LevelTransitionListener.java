@@ -1,11 +1,11 @@
 package controler;
 
-import game.Level;
 import game.Levels;
-import ui.GameStateManager;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import ui.GameStateManager;
 
 public class LevelTransitionListener implements ActionListener {
 

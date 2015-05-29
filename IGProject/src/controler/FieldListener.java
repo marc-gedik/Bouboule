@@ -7,9 +7,6 @@ import java.awt.event.KeyListener;
 
 import javax.swing.JButton;
 
-import ui.Game;
-import utils.AssetsManager;
-
 public class FieldListener implements ActionListener, KeyListener {
 
 	private JButton tmp;

@@ -2,11 +2,7 @@ package game.objects;
 
 import game.physics.Body;
 
-import java.awt.Rectangle;
 import java.awt.geom.Rectangle2D.Float;
-import java.awt.image.BufferedImage;
-
-import ui.game.Animation;
 
 public abstract class GameObject {
 

@@ -2,9 +2,7 @@ package game.objects;
 
 import game.Beatable;
 import game.Level;
-import game.objects.weapons.Bolt;
-import game.objects.weapons.FlameThrower;
-import game.objects.weapons.Pistol;
+import game.objects.weapons.Knife;
 import game.objects.weapons.Weapon;
 import game.physics.Body;
 
@@ -28,15 +26,29 @@ public class Character extends Dynamic implements Beatable {
 
 	private final int maxLife;
 
+	private long score;
+	
+	public Character() {
+		this(null);
+	}
+
 	public Character(Body body) {
 		super(body, characterSpeed);
 		BufferedImage[] img = AssetsManager.getSprites("character", 4);
 		setAnimation(img, 1000 / 12f);
-		weapon = new Bolt();
-		life = 100;
 		maxLife = 100;
+		init();
 	}
 
+	private void init() {
+		weapon = new Knife();
+		life = 100;
+	}
+
+	public void setBody(Body body){
+		this.body = body;
+	}
+	
 	@Override
 	public void hit(float pow) {
 		if (!invinsible) {
@@ -53,7 +65,11 @@ public class Character extends Dynamic implements Beatable {
 
 	@Override
 	public boolean isDead() {
-		return life < 0;
+		if( life < 0){
+			init();
+			return true;
+		}
+		return false;
 	}
 
 	public Weapon getWeapon() {
@@ -63,6 +79,7 @@ public class Character extends Dynamic implements Beatable {
 	@Override
 	public void update(float dt) {
 		super.update(dt);
+		score += dt;
 		weapon.update(dt);
 
 		if (invinsibleTime < invinsibleTiming) {
@@ -79,7 +96,7 @@ public class Character extends Dynamic implements Beatable {
 	}
 
 	public void shot(Level level) {
-		weapon.shot(getX(), getY(), angle, level);
+		weapon.shot(this, level);
 	}
 
 	public void setWeapon(Weapon weapon) {
@@ -98,11 +115,10 @@ public class Character extends Dynamic implements Beatable {
 		move(angle);
 	}
 
-
 	public void backward() {
 		move(angle + 180);
 	}
-	
+
 	public void setAngle(float dir) {
 		angle = dir;
 	}
@@ -113,9 +129,19 @@ public class Character extends Dynamic implements Beatable {
 
 	public void addLife(float pc) {
 		life += maxLife * pc;
-		if(life > maxLife)
+		if (life > maxLife)
 			life = maxLife;
 	}
 
+	public void setLife(float f) {
+		life = f * maxLife;
+	}
 
+	public long getScore() {
+		return score;
+	}
+
+	public void setScore(long l) {
+		score = l;
+	}
 }

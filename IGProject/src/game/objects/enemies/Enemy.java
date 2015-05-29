@@ -1,10 +1,6 @@
 package game.objects.enemies;
 
-import java.awt.image.BufferedImage;
-
-import utils.MathUtils;
 import game.Beatable;
-import game.Direction;
 import game.objects.Character;
 import game.objects.Dynamic;
 import game.physics.Body;

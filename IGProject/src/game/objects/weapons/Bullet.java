@@ -9,13 +9,17 @@ import utils.AssetsManager;
 
 public class Bullet extends Dynamic {
 
+	public final float power;
 	private float maxDist;
 	private float dist;
+	public final Dynamic thrower;
 	
-	public Bullet(Body body, float angle, float dist, float speed) {
+	public Bullet(Dynamic o, Body body, float angle, float dist, float speed, float power) {
 		super(body, speed);
 		this.angle = angle;
 		this.maxDist = dist;
+		this.thrower = o;
+		this.power = power;
 		
 		BufferedImage img = AssetsManager.getTexture("bullet");
 		setAnimation(img, 0 / 12f);

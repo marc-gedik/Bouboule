@@ -1,6 +1,5 @@
 package ui.game;
 
-import java.awt.Rectangle;
 
 public class Camera {
 	private float xmin, xmax;

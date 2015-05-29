@@ -1,19 +1,19 @@
 package ui.game;
 
+import game.Conductor;
 import game.Level;
 import game.Levels;
-import game.LoadLevel;
-import game.objects.*;
 import game.objects.Character;
+import game.objects.Dynamic;
+import game.objects.GameObject;
 import game.objects.cakes.Cake;
+import game.objects.enemies.Boss;
 import game.objects.enemies.Enemy;
 import game.objects.weapons.Bullet;
-import game.objects.weapons.Weapon;
 
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.GraphicsDevice;
 import java.awt.GraphicsEnvironment;
 import java.awt.Rectangle;
 import java.awt.Transparency;
@@ -27,11 +27,12 @@ import ui.Game;
 import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
+import controler.GameControler;
 
 public class LevelRenderer extends GameState {
 
 	private Level level;
-	private int tileSize = 48;
+	private int tileSize = 32;
 	private BufferedImage statics;
 	private BufferedImage background;
 	private Graphics2D bg;
@@ -43,81 +44,23 @@ public class LevelRenderer extends GameState {
 		super(gsm);
 		init();
 
-		level = LoadLevel.get(Levels.getLevel());
+		level = Conductor.initGame();
+		game.enableSave(level);
+		game.disableLoad();
 		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
 				* tileSize);
 		hud = new HUD(level);
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice();
 
 		int width = Game.WIDTH;
 		int height = Game.HEIGHT;
+		addKeyListener(new GameControler());
 
 		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration()
 				.createCompatibleImage(width, height, Transparency.OPAQUE);
 
-		createStatics();
+		statics = AssetsManager.getTexture("level" + Levels.getLevel());
 	}
-
-
-
-	public LevelRenderer(GameStateManager gsm, String levelInfo) {
-		super(gsm);
-		init();
-		
-		level = LoadLevel.getSavedLevel(levelInfo);
-		
-		
-
-		camera.setBounds(0, level.getWidth() * tileSize, 0, level.getHeight()
-				* tileSize);
-		hud = new HUD(level);
-		GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice();
-
-		int width = Game.WIDTH;
-		int height = Game.HEIGHT;
-
-		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
-				.getDefaultScreenDevice().getDefaultConfiguration()
-				.createCompatibleImage(width, height, Transparency.OPAQUE);
-
-		createStatics();
-	}
-
-
-
-
-
-
-
-	private void createStatics() {
-		statics = new BufferedImage(level.getWidth() * tileSize,
-				level.getHeight() * tileSize, BufferedImage.TYPE_INT_RGB);
-		BufferedImage floor = AssetsManager.getTexture("floor_"
-				+ Levels.getLevel());
-		BufferedImage wall = AssetsManager.getTexture("wall_"
-				+ Levels.getLevel());
-
-		int iw = floor.getWidth();
-		int ih = floor.getHeight(this);
-
-		Graphics2D g2d = (Graphics2D) statics.getGraphics();
-		for (int x = 0; x < level.getWidth(); x++)
-			for (int y = 0; y < level.getHeight(); y++)
-				g2d.drawImage(floor, x * iw, y * ih, iw, ih, this);
-		for (Tile o : level.getTiles()) {
-			Float bounds = o.bounds();
-			g2d.drawImage(
-					wall,
-					(int) (o.getX() - (wall.getWidth() - bounds.getWidth()) / 2),
-					(int) (o.getY() - (wall.getHeight() - bounds.getHeight()) / 2),
-					wall.getWidth(), wall.getHeight(), null);
-		}
-	}
-
-
 
 	private BufferedImage rotate(BufferedImage img, double rot) {
 		AffineTransform tx = new AffineTransform();
@@ -161,17 +104,20 @@ public class LevelRenderer extends GameState {
 		bg.translate(offsetX, offsetY);
 		bg.scale(scaleX, scaleY);
 
-		bg.drawImage(statics, 0, 0, null);
+		bg.drawImage(statics, -tileSize, -tileSize, null);
 
 		drawCake();
 
 		List<Enemy> enemies = level.getEnemies();
 		for (int i = 0; i < enemies.size(); i++)
-			draw(enemies.get(i));
+			if (enemies.get(i).getVersion() == 4)
+				drawBoss((Boss) enemies.get(i));
+			else
+				draw(enemies.get(i));
 
 		List<Bullet> bullets = level.getBullets();
-		for (Bullet bullet : bullets)
-			draw(bullet);
+		for (int i = 0; i < bullets.size(); i++)
+			draw(bullets.get(i));
 		drawCharacter(level.getCharacter());
 		bg.dispose();
 
@@ -179,6 +125,29 @@ public class LevelRenderer extends GameState {
 		hud.paint(bg);
 
 		g2d.drawImage(background, 0, 0, null);
+	}
+
+	private void drawBoss(Boss ennemy) {
+		BufferedImage img;
+		Float bounds = ennemy.bounds();
+
+		double angle = Math.toRadians(ennemy.getAngle() + 90);
+		double x = bounds.getCenterX(), xi = x;
+		double y = bounds.getCenterY(), yi = y;
+		bg.draw(bounds);
+		bg.rotate(angle, x, y);
+
+		if (ennemy.shooting()) {
+			img = ennemy.getWeapon().getFrame();
+			bg.drawImage(img, (int) x - img.getWidth() / 2,
+					(int) bounds.getY() - img.getHeight(), null);
+		}
+
+		img = ennemy.getAnimation().getFrame();
+		x = ennemy.getX() - (img.getWidth() - bounds.getWidth()) / 2;
+		y = ennemy.getY() - (img.getHeight() - bounds.getHeight()) / 2;
+		bg.drawImage(img, (int) x, (int) y, null);
+		bg.rotate(-angle, xi, yi);
 	}
 
 	private void drawCharacter(Character character) {
@@ -235,15 +204,17 @@ public class LevelRenderer extends GameState {
 
 	@Override
 	public void update(float dt) {
-		level.update(dt);
-		if (level.isFinished()) {
-			if (level.win()) {
-				if (Levels.hasNext()) {
-					gsm.setState(GameStateManager.LEVELTRANSITION);
+		if (this.hasFocus()) {
+			level.update(dt);
+			if (level.isFinished()) {
+				if (level.win()) {
+					if (Levels.hasNext()) {
+						gsm.setState(GameStateManager.LEVELTRANSITION);
+					} else
+						gsm.setState(GameStateManager.WIN);
 				} else
-					gsm.setState(GameStateManager.MAIN);
-			} else
-				gsm.setState(GameStateManager.GAMEOVER);
+					gsm.setState(GameStateManager.GAMEOVER);
+			}
 		}
 	}
 
@@ -256,5 +227,16 @@ public class LevelRenderer extends GameState {
 		background = GraphicsEnvironment.getLocalGraphicsEnvironment()
 				.getDefaultScreenDevice().getDefaultConfiguration()
 				.createCompatibleImage(width, height, Transparency.OPAQUE);
+	}
+
+	@Override
+	public void onBack() {
+	}
+
+	@Override
+	public void back() {
+		super.back();
+		game.disableSave();
+		game.enableLoad();
 	}
 }

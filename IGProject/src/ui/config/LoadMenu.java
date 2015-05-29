@@ -3,7 +3,6 @@ package ui.config;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -105,7 +104,6 @@ public class LoadMenu extends GameState {
 		myContainer.setMinimumSize(new Dimension(600, 400));
 		myContainer.setSize(new Dimension(600, 400));
 
-		FlowLayout flow = new FlowLayout(FlowLayout.CENTER);
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(levelContainer(), BorderLayout.NORTH);
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);
@@ -115,14 +113,10 @@ public class LoadMenu extends GameState {
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public static Preferences getPref() {

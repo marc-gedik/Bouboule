@@ -1,15 +1,22 @@
 package ui.config;
 
 
-import controler.GameOverListener;
-import controler.LevelTransitionListener;
+import java.awt.BorderLayout;
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import controler.LevelTransitionListener;
 
 public class LevelTransition extends GameState {
 

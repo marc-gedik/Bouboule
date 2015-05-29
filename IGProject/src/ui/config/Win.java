@@ -1,14 +1,23 @@
 package ui.config;
 
-import controler.LevelTransitionListener;
-import controler.WinListener;
+import game.Conductor;
+
+import java.awt.Component;
+import java.awt.Dimension;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionListener;
+
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import ui.GameState;
 import ui.GameStateManager;
+import ui.Score;
 import utils.AssetsManager;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionListener;
+import controler.WinListener;
 
 public class Win extends GameState {
 
@@ -42,6 +51,8 @@ public class Win extends GameState {
         title.setFont(ButtonStyle.DarkStyle.font());
         containerButton.add(title, gbc);
 
+        System.out.println(Conductor.getScore());
+        AssetsManager.addScore(new Score("Remplacer", Conductor.getScore()));
         JButton next = button("Win.Menu");
 
         gbc.gridwidth = GridBagConstraints.RELATIVE;
@@ -73,6 +84,5 @@ public class Win extends GameState {
 
     @Override
     public void update(float dt) {
-
     }
 }

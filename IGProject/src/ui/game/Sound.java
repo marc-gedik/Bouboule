@@ -1,9 +1,8 @@
 package ui.game;
 
-import ui.Game;
-import utils.AssetsManager;
-
 import javax.sound.sampled.AudioInputStream;
+
+import utils.AssetsManager;
 
 public class Sound {
 

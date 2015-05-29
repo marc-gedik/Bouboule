@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -17,28 +18,13 @@ import javax.swing.border.EmptyBorder;
 
 import ui.GameState;
 import ui.GameStateManager;
+import ui.Score;
 import utils.AssetsManager;
 import controler.BackButtonListener;
 
 public class ScoresMenu extends GameState {
 
-	public static String[] rank = new String[10];
-
-	// initialisation temporaire
-
-	void initTab() {
-		for (int i = 0; i < rank.length; i++) {
-			rank[i] = "Marco " + (int) (Math.random() * 5000);
-		}
-		afficheTab();
-
-	}
-
-	void afficheTab() {
-		for (int i = 0; i < rank.length; i++) {
-			System.out.println(rank[i]);
-		}
-	}
+	public static final int NB = 8;
 
 	public ScoresMenu(GameStateManager gsm) {
 		super(gsm);
@@ -46,8 +32,6 @@ public class ScoresMenu extends GameState {
 
 	@Override
 	public void init() {
-		initTab();
-
 		this.setLayout(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
@@ -97,18 +81,14 @@ public class ScoresMenu extends GameState {
 		containerTable.add(row1);
 		containerTable.add(row2);
 		containerTable.add(row3);
-		int ranking;
-		String items[];
-		for (int i = 0; i < rank.length; i++) {
-			ranking = i + 1;
-			items = rank[i].split(" ");
-			containerTable.add(new JLabel("" + ranking));
-			containerTable.add(new JLabel(items[0]));
-			containerTable.add(new JLabel(items[1]));
-
+		int ranking = 1;
+		List<Score> items = AssetsManager.getScores();
+		for(Score score : items){
+			containerTable.add(new JLabel("" + ranking++));
+			containerTable.add(new JLabel(score.name));
+			containerTable.add(new JLabel(String.valueOf(score.score)));
 		}
 		return containerTable;
-
 	}
 
 	JPanel myContainer() {

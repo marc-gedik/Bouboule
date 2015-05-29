@@ -1,28 +1,24 @@
 package ui;
 
+import game.Level;
+
 import java.awt.Dimension;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowStateListener;
-import java.util.ResourceBundle;
 
-import javax.swing.ButtonGroup;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JRadioButtonMenuItem;
 import javax.swing.KeyStroke;
 
+import ui.config.SaveMenu;
 import ui.config.SoundManager;
 import ui.game.Camera;
-import ui.game.Sound;
 import utils.AssetsManager;
-import controler.GameControler;
 import controler.PlayMenuControler;
 
 public class Game extends JFrame {
@@ -33,12 +29,16 @@ public class Game extends JFrame {
 
 	private GameStateManager gsm;
 	private Camera camera;
+
+	private JMenuItem save;
+	private JMenuItem load;
+
 	public static SoundManager soundManager;
 
 	public Game() {
 		camera = new Camera();
 		gsm = new GameStateManager(this);
-		//soundManager = new SoundManager(Sound.MainMenu);
+		// soundManager = new SoundManager(Sound.MainMenu);
 
 		setTitle(AssetsManager.getString("Title"));
 		setMinimumSize(new Dimension(WIDTH, HEIGHT));
@@ -48,12 +48,11 @@ public class Game extends JFrame {
 		setLocationRelativeTo(null);
 
 		createMenuBar();
-		addKeyListener(new GameControler());
 
 		pack();
 		setVisible(true);
 
-		//soundManager.play();
+		// soundManager.play();
 
 		addComponentListener(new ComponentAdapter() {
 			@Override
@@ -122,12 +121,15 @@ public class Game extends JFrame {
 		menu.add(createItem("Menu.Game.Pause",
 				KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), controler));
 		menu.addSeparator();
-		menu.add(createItem("Menu.Game.Save",
+		save = createItem("Menu.Game.Save",
 				KeyStroke.getKeyStroke(KeyEvent.VK_S, InputEvent.CTRL_MASK),
-				controler));
-		menu.add(createItem("Menu.Game.Load",
+				controler);
+		save.setEnabled(false);
+		menu.add(save);
+		load = createItem("Menu.Game.Load",
 				KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_MASK),
-				controler));
+				controler);
+		menu.add(load);
 		menu.addSeparator();
 		menu.add(createItem("Menu.Game.Exit", KeyStroke.getKeyStroke(
 				KeyEvent.VK_Q, InputEvent.CTRL_DOWN_MASK), controler));
@@ -142,6 +144,24 @@ public class Game extends JFrame {
 		menu.add(createItem("Menu.Help.About", null, controler));
 		menuBar.add(menu);
 
+	}
+
+	public void enableSave(Level level) {
+		save.setEnabled(true);
+		SaveMenu.saveMenuListenerl.setLevel(level);
+		;
+	}
+
+	public void disableSave() {
+		save.setEnabled(false);
+	}
+
+	public void enableLoad() {
+		load.setEnabled(true);
+	}
+
+	public void disableLoad() {
+		load.setEnabled(false);
 	}
 
 	public Camera getCamera() {

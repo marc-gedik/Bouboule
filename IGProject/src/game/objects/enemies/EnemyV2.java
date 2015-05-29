@@ -1,6 +1,5 @@
 package game.objects.enemies;
 
-import game.Direction;
 import game.objects.Character;
 import game.physics.Body;
 

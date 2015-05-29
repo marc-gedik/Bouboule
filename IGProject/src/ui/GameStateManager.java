@@ -2,9 +2,17 @@ package ui;
 
 import java.util.Stack;
 
-import ui.config.*;
+import ui.config.GameOver;
+import ui.config.InstructionsMenu;
+import ui.config.KeysMenu;
+import ui.config.LevelTransition;
+import ui.config.LoadMenu;
+import ui.config.MainMenu;
+import ui.config.SaveMenu;
+import ui.config.ScoresMenu;
+import ui.config.SoundMenu;
+import ui.config.Win;
 import ui.game.LevelRenderer;
-import controler.LoadMenuListener;
 
 public class GameStateManager {
 
@@ -42,11 +50,7 @@ public class GameStateManager {
 	private GameState getState(int state) {
 		switch (state) {
 		case GAME:
-			if(LoadMenuListener.getInfoLevel().equals(""))
-				return new LevelRenderer(this);
-			else
-				return new LevelRenderer(this, LoadMenuListener.getInfoLevel());
-
+			return new LevelRenderer(this);
 		case MAIN:
 			return new MainMenu(this);
 		case LOAD:
@@ -83,7 +87,7 @@ public class GameStateManager {
 	}
 
 	public void popState() {
-		gameStates.pop();
+		gameStates.pop().back();
 		set(gameStates.peek());
 		gameStates.peek().onBack();
 	}
@@ -92,11 +96,19 @@ public class GameStateManager {
 		game.requestFocusInWindow();
 		game.setContentPane(gameState);
 		game.revalidate();
+		game.getContentPane().requestFocusInWindow();
 	}
 
 	public void resize(int width, int height) {
 		gameStates.peek().resized(width, height);
-		
+
+	}
+
+	public void pause() {
+		if(game.hasFocus())
+			gameStates.peek().requestFocusInWindow();
+		else
+			game.requestFocusInWindow();
 	}
 
 }

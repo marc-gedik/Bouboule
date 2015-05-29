@@ -1,13 +1,13 @@
 package controler;
 
-import ui.Game;
-import ui.GameStateManager;
-import game.Level;
-
-import javax.swing.*;
+import game.Conductor;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import javax.swing.JOptionPane;
+
+import ui.GameStateManager;
 
 public class PlayMenuControler implements ActionListener {
 
@@ -19,53 +19,31 @@ public class PlayMenuControler implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		switch (e.getActionCommand()) {
-		case "Menu.Game.New":
-			System.out.println("New");
+		String s = e.getActionCommand();
+		if (s.equals("Menu.Game.New"))
 			gsm.pushState(GameStateManager.GAME);
-			break;
-		case "Menu.Game.Restart":
-			System.out.println("Restart");
+		else if (s.equals("Menu.Game.Restart")) {
+			Conductor.reset();
 			gsm.setState(GameStateManager.GAME);
-			break;
-		case "Menu.Game.Pause":
-			System.out.println("Pause");
-			break;
-		case "Menu.Game.Save":
-			System.out.println("Save");
+		} else if (s.equals("Menu.Game.Pause"))
+			gsm.pause();
+		else if (s.equals("Menu.Game.Save"))
 			gsm.pushState(GameStateManager.SAVE);
-			break;
-		case "Menu.Game.Load":
-			System.out.println("Load");
+		else if (s.equals("Menu.Game.Load"))
 			gsm.pushState(GameStateManager.LOAD);
-			break;
-		case "Menu.Game.Exit":
-			System.out.println("Exit");
+		else if (s.equals("Menu.Game.Exit"))
 			System.exit(0);
-			break;
-		case "Menu.Config.Keys":
-			System.out.println("Keys");
+		else if (s.equals("Menu.Config.Keys"))
 			gsm.pushState(GameStateManager.KEYS);
-			gsm.setState(GameStateManager.WIN);
-			break;
-		case "Menu.Config.Sound":
-			System.out.println("Sound");
+		else if (s.equals("Menu.Config.Sound"))
 			gsm.pushState(GameStateManager.SOUND);
-			break;
-		case "Menu.Help.Instruction":
-			System.out.println("Instructions");
+		else if (s.equals("Menu.Help.Instruction"))
 			gsm.pushState(GameStateManager.INSTRUCTIONS);
-			break;
-		case "Menu.Help.About":
-			System.out.println("About");
+		else if (s.equals("Menu.Help.About"))
 			JOptionPane.showMessageDialog(JOptionPane.getRootFrame(),
-					"Projet d'interfaces graphiques presenté par :\n \n" +
-							"- Marc Gedik\n" +
-							"- Safir Medjeber\n" +
-							"- Celia Hammouche\n \n" +
-					"Juin 2015");
-			break;
-		}
+					"Projet d'interfaces graphiques presenté par :\n \n"
+							+ "- Marc Gedik\n" + "- Safir Medjeber\n"
+							+ "- Celia Hammouche\n \n" + "Juin 2015");
 
 	}
 }

@@ -1,7 +1,5 @@
 package controler;
 
-import game.LoadLevel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

@@ -1,10 +1,8 @@
 package game.objects.cakes;
 
-import game.objects.weapons.Bolt;
-import game.objects.weapons.FlameThrower;
-import game.objects.weapons.ShotGun;
-import game.physics.Body;
 import game.objects.Character;
+import game.objects.weapons.Bolt;
+import game.physics.Body;
 import utils.AssetsManager;
 
 public class CakeV1 extends Cake {
@@ -17,7 +15,7 @@ public class CakeV1 extends Cake {
 
 	@Override
 	public void power(Character character) {
-		character.addLife(5f / 100);
+		character.setWeapon(new Bolt());
 	}
 
 }

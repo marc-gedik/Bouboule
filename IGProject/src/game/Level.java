@@ -6,6 +6,7 @@ import game.objects.cakes.Cake;
 import game.objects.cakes.CakeV1;
 import game.objects.cakes.CakeV2;
 import game.objects.cakes.CakeV3;
+import game.objects.enemies.Boss;
 import game.objects.enemies.Enemy;
 import game.objects.enemies.EnemyV1;
 import game.objects.enemies.EnemyV2;
@@ -23,7 +24,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
-import utils.MathUtils;
 import controler.Input;
 
 public class Level {
@@ -31,10 +31,10 @@ public class Level {
 	private PhysicalWorld world;
 	private ContactListener contactListener;
 
-	private static Character character;
+	private Character character;
 	private static List<Enemy> enemies;
 	private List<Tile> tiles;
-	private static List<Cake> cakes;
+	private List<Cake> cakes;
 
 	private List<Bullet> bullets;
 
@@ -46,7 +46,7 @@ public class Level {
 		this.height = height;
 
 		world = new PhysicalWorld(width, height);
-		contactListener = new ContactListener(this);
+		contactListener = new ContactListener();
 		world.addContactListener(contactListener);
 
 		tiles = new LinkedList<Tile>();
@@ -120,7 +120,7 @@ public class Level {
 		handleMove();
 		if (Input.up())
 			character.forward();
-		if(Input.down())
+		if (Input.down())
 			character.backward();
 		handleShoot();
 	}
@@ -183,8 +183,18 @@ public class Level {
 		tiles.add(new Tile(body));
 	}
 
-	public void addEnemy(int x, int y, int version) {
-		Body body = new Body(x, y, 32, 32, true);
+	public void addEnemy(float x, float y, int version) {
+		Body body = null;
+		switch (version) {
+		case 1:
+		case 2:
+		case 3:
+			body = new Body(x, y, 32, 32, true);
+			break;
+		case 4:
+			body = new Body(x, y, 64, 64, true);
+			break;
+		}
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Enemy;
 		world.addBody(body);
@@ -199,6 +209,10 @@ public class Level {
 		case 3:
 			enemy = (new EnemyV3(body));
 			break;
+		case 4:
+			enemy = new Boss(body);
+			((Boss) enemy).setLevel(this);
+			break;
 		}
 		body.data = enemy;
 		enemies.add(enemy);
@@ -208,12 +222,13 @@ public class Level {
 		return tiles;
 	}
 
-	public void setCharacter(int x, int y) {
+	public void setCharacter(Character character, float x, float y) {
 		Body body = new Body(x, y, 20, 20, false);
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Character;
 		world.addBody(body);
-		character = new Character(body);
+		character.setBody(body);
+		this.character = character;
 		body.data = character;
 	}
 
@@ -232,26 +247,24 @@ public class Level {
 	public boolean win() {
 		return win;
 	}
-	
-	
-	public static String saveLevel(){
-		String infoLevel="";
-		infoLevel += LoadLevel.getLevelID()+"\n";
-		infoLevel += (int)character.getX() +"_"+(int)character.getY() + "\n" ;
-		for (Cake c : cakes) {
-			infoLevel += (int)c.getX() +"_"+ (int)c.getY() +"_"+c.getVersion()+"_";
-		}
-		infoLevel +="\n";
-		
-		for (Enemy e : enemies) {
-			infoLevel += (int)e.getX() +"_"+ (int)e.getY()+ "_"+ e.getVersion()+"_";
-		}
-		System.out.println(infoLevel);
-		
+
+	public String saveLevel() {
+		String infoLevel = "";
+		infoLevel += LoadLevel.getLevelID() + "\n";
+
+		infoLevel += character.getX() + "_" + character.getY() + "_"
+				+ character.getPerCentLife() + "_" + character.getWeapon()
+				+ "_" + character.getScore() + "_" + "\n";
+
+		for (Cake c : cakes)
+			infoLevel += c.getX() + "_" + c.getY() + "_" + c.getVersion() + "_";
+		infoLevel += "\n";
+
+		for (Enemy e : enemies)
+			infoLevel += e.getX() + "_" + e.getY() + "_" + e.getVersion() + "_";
+
 		return infoLevel;
-		
-		
+
 	}
-	
 
 }

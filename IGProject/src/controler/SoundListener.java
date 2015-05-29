@@ -1,14 +1,12 @@
 package controler;
 
 
-import ui.Game;
-import ui.config.SoundMenu;
-import ui.config.SoundManager;
-
-import javax.sound.sampled.FloatControl;
-import javax.swing.*;
+import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import ui.Game;
+import ui.config.SoundManager;
 
 public class SoundListener implements ChangeListener {
 

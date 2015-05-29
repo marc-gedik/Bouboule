@@ -32,9 +32,8 @@ public class PhysicalWorld {
 	public boolean collide(Body bodyA, boolean collisions) {
 		boolean b = false;
 		for (Body bodyB : dynamics)
-			if (bodyA != bodyB && bodyA.bounds().intersects(bodyB.bounds())) {
-				if (bodyA.collision == false && bodyB.collision == false)
-					continue;
+			if (bodyA != bodyB
+					&& bodyA.bounds().intersects(bodyB.bounds())) {
 				if (collisions)
 					for (CollisionListener listener : listeners)
 						listener.colide(bodyA, bodyB);
@@ -58,8 +57,8 @@ public class PhysicalWorld {
 		boolean b = false;
 		Float r = bodyA.bounds();
 		if (x >= 0 && y >= 0)
-			for (int i = 0; i < 2 && x + i < statics.length; i++)
-				for (int j = 0; j < 2 && y + j < statics.length; j++) {
+			for (int i = 0; i < 2 && (int) (x + i) < statics.length; i++)
+				for (int j = 0; j < 2 && (int) (y + j) < statics[0].length; j++) {
 					Body bodyB = statics[(int) (x + i)][(int) (y + j)];
 					if (bodyB != null && bodyB.bounds().intersects(r)) {
 						if (collisions)

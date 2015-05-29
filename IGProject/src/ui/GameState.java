@@ -1,11 +1,9 @@
 package ui;
 
-import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import javax.swing.text.StyledEditorKit.BoldAction;
 
 import ui.config.Background;
 import ui.game.Camera;
@@ -49,9 +47,12 @@ public abstract class GameState extends JPanel {
 
 	public void onBack() {
 	}
+	public void back() {
+	}
 
 	public void resized(int width, int height) {
 		
 	}
+
 
 }

@@ -1,10 +1,9 @@
 package controler;
 
-import game.Levels;
-import ui.GameStateManager;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import ui.GameStateManager;
 
 public class WinListener implements ActionListener {
 

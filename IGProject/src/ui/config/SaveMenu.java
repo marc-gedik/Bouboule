@@ -3,7 +3,6 @@ package ui.config;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
@@ -16,14 +15,14 @@ import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.BackButtonListener;
-import controler.LoadMenuListener;
 import controler.SaveMenuListener;
 
-public class  SaveMenu extends GameState {
+public class SaveMenu extends GameState {
+
+	public static final SaveMenuListener saveMenuListenerl = new SaveMenuListener();
 
 	public SaveMenu(GameStateManager gsm) {
 		super(gsm);
-		// TODO Auto-generated constructor stub
 	}
 
 	public void init() {
@@ -32,11 +31,9 @@ public class  SaveMenu extends GameState {
 		position(gbc, 0, 0, 1, 1);
 		this.add(myContainer(), gbc);
 		addBackground(gbc, "img/texture3.png");
-
 	}
 
 	JPanel levelContainer() {
-		SaveMenuListener l = new SaveMenuListener();
 		JPanel containerLevel = new JPanel();
 		containerLevel.setLayout(new GridLayout(3, 5, 0, 15));
 		containerLevel.setPreferredSize(new Dimension(480, 240));
@@ -47,11 +44,12 @@ public class  SaveMenu extends GameState {
 
 		for (int i = 0; i < level.length; i++) {
 			if (LoadMenu.getSave().equals(""))
-				level[i] = new ImageButton("img/d2_over.png", "img/d2_over.png", i+ 1 + "");
-			else {
-				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i + 1+ "");
-			}
-			level[i].addActionListener(l);
+				level[i] = new ImageButton("img/d2_over.png",
+						"img/d2_over.png", i + 1 + "");
+			else
+				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i
+						+ 1 + "");
+			level[i].addActionListener(saveMenuListenerl);
 			containerLevel.add(level[i]);
 		}
 
@@ -62,8 +60,8 @@ public class  SaveMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(AssetsManager
-				.getString("backButton"), ButtonStyle.GrayStyle);
+		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
+				ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);
@@ -79,7 +77,6 @@ public class  SaveMenu extends GameState {
 		myContainer.setMinimumSize(new Dimension(600, 400));
 		myContainer.setSize(new Dimension(600, 400));
 
-		FlowLayout flow = new FlowLayout(FlowLayout.CENTER);
 		myContainer.setLayout(new BorderLayout());
 		myContainer.add(levelContainer(), BorderLayout.NORTH);
 		myContainer.add(buttonContainer(), BorderLayout.SOUTH);

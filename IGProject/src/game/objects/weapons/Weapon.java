@@ -1,14 +1,17 @@
 package game.objects.weapons;
 
-import java.awt.image.BufferedImage;
-
-import ui.game.Animation;
 import game.Level;
+import game.objects.Dynamic;
 import game.physics.Body;
 import game.physics.BodyId;
 import game.physics.BodyType;
 
+import java.awt.image.BufferedImage;
+
+import ui.game.Animation;
+
 public abstract class Weapon {
+
 	protected Animation animation;
 
 	public final float power;
@@ -27,22 +30,26 @@ public abstract class Weapon {
 	public final float dist;
 	public final float speed;
 
-	public Weapon(float power, int capacity, float chargingTiming,
-			float shootTiming, float dist, float speed) {
+	Weapon(float power, int capacity, float chargingTiming, float shootTiming,
+			float dist, float speed) {
 		this.power = power;
 		this.maxCapacity = capacity;
 		this.chargingTiming = chargingTiming;
 		this.shootTiming = shootTiming;
 		this.dist = dist;
 		this.speed = speed;
+		setAnimation();
 	}
 
-	protected void addBullet(Level level, float x, float y, float width, float height, float angle, float speed) {
+	protected abstract void setAnimation();
+
+	protected void addBullet(Level level, Dynamic o, float x, float y, float width,
+			float height, float angle, float speed) {
 		Body body = new Body(x, y, width, height, false);
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Bullet;
 		body.isSensor = true;
-		Bullet bullet = new Bullet(body, angle, dist, speed);
+		Bullet bullet = new Bullet(o, body, angle, dist, speed, power);
 		body.data = bullet;
 		level.addBullet(bullet);
 	}
@@ -51,7 +58,7 @@ public abstract class Weapon {
 		if (shooting || charging)
 			return false;
 
-		if (capacity == maxCapacity) {
+		if (maxCapacity != -1 && capacity == maxCapacity) {
 			animation.reset();
 			capacity = 0;
 			chargingTime = 0;
@@ -65,7 +72,7 @@ public abstract class Weapon {
 		return true;
 	}
 
-	public abstract void shot(float x, float y, float angle, Level level);
+	public abstract void shot(Dynamic o, Level level);
 
 	public void update(float dt) {
 
@@ -95,5 +102,17 @@ public abstract class Weapon {
 
 	public boolean isShooting() {
 		return shooting;
+	}
+
+	public abstract String toString();
+	
+	public static Weapon valueOf(String w) {
+		if(w.equals("knife"))
+			return new Knife();
+		else if(w.equals("flameThrower"))
+			return new FlameThrower();
+		else if(w.equals("bolt"))
+			return new Bolt();
+		return null;
 	}
 }

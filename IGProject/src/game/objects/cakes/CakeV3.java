@@ -1,9 +1,8 @@
 package game.objects.cakes;
 
-import utils.AssetsManager;
 import game.objects.Character;
-import game.objects.weapons.Weapon;
 import game.physics.Body;
+import utils.AssetsManager;
 
 public class CakeV3 extends Cake{
 
@@ -16,8 +15,7 @@ public class CakeV3 extends Cake{
 
 	@Override
 	public void power(Character character) {
-		// TODO Auto-generated method stub
-		
+		character.addLife(100);
 	}
 
 }

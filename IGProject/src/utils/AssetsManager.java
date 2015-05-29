@@ -1,23 +1,24 @@
 package utils;
 
-import java.awt.Graphics2D;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.prefs.BackingStoreException;
 import java.util.prefs.Preferences;
 
 import javax.imageio.ImageIO;
-import javax.print.attribute.standard.Media;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
-import controler.KeysOption;
 import ui.Game;
+import ui.Score;
+import ui.config.ScoresMenu;
 
 public class AssetsManager {
 
@@ -49,7 +50,8 @@ public class AssetsManager {
 						3 };
 				for (int i = 0; i < keys.length; i++)
 					preferences.putInt(keys[i], values[i]);
-
+				for (int i = 0; i < ScoresMenu.NB; i++)
+					preferences.put("score" + i, "");
 			}
 			preferences.flush();
 		} catch (BackingStoreException e) {
@@ -83,17 +85,20 @@ public class AssetsManager {
 		loadImage("full_hearth");
 		loadImage("flamethrower");
 		loadImage("bolt");
+		loadImage("cut");
+		loadImage("vomit");
 
 		loadImage("enemy_v1");
 		loadImage("enemy_v2");
 		loadImage("enemy_v3");
+		loadImage("fasto");
+
 		loadImage("cake_v1");
 		loadImage("cake_v2");
 		loadImage("cake_v3");
 
-		for (int i = 0; i < 3; i++) {
-			loadImage("wall_" + i);
-			loadImage("floor_" + i);
+		for (int i = 0; i < 4; i++) {
+			loadImage("level" + i);
 		}
 	}
 
@@ -144,6 +149,44 @@ public class AssetsManager {
 			preferences.flush();
 		} catch (BackingStoreException e) {
 			e.printStackTrace();
+		}
+	}
+
+	public static List<Score> getScores() {
+		List<Score> scores = new LinkedList<Score>();
+		for (int i = 0; i < ScoresMenu.NB; i++) {
+			String name = preferences.get("score" + i, "");
+			Long score = preferences.getLong("score" + i, 0);
+			if (!name.equals(""))
+				scores.add(new Score(name, score));
+		}
+		return scores;
+	}
+
+	public static void addScore(Score newScore) {
+		int i;
+		for (i = 0; i < ScoresMenu.NB; i++) {
+			Long score = preferences.getLong("score" + i, -1);
+			if (score == -1 || newScore.better(score)) {
+				decaleScore(i);
+				preferences.put("score" + i, newScore.name);
+				preferences.putLong("score" + i, newScore.score);
+				break;
+			}
+		}
+		try {
+			preferences.flush();
+		} catch (BackingStoreException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private static void decaleScore(int from) {
+		for (int j = ScoresMenu.NB - 1; j > from; j--) {
+			String name =  preferences.get("score" + (j-1), "");
+			long score =  preferences.getLong("score" + (j-1), -1);
+			preferences.put("score" + j, name);
+			preferences.putLong("score" + j, score);
 		}
 	}
 }

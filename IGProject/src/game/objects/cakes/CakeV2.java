@@ -1,10 +1,9 @@
 package game.objects.cakes;
 
-import utils.AssetsManager;
 import game.objects.Character;
 import game.objects.weapons.FlameThrower;
-import game.objects.weapons.Weapon;
 import game.physics.Body;
+import utils.AssetsManager;
 
 public class CakeV2 extends Cake{
 

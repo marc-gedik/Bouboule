@@ -1,12 +1,13 @@
 package ui.game;
 
+import game.Level;
+
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 
 import utils.AssetsManager;
-import game.Level;
 
 public class HUD {
 
