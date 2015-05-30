@@ -39,7 +39,7 @@ public abstract class GameState extends JPanel {
 	}
 
 	protected void addBackground(GridBagConstraints gbc, String s) {
-		Background wallpaper = new Background(new ImageIcon("img/texture5.png"));
+		Background wallpaper = new Background(new ImageIcon(s));
 		gbc.weightx = gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(wallpaper, gbc);

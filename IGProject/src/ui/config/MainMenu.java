@@ -36,7 +36,7 @@ public class MainMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(buttonContainer(), gbc);
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "img/texture6.png");
 	}
 
 	public void addButtonEvent(JButton btn) {
