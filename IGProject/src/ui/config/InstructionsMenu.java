@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.EmptyBorder;
@@ -16,16 +17,18 @@ import javax.swing.text.SimpleAttributeSet;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 
-import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.BackButtonListener;
 
-public class InstructionsMenu extends GameState {
+public class InstructionsMenu extends Menu {
 
+	private JButton back;
+	
 	public InstructionsMenu(GameStateManager gsm) {
 		super(gsm);
 	}
+
 	@Override
 	public void init() {
 		this.setLayout(new GridBagLayout());
@@ -33,18 +36,18 @@ public class InstructionsMenu extends GameState {
 
 		position(gbc, 0, 0, 1, 1);
 		this.add(myContainer(), gbc);
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "sub");
 	}
 
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		 JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
+		back = new DecoratedButton(AssetsManager.getString("backButton"),
 				ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
-		b.requestFocusInWindow();
-		b.addActionListener(bl);
-		tmp.add(b);
+		back.requestFocusInWindow();
+		back.addActionListener(bl);
+		tmp.add(back);
 
 		return tmp;
 
@@ -52,7 +55,7 @@ public class InstructionsMenu extends GameState {
 
 	JPanel textContainer() {
 		JPanel containerText = new JPanel();
-		
+
 		containerText.setLayout(new BorderLayout());
 		String title1 = AssetsManager.getString("Instructions.title1");
 		String text1 = AssetsManager.getString("Instructions.text1");
@@ -128,14 +131,15 @@ public class InstructionsMenu extends GameState {
 
 	@Override
 	public void handleInput() {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void update(float dt) {
-		// TODO Auto-generated method stub
+	}
 
+	@Override
+	protected JComponent getFirstFocus() {
+		return back;
 	}
 
 }

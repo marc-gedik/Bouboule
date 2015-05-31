@@ -9,7 +9,7 @@ public class Bolt extends Weapon {
 
 	public Bolt() {
 
-		super(10, 1, 1f, .1f, 242, 10f);
+		super(10, 1, .5f, .1f, 242, 10f);
 	}
 
 	@Override
@@ -28,4 +28,5 @@ public class Bolt extends Weapon {
 	public String toString() {
 		return "bolt";
 	}
+	
 }

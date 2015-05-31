@@ -1,17 +1,16 @@
 package ui.config;
 
 import java.awt.Graphics;
-import java.awt.Image;
+import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 public class Background extends JPanel {
 
-	private Image img;
+	private BufferedImage  img;
 
-	public Background(ImageIcon img) {
-		this.img = img.getImage();
+	public Background(BufferedImage img) {
+		this.img = img;
 	}
 
 	public void paintComponent(Graphics g) {

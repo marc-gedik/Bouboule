@@ -2,11 +2,11 @@ package ui;
 
 import java.awt.GridBagConstraints;
 
-import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 
 import ui.config.Background;
 import ui.game.Camera;
+import utils.AssetsManager;
 
 public abstract class GameState extends JPanel {
 
@@ -39,7 +39,7 @@ public abstract class GameState extends JPanel {
 	}
 
 	protected void addBackground(GridBagConstraints gbc, String s) {
-		Background wallpaper = new Background(new ImageIcon(s));
+		Background wallpaper = new Background(AssetsManager.getTexture(s));
 		gbc.weightx = gbc.weighty = 1.0;
 		gbc.fill = GridBagConstraints.BOTH;
 		this.add(wallpaper, gbc);

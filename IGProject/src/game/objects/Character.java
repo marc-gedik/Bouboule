@@ -27,7 +27,7 @@ public class Character extends Dynamic implements Beatable {
 	private final int maxLife;
 
 	private long score;
-	
+
 	public Character() {
 		this(null);
 	}
@@ -45,10 +45,10 @@ public class Character extends Dynamic implements Beatable {
 		life = 100;
 	}
 
-	public void setBody(Body body){
+	public void setBody(Body body) {
 		this.body = body;
 	}
-	
+
 	@Override
 	public void hit(float pow) {
 		if (!invinsible) {
@@ -65,7 +65,7 @@ public class Character extends Dynamic implements Beatable {
 
 	@Override
 	public boolean isDead() {
-		if( life < 0){
+		if (life < 0) {
 			init();
 			return true;
 		}
@@ -100,7 +100,8 @@ public class Character extends Dynamic implements Beatable {
 	}
 
 	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
+		if (!weapon.toString().equals(this.weapon.toString()))
+			this.weapon = weapon;
 	}
 
 	public float getPerCentLife() {

@@ -152,7 +152,6 @@ public class Game extends JFrame {
 	public void enableSave(Level level) {
 		save.setEnabled(true);
 		SaveMenu.saveMenuListenerl.setLevel(level);
-		;
 	}
 
 	public void disableSave() {

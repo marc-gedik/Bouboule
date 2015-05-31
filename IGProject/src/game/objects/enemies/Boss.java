@@ -21,7 +21,7 @@ public class Boss extends Enemy {
 		super(body, 3);
 		BufferedImage[] img = AssetsManager.getSprites("fasto", 4);
 		setAnimation(img, 1000 / 12f);
-		life = 2000;
+		life = 3000;
 		setVersion(4);
 		weapon = new Vomit();
 	}
@@ -43,7 +43,7 @@ public class Boss extends Enemy {
 
 	@Override
 	public void specialPower(Character character) {
-		
+		character.hit(25);
 	}
 
 	@Override

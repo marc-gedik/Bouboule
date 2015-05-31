@@ -8,18 +8,20 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
+import utils.UIUtils;
 import controler.BackButtonListener;
 import controler.SaveMenuListener;
 
-public class SaveMenu extends GameState {
+public class SaveMenu extends Menu {
 
 	public static final SaveMenuListener saveMenuListenerl = new SaveMenuListener();
+	private JButton focus;
 
 	public SaveMenu(GameStateManager gsm) {
 		super(gsm);
@@ -30,7 +32,7 @@ public class SaveMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(myContainer(), gbc);
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "sub");
 	}
 
 	JPanel levelContainer() {
@@ -45,13 +47,15 @@ public class SaveMenu extends GameState {
 		for (int i = 0; i < level.length; i++) {
 			if (LoadMenu.getSave().equals(""))
 				level[i] = new ImageButton("img/d2_over.png",
-						"img/d2_over.png", i + 1 + "");
+						"img/d2_over.png", i + 1 + "", UIUtils.RIGHT, UIUtils.LEFT);
 			else
 				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i
-						+ 1 + "");
+						+ 1 + "", UIUtils.RIGHT, UIUtils.LEFT);
 			level[i].addActionListener(saveMenuListenerl);
 			containerLevel.add(level[i]);
 		}
+		
+		focus = level[0];
 
 		return containerLevel;
 
@@ -94,5 +98,10 @@ public class SaveMenu extends GameState {
 	public void update(float dt) {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	protected JComponent getFirstFocus() {
+		return focus;
 	}
 }

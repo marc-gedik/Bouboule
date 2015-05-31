@@ -24,5 +24,5 @@ public class Knife extends Weapon {
 	public String toString() {
 		return "knife";
 	}
-
+	
 }

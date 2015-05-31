@@ -7,7 +7,7 @@ import utils.AssetsManager;
 
 public class FlameThrower extends Weapon {
 	public FlameThrower() {
-		super(2, 500, 5f, .1f, 240, 8f);
+		super(15, 500, 5f, .8f, 240, 8f);
 	}
 
 	@Override

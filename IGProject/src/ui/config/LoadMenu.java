@@ -9,41 +9,32 @@ import java.awt.GridLayout;
 import java.util.prefs.Preferences;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
+import utils.UIUtils;
 import controler.BackButtonListener;
 import controler.LoadMenuListener;
 
-public class LoadMenu extends GameState {	
-	
-	
-	private static Preferences pref = Preferences.userNodeForPackage(LoadMenu.class);
+public class LoadMenu extends Menu {
 
-	private static String[] save = new String[]{
-		getPref().get("save0", ""), 
-		getPref().get("save1", ""), 
-		getPref().get("save2", ""), 
-		getPref().get("save3", ""), 
-		getPref().get("save4", ""), 
-		getPref().get("save5", ""), 
-		getPref().get("save6", ""), 
-		getPref().get("save7", ""), 
-		getPref().get("save8", ""), 
-		getPref().get("save9", ""), 
-		getPref().get("save10", ""), 
-		getPref().get("save11", ""), 
-		getPref().get("save12", ""), 
-		getPref().get("save13", ""), 
-		getPref().get("save14", ""), 
-	};
+	private static Preferences pref = Preferences
+			.userNodeForPackage(LoadMenu.class);
 
-	
-	
-	
+	private static String[] save = new String[] { getPref().get("save0", ""),
+			getPref().get("save1", ""), getPref().get("save2", ""),
+			getPref().get("save3", ""), getPref().get("save4", ""),
+			getPref().get("save5", ""), getPref().get("save6", ""),
+			getPref().get("save7", ""), getPref().get("save8", ""),
+			getPref().get("save9", ""), getPref().get("save10", ""),
+			getPref().get("save11", ""), getPref().get("save12", ""),
+			getPref().get("save13", ""), getPref().get("save14", ""), };
+
+	private JButton focus;
+
 	public LoadMenu(GameStateManager gsm) {
 		super(gsm);
 	}
@@ -53,7 +44,7 @@ public class LoadMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(myContainer(), gbc);
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "sub");
 
 	}
 
@@ -67,19 +58,23 @@ public class LoadMenu extends GameState {
 		JButton[] level = new JButton[15];
 		containerLevel.setBackground(Color.WHITE);
 
+		int j = -1;
 		for (int i = 0; i < level.length; i++) {
-			if (getSave()[i].equals("")){
-				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i+ 1 + "");
+			if (getSave()[i].equals("")) {
+				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i
+						+ 1 + "", UIUtils.RIGHT, UIUtils.LEFT);
 				level[i].setEnabled(false);
-			}
-			else {
-				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i+ 1 + "");
-				
+			} else {
+				j = j == -1 ? i : j;
+				level[i] = new ImageButton("img/d2.png", "img/d2_over.png", i
+						+ 1 + "", UIUtils.RIGHT, UIUtils.LEFT);
 			}
 			level[i].addActionListener(l);
 			containerLevel.add(level[i]);
 		}
 
+		if (j != -1)
+			focus = level[j];
 		return containerLevel;
 
 	}
@@ -87,8 +82,8 @@ public class LoadMenu extends GameState {
 	JPanel buttonContainer() {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(AssetsManager
-				.getString("backButton"), ButtonStyle.GrayStyle);
+		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
+				ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);
@@ -133,6 +128,11 @@ public class LoadMenu extends GameState {
 
 	public static void setSave(String[] save) {
 		LoadMenu.save = save;
+	}
+
+	@Override
+	protected JComponent getFirstFocus() {
+		return focus;
 	}
 
 }

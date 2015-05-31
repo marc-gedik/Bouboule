@@ -31,7 +31,7 @@ public class SoundMenu extends GameState {
 		position(gbc, 0, 0, 1, 1);
 		this.add(myContainer(), gbc);
 
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "sub");
 	}
 
 	JPanel buttonContainer() {

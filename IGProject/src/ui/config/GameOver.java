@@ -4,22 +4,23 @@ import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Insets;
+import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.GameOverListener;
 
-public class GameOver extends GameState {
+public class GameOver extends Menu {
 
 	private ActionListener listener;
-
+	private JButton restart;
+	
 	public GameOver(GameStateManager gsm) {
 		super(gsm);
 	}
@@ -31,30 +32,22 @@ public class GameOver extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(buttonContainer(), gbc);
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "sub");
 	}
 
 	private Component buttonContainer() {
-		JPanel containerButton = new JPanel();
-		containerButton.setLayout(new GridBagLayout());
-		GridBagConstraints gbc = new GridBagConstraints();
+        JPanel containerButton = new JPanel();
+        containerButton.setLayout(new GridLayout(4, 0 , 30 , 30));
 
-		gbc.insets = new Insets(10, 10, 10, 10);
-		gbc.gridwidth = 2;
 
 		JLabel title = new JLabel(AssetsManager.getString("GameOver.GameOver"));
 		title.setFont(ButtonStyle.DarkStyle.font());
-		containerButton.add(title, gbc);
-
-		JButton restart = button("GameOver.Restart");
+		restart = button("GameOver.Restart");
 		JButton menu = button("GameOver.Menu");
 
-		gbc.gridwidth = GridBagConstraints.RELATIVE;
-		gbc.gridy = 1;
-		containerButton.add(restart, gbc);
-
-		gbc.gridx = 1;
-		containerButton.add(menu, gbc);
+		containerButton.add(title);
+		containerButton.add(restart);
+		containerButton.add(menu);
 
 		restart.requestFocusInWindow();
 		containerButton.setPreferredSize(new Dimension(450, 300));
@@ -80,6 +73,11 @@ public class GameOver extends GameState {
 	@Override
 	public void update(float dt) {
 
+	}
+
+	@Override
+	protected JComponent getFirstFocus() {
+		return restart;
 	}
 
 }

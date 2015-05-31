@@ -9,7 +9,6 @@ import game.objects.GameObject;
 import game.objects.cakes.Cake;
 import game.objects.enemies.Boss;
 import game.objects.enemies.Enemy;
-import game.objects.weapons.Bullet;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -115,9 +114,6 @@ public class LevelRenderer extends GameState {
 			else
 				draw(enemies.get(i));
 
-		List<Bullet> bullets = level.getBullets();
-		for (int i = 0; i < bullets.size(); i++)
-			draw(bullets.get(i));
 		drawCharacter(level.getCharacter());
 		bg.dispose();
 
@@ -186,7 +182,9 @@ public class LevelRenderer extends GameState {
 	}
 
 	private void drawCake() {
-		for (Cake c : level.getCakes()) {
+		List<Cake> cakes = level.getCakes();
+		for(int i = 0; i < cakes.size(); i++){
+			Cake c = cakes.get(i);
 			draw(c, c.getImg());
 		}
 
@@ -198,9 +196,6 @@ public class LevelRenderer extends GameState {
 				(int) (o.getX() - (img.getWidth() - bounds.getWidth()) / 2),
 				(int) (o.getY() - (img.getHeight() - bounds.getHeight()) / 2),
 				img.getWidth(), img.getHeight(), null);
-		if (debug) {
-			bg.draw(bounds);
-		}
 	}
 
 	@Override

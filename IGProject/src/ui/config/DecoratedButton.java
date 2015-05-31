@@ -9,14 +9,14 @@ import java.util.Set;
 
 import javax.swing.JButton;
 
-import controler.MainMenuFocusListener;
+import controler.DecoratedButtonFocusListener;
 import controler.MainMenuKeyListener;
 
 @SuppressWarnings("serial")
 public class DecoratedButton extends JButton {
 	private ButtonStyle style;
 	
-	private static FocusListener focusListener= new MainMenuFocusListener();
+	private static FocusListener focusListener= new DecoratedButtonFocusListener();
 	private static KeyListener keyListener = new MainMenuKeyListener();
 	
 	public DecoratedButton(String s, ButtonStyle style) {

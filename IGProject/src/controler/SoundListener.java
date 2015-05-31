@@ -4,7 +4,6 @@ import javax.swing.JSlider;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-import ui.Game;
 import ui.config.SoundManager;
 
 public class SoundListener implements ChangeListener {

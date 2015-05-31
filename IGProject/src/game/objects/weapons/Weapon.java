@@ -46,8 +46,8 @@ public abstract class Weapon {
 
 	protected abstract void setAnimation();
 
-	protected void addBullet(Level level, Dynamic o, float x, float y, float width,
-			float height, float angle, float speed) {
+	protected void addBullet(Level level, Dynamic o, float x, float y,
+			float width, float height, float angle, float speed) {
 		Body body = new Body(x, y, width, height, false);
 		body.type = BodyType.DYNAMIC;
 		body.id = BodyId.Bullet;
@@ -109,21 +109,25 @@ public abstract class Weapon {
 	}
 
 	public abstract String toString();
-	
+
 	public static Weapon valueOf(String w) {
-		if(w.equals("knife"))
+		if (w.equals("knife"))
 			return new Knife();
-		else if(w.equals("flameThrower"))
+		else if (w.equals("flameThrower"))
 			return new FlameThrower();
-		else if(w.equals("bolt"))
+		else if (w.equals("bolt"))
 			return new Bolt();
 		return null;
 	}
 
-	public void sound(SoundManager soundManager) {
-		if(!shootSound && shooting){
-			soundManager.playSound("SimpleShoot");
+	protected void sound(SoundManager soundManager, String name) {
+		if (!shootSound && shooting) {
+			soundManager.playSound(name);
 			shootSound = true;
 		}
+	}
+
+	public void sound(SoundManager soundManager) {
+		sound(soundManager, toString());
 	}
 }

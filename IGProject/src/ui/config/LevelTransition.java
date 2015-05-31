@@ -10,17 +10,18 @@ import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import ui.GameState;
 import ui.GameStateManager;
 import utils.AssetsManager;
 import controler.LevelTransitionListener;
 
-public class LevelTransition extends GameState {
+public class LevelTransition extends Menu {
 
     private ActionListener listener;
+	private JButton next;
 
     public LevelTransition(GameStateManager gsm) {
         super(gsm);
@@ -34,26 +35,22 @@ public class LevelTransition extends GameState {
         GridBagConstraints gbc = new GridBagConstraints();
         position(gbc, 0, 0, 1, 1);
         this.add(buttonContainer(), gbc);
-        addBackground(gbc, "img/texture3.png");
+        addBackground(gbc, "sub");
 
     }
 
     private Component buttonContainer() {
         JPanel containerButton = new JPanel();
-        containerButton.setLayout(new GridLayout(4, 0 , 50 , 50));
+        containerButton.setLayout(new GridLayout(4, 0 , 30 , 30));
 
         JLabel title = new JLabel(AssetsManager.getString("Win.Next"));
         title.setFont(ButtonStyle.DarkStyle.font());
         containerButton.add(title, BorderLayout.CENTER);
 
-        JButton next = button("Win.Move");
-        JButton save = button("Win.Save");
+        next = button("Win.Move");
         JButton menu = button("Win.Menu");
 
         containerButton.add(next);
-
-        containerButton.add(save);
-
         containerButton.add(menu);
 
         next.requestFocusInWindow();
@@ -82,5 +79,10 @@ public class LevelTransition extends GameState {
     public void update(float dt) {
 
     }
+
+	@Override
+	protected JComponent getFirstFocus() {
+		return next;
+	}
 
 }

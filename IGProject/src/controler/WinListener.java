@@ -1,5 +1,7 @@
 package controler;
 
+import game.Conductor;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,6 +19,7 @@ public class WinListener implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Win.Menu")){
             gsm.popState();
+            Conductor.reset();
         }
 
     }

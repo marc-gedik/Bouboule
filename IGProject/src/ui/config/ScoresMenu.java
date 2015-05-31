@@ -10,21 +10,21 @@ import java.awt.GridLayout;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 
-import ui.GameState;
 import ui.GameStateManager;
 import ui.Score;
 import utils.AssetsManager;
 import controler.BackButtonListener;
 
-public class ScoresMenu extends GameState {
+public class ScoresMenu extends Menu {
 
 	public static final int NB = 8;
+	private DecoratedButton b;
 
 	public ScoresMenu(GameStateManager gsm) {
 		super(gsm);
@@ -36,14 +36,14 @@ public class ScoresMenu extends GameState {
 		GridBagConstraints gbc = new GridBagConstraints();
 		position(gbc, 0, 0, 1, 1);
 		this.add(myContainer(), gbc);
-		addBackground(gbc, "img/texture3.png");
+		addBackground(gbc, "sub");
 
 	}
 
 	JPanel buttonContainer() {
 		JPanel containerButton = new JPanel();
 		containerButton.setBackground(Color.WHITE);
-		JButton b = new DecoratedButton(AssetsManager
+		b = new DecoratedButton(AssetsManager
 				.getString("backButton"), ButtonStyle.GrayStyle);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
@@ -61,8 +61,7 @@ public class ScoresMenu extends GameState {
 		JPanel containerTable = new JPanel();
 		containerTable.setBackground(Color.WHITE);
 
-		containerTable.setLayout(new GridLayout(11, 3, 0, 10));
-		Font f_cell = new Font("Helvetica", 0, 14);
+		containerTable.setLayout(new GridLayout(0, 3, 0, 10));
 		Font f_title = new Font("Helvetica", Font.BOLD, 18);
 		Border bottom = BorderFactory.createMatteBorder(0, 0, 1, 0, Color.GRAY);
 
@@ -112,6 +111,11 @@ public class ScoresMenu extends GameState {
 
 	@Override
 	public void update(float dt) {
+	}
+
+	@Override
+	protected JComponent getFirstFocus() {
+		return b;
 	}
 
 }

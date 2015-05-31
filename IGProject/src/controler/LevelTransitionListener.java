@@ -1,5 +1,6 @@
 package controler;
 
+import game.Conductor;
 import game.Levels;
 
 import java.awt.event.ActionEvent;
@@ -21,11 +22,10 @@ public class LevelTransitionListener implements ActionListener {
             Levels.next();
             gsm.setState(GameStateManager.GAME);
         }
-        else if(e.getActionCommand().equals("Win.Save")){
-            gsm.pushState(GameStateManager.SAVE);
-        }
-        else if (e.getActionCommand().equals("Win.Menu"))
+        else if (e.getActionCommand().equals("Win.Menu")){
             gsm.popState();
+            Conductor.reset();
+        }
 
     }
 }

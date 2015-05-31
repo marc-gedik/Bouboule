@@ -1,5 +1,7 @@
 package controler;
 
+import game.Conductor;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -17,7 +19,9 @@ public class GameOverListener implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("GameOver.Restart"))
 			gsm.setState(GameStateManager.GAME);
-		else if (e.getActionCommand().equals("GameOver.Menu"))
+		else if (e.getActionCommand().equals("GameOver.Menu")){
 			gsm.popState();
+			Conductor.reset();
+		}
 	}
 }
