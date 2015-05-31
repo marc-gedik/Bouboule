@@ -6,6 +6,8 @@ import java.awt.event.KeyListener;
 public class GameControler implements KeyListener {
 
 	public GameControler() {
+		for(int i = 0 ; i < Input.keys.length; i++)
+			Input.keys[i] = false;
 	}
 
 	@Override

@@ -163,7 +163,7 @@ public class AssetsManager {
 	public static void addScore(Score newScore) {
 		int i;
 		for (i = 0; i < ScoresMenu.NB; i++) {
-			Long score = preferences.getLong("Score" + i + ".score", -1);
+			Long score = preferences.getLong("score" + i + ".score", -1);
 			if (score == -1 || newScore.better(score)) {
 				decaleScore(i);
 				preferences.put("score" + i + ".name", newScore.name);
