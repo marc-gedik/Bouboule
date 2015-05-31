@@ -11,7 +11,7 @@ public class DecoratedButtonFocusListener implements FocusListener {
 
 	@Override
 	public void focusGained(FocusEvent e) {
-		JButton currentFocus = (DecoratedButton) e.getSource();
+		JButton currentFocus = (JButton) e.getSource();
 		MainMenuKeyListener.setButton(currentFocus);
 	}
 

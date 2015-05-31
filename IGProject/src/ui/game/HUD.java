@@ -29,7 +29,7 @@ public class HUD {
 			Font newFont = currentFont.deriveFont(currentFont.getSize() * 2f);
 			g.setFont(newFont);
 
-			g.drawString(AssetsManager.getString("Game.Reloading"), 200, img.getHeight());
+			g.drawString(AssetsManager.getString("Game.Reloading"), 350, 32);
 		}
 	}
 }

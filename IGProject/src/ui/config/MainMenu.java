@@ -7,6 +7,7 @@ import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JPanel;
 
 import ui.GameState;
@@ -15,10 +16,10 @@ import utils.AssetsManager;
 import utils.UIUtils;
 import controler.MainMenuListener;
 
-public class MainMenu extends GameState {
+public class MainMenu extends Menu {
 
 	private MainMenuListener action;
-	private Component focus;
+	private JComponent focus;
 
 	public MainMenu(GameStateManager gsm) {
 		super(gsm);
@@ -54,7 +55,7 @@ public class MainMenu extends GameState {
 			btn.setActionCommand(name);
 			containerButton.add(btn);
 		}
-		focus = containerButton.getComponent(0);
+		focus = (JComponent) containerButton.getComponent(0);
 		focus.requestFocusInWindow();
 		containerButton.setPreferredSize(new Dimension(450, 300));
 		containerButton.setMinimumSize(new Dimension(450, 300));
@@ -80,6 +81,11 @@ public class MainMenu extends GameState {
 	@Override
 	public void onBack() {
 		focus.requestFocusInWindow();
+	}
+
+	@Override
+	protected JComponent getFirstFocus() {
+		return focus;
 	}
 
 }

@@ -130,7 +130,6 @@ public class LevelRenderer extends GameState {
 		double angle = Math.toRadians(ennemy.getAngle() + 90);
 		double x = bounds.getCenterX(), xi = x;
 		double y = bounds.getCenterY(), yi = y;
-		bg.draw(bounds);
 		bg.rotate(angle, x, y);
 
 		if (ennemy.shooting()) {

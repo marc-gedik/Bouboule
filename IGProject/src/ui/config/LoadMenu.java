@@ -83,7 +83,7 @@ public class LoadMenu extends Menu {
 		JPanel tmp = new JPanel();
 		tmp.setBackground(Color.WHITE);
 		JButton b = new DecoratedButton(AssetsManager.getString("backButton"),
-				ButtonStyle.GrayStyle);
+				ButtonStyle.GrayStyle, UIUtils.RIGHT, UIUtils.LEFT);
 		BackButtonListener bl = new BackButtonListener(gsm);
 		b.addActionListener(bl);
 		tmp.add(b);

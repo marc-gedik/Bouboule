@@ -32,7 +32,8 @@ public class PlayMenuControler implements ActionListener {
 		else if (s.equals("Menu.Game.Load"))
 			gsm.pushState(GameStateManager.LOAD);
 		else if(s.equals("Menu.Game.MainMenu")){
-			gsm.popState();
+			
+			gsm.removeAll();
 			Conductor.reset();
 		}
 		else if (s.equals("Menu.Game.Exit"))

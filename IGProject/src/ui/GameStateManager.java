@@ -111,4 +111,11 @@ public class GameStateManager {
 			game.requestFocusInWindow();
 	}
 
+	public void removeAll() {
+		GameState state = gameStates.firstElement();
+		gameStates.clear();
+		gameStates.push(state);
+		set(state);
+	}
+
 }
