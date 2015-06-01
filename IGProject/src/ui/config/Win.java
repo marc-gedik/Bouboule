@@ -52,7 +52,7 @@ public class Win extends Menu {
 		name = new JTextField(10);
 		JLabel scoreLabel = new JLabel(AssetsManager.getString("Win.Score"));
 
-		JButton next = button("Win.Menu");
+		final JButton next = button("Win.Menu");
 
 		gbc.insets = new Insets(20, 20, 20, 20);
 		gbc.gridwidth = 2;
