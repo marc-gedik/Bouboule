@@ -10,13 +10,15 @@ import javax.swing.JButton;
 public class FieldListener implements ActionListener, KeyListener {
 
 	private JButton tmp;
-
+	
 	@Override
 	public void actionPerformed(ActionEvent actionEvent) {
 		System.out.println("Field selected");
 		tmp = (JButton) actionEvent.getSource();
 		tmp.removeKeyListener(this);
 		tmp.addKeyListener(this);
+		tmp.setFocusTraversalKeysEnabled(false);
+
 	}
 
 	@Override
@@ -25,10 +27,10 @@ public class FieldListener implements ActionListener, KeyListener {
 
 	@Override
 	public void keyPressed(KeyEvent keyEvent) {
-
 		int keycode = keyEvent.getKeyCode();
 		tmp.setText(KeysOption.toString(keycode));
-
+		tmp.setFocusTraversalKeysEnabled(true);
+		tmp.removeKeyListener(this);
 		String s = tmp.getActionCommand();
 		if (s.equals("Keys.Up"))
 			KeysOption.Up.set(keycode);
